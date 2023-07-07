@@ -309,7 +309,7 @@ function Sprite:addAnimByIndices(n, p, i, fr, l)
     self.animationOffset[n] = {x=0, y=0}
 end
 
-function Sprite:animate(anim, force)
+function Sprite:animate(anim, force, callback)
     self.holdTimer = 0
 	if not force and self.curAnim and self.curAnim.name == anim and
 		not self.animFinished then
@@ -322,6 +322,7 @@ function Sprite:animate(anim, force)
 	self.curFrame = 1
 	self.animFinished = false
 	self.animPaused = false
+    self.animCallback = callback
 end
 
 Sprite.play = Sprite.animate -- Incase users wan't to use a function more haxeflixel-like
@@ -343,9 +344,21 @@ function Sprite:update(dt)
         if self.curFrame >= #self.curAnim.frames then
             if self.curAnim.looped then
                 self.curFrame = 1
+
+                if self.animCallback then
+                    self.animCallback()
+
+                    self.animCallback = nil
+                end
             else
                 self.curFrame = #self.curAnim.frames
                 self.animFinished = true
+
+                if self.animCallback then
+                    self.animCallback()
+
+                    self.animCallback = nil
+                end
             end
         end
 

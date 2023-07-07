@@ -180,9 +180,76 @@ return {
 			background:load(getImage("hypno/cave"))
 			background:setGraphicSize(math.floor(background.width * resizeBG))
 
-			enemy.alpha = 1
+			enemy.alpha = 0
 			enemy.x = 800
 			enemy.y = -150
+
+			enemyEntrance.x = 800
+			enemyEntrance.y = -150
+
+			boyfriend = Sprite()
+			boyfriend:setFrames(getSparrow("hypno/phase_3"))
+
+			boyfriend:addAnimByPrefix("idle", "GF_SHAKING_BF_she_is_like_real_hot_tho_because_she_is_lullaby_girlfriend", 24, false)
+			boyfriend:addAnimByPrefix("singUP", "up_GF_SHAKING_BF_she_is_like_real_hot_tho_because0", 24, false)
+			boyfriend:addAnimByPrefix("singRIGHT", "right_GF_SHAKING_BF_she_is_like_real_hot_tho_because0", 24, false)
+			boyfriend:addAnimByPrefix("singDOWN", "down_GF_SHAKING_BF_she_is_like_real_hot_tho_because0", 24, false)
+			boyfriend:addAnimByPrefix("singLEFT", "left_GF_SHAKING_BF_she_is_like_real_hot_tho_because0", 24, false)
+
+			boyfriend:addAnimByPrefix("bfdrop", "GF_SHAKING_BF_drop", 24, false)
+
+			boyfriend:animate("idle")
+
+			boyfriend2 = Sprite()
+			boyfriend2:setFrames(getSparrow("hypno/last_stand"))
+
+			boyfriend2:addAnimByPrefix("idle", "Lullaby_GF_Idle_2", 24, false)
+			boyfriend2:addAnimByPrefix("singUP", "Lullaby_GF_up0", 24, false)
+			boyfriend2:addAnimByPrefix("singRIGHT", "Lullaby_GF_right0", 24, false)
+			boyfriend2:addAnimByPrefix("singDOWN", "Lullaby_GF_down0", 24, false)
+
+			boyfriend2:addOffset("idle", 0, 0)
+			boyfriend2:addOffset("singLEFT", 4, -5)
+			boyfriend2:addOffset("singRIGHT", 2, 1)
+			boyfriend2:addOffset("singDOWN", -7, -17)
+			boyfriend2:addOffset("singUP", -3, 12)
+
+			boyfriend.x = 150
+			boyfriend.y = 650
+
+			camera.defaultZoom = 1
+
+			pendulum = Sprite()
+			pendulum:setFrames(getSparrow("hypno/Pendulum_Phase2"))
+
+			pendulumShadow = Sprite()
+			pendulumShadow:setFrames(getSparrow("hypno/Pendulum_Phase2"))
+
+			pendulum:addAnimByPrefix("idle", "Pendelum Phase 2", 24, true)
+			pendulum:play("idle")
+			pendulum:updateHitbox()
+
+			pendulumShadow:addAnimByPrefix("idle", "Pendelum Phase 2", 24, true)
+			pendulumShadow:play("idle")
+			pendulumShadow:updateHitbox()
+
+			pendulum.x = -75
+			pendulumShadow.x = -75
+
+			pendulum.y = -360
+			pendulumShadow.y = -360
+
+			pendulum.origin = {x=65, y=0}
+			pendulumShadow.origin = {x=65, y=0}
+
+			pendulum.camera = camHUD
+			pendulumShadow.camera = camHUD
+
+			pendulumOffset = 0
+
+			pendulumShadow.alpha = 0
+
+			beatInterval = 2
 
 		elseif song == 2 then
 			inst = love.audio.newSource("songs/hypno/left-unchecked/Inst.ogg", "stream")
@@ -256,6 +323,8 @@ return {
 		self:initUI()
 
 		hypnoWeek:setupCountdown()
+
+		thething = 1
 	end,
 
 	initUI = function(self)
@@ -284,16 +353,68 @@ return {
 			end
 		end
 
+		if song == 3 then
+			if musicTime >= 26735.2941176471 and musicTime < 26795.2941176471 and thething == 1 then
+				thething = 2
+				camera.zooming = false
+				tranceNotActiveYet = false
+				enemyEntrance.alpha = 1
+				enemyEntrance:animate("anim", true, function()
+					enemyEntrance.alpha = 0
+					enemy.alpha = 1
+
+					enemy.cameraZoom = 0.53
+
+					enemy.cameraPosition = {
+						x= 300,
+						y= -50
+					}
+
+					tranceActive = true
+					tranceNotActiveYet = false
+
+					drawPend = true
+				end)
+				Timer.tween(0.3, camera, {zoom=0.52})
+
+				Timer.after(
+					1.5,
+					function()
+						boyfriend.cameraPosition = {
+							x= 200,
+							y= -150
+						}
+						boyfriend.cameraZoom = 0.7
+						camera.zooming = true
+					end
+				)
+
+				Timer.after(
+					2,
+					function()
+						boyfriend:animate("bfdrop", true, function()
+							boyfriend = boyfriend2
+
+							boyfriend.x = 375
+							boyfriend.y = 690
+						end)
+					end
+				)
+			end
+		end
+
 		camGame.target.x, camGame.target.y = util.coolLerp(camGame.target.x, camGame.follow.x, 0.04), util.coolLerp(camGame.target.y, camGame.follow.y, 0.04)
 
 		if mustHitSection then
             local midPoint = boyfriend:getMidpoint()
             camGame.follow.x = midPoint.x - 100 - boyfriend.cameraPosition.x
             camGame.follow.y = midPoint.y - 100 + boyfriend.cameraPosition.y
+			camera.defaultZoom = boyfriend.cameraZoom or camera.defaultZoom
         else
             local midPoint = enemy:getMidpoint()
             camGame.follow.x = midPoint.x + 150 - enemy.cameraPosition.x
             camGame.follow.y = midPoint.y - 100 - enemy.cameraPosition.y
+			camera.defaultZoom = enemy.cameraZoom or camera.defaultZoom
         end
 
 		hypnoWeek:checkSongOver()
@@ -336,7 +457,9 @@ return {
 				midground:draw()
 			end
 
+			if enemyJumpscare then enemyJumpscare:draw() end
 			enemy:draw()
+			if enemyEntrance then enemyEntrance:draw() end
 			if song == 1 then
 				pendulum:draw()
 				pendulumShadow:draw()
