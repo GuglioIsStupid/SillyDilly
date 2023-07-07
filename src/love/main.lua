@@ -362,7 +362,8 @@ function love.load()
 	firstStartup = true
 
 	-- Load weeks
-	weeks = require "states.weeks"
+	weeks = require "states.weekss" -- default
+	hypnoWeek = require "states.weeks.hypno"
 
 	-- Load substates
 	gameOver = require "substates.game-over"
