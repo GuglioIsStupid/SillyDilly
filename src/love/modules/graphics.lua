@@ -162,8 +162,16 @@ return {
 		return object
 	end,
 
-	newSprite = function(imageData, frameData, animData, animName, loopAnim, optionsTable)
+	newSprite = function(image, frameData, animData, animName, loopAnim, optionsTable)
 		local sheet, sheetWidth, sheetHeight
+		
+		if type(image) == "string" and not graphics.cache[image] then
+			graphics.cache[image] = love.graphics.newImage(image)
+
+			sheet = graphics.cache[image]
+		else
+			sheet = image
+		end
 
 		local frames = {}
 		local frame
@@ -501,7 +509,7 @@ return {
 			end
 		}
 
-		object:setSheet(imageData)
+		object:setSheet(image)
 
 		for i = 1, #frameData do
 			table.insert(

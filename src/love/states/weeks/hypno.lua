@@ -172,6 +172,26 @@ return {
 		enemyIcon.sizeY = 1.5
 		boyfriendIcon.sizeY = 1.5
 
+        pendulum = nil
+        tranceThing = nil
+        tranceDeathScreen = nil
+        psyshochParticle = nil
+        cameraFlash = nil
+
+        tranceActive = false
+        tranceNotActiveYet = false
+        fadePendulum = false
+
+        tranceSound = nil
+        tranceCanKill = true
+        pendulumOffset = 0
+        psyshochCooldown = 80
+        keyboardTimer = 8
+        keyboard = nil
+        skippedFirstPendulum = false
+        trance = 0
+        reducedDrain = 3
+
 		countdownFade = {}
 		countdown = love.filesystem.load("sprites/countdown.lua")()
 	end,
