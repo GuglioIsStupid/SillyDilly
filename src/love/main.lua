@@ -358,6 +358,7 @@ function love.load()
 	menuSettings = require "states.menu.menuSettings"
 	menuCredits = require "states.menu.menuCredits"
 	menuSelect = require "states.menu.menuSelect"
+	pokedex = require "states.menu.pokedex"
 
 	firstStartup = true
 
@@ -491,6 +492,7 @@ function love.load()
 	pauseFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 96)
 	weekFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 84)
 	weekFontSmall = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 54)
+	pokeFont = love.graphics.newFont("fonts/poketext.ttf", 24)
 
 	weekNum = 1
 	songDifficulty = 2
