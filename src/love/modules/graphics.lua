@@ -164,7 +164,7 @@ return {
 
 	newSprite = function(image, frameData, animData, animName, loopAnim, optionsTable)
 		local sheet, sheetWidth, sheetHeight
-		
+
 		if type(image) == "string" and not graphics.cache[image] then
 			graphics.cache[image] = love.graphics.newImage(image)
 
@@ -373,6 +373,10 @@ return {
 						end
 					end
 				end
+			end,
+
+			getFrame = function(self)
+				return self.curFrame or 1
 			end,
 			
 			draw = function(self)

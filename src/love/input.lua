@@ -30,6 +30,8 @@ if love.system.getOS() == "NX" then
 			debugZoomIn = {"key:]"},
 			pause = {"button:start", "key:return"},
 
+			space = {"button:a", "key:space"},
+
 			gameLeft = {"axis:triggerleft+", "axis:leftx-", "axis:rightx-", "button:dpleft", "button:x", "key:" .. customBindLeft, "key:left"},
 			gameDown = {"axis:lefty+", "axis:righty+", "button:leftshoulder", "button:dpdown", "button:a", "key:" .. customBindDown, "key:down"},
 			gameUp = {"axis:lefty-", "axis:righty-", "button:rightshoulder", "button:dpup", "button:y", "key:" .. customBindUp, "key:up"},
@@ -52,6 +54,8 @@ else
 			debugZoomOut = {"key:["},
 			debugZoomIn = {"key:]"},
 			pause = {"button:start", "key:return"},
+
+			space = {"key:space", "button:a"},
 
 			gameLeft = {"key:" .. customBindLeft, "key:left", "axis:triggerleft+", "axis:leftx-", "axis:rightx-", "button:dpleft", "button:x"},
 			gameDown = {"key:" .. customBindDown, "key:down", "axis:lefty+", "axis:righty+", "button:leftshoulder", "button:dpdown", "button:a"},

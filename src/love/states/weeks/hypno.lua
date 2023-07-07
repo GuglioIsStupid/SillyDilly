@@ -16,6 +16,28 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
+function getImage(key)
+    local key = graphics.imagePath(key)
+    if graphics.cache[key] then
+        return graphics.cache[key]
+    else
+        local img = love.graphics.newImage(key)
+        graphics.cache[key] = img
+        return img
+    end
+
+    return nil
+end
+function getSparrow(key)
+    local ip, xp = key, "sprites/" .. key .. ".xml"
+    local i = getImage(ip)
+    if love.filesystem.getInfo(xp) then
+        local o = Sprite.getFramesFromSparrow(i, love.filesystem.read(xp))
+        return o
+    end
+
+    return nil
+end
 
 local animList = {
 	"singLEFT",
@@ -172,7 +194,6 @@ return {
 		enemyIcon.sizeY = 1.5
 		boyfriendIcon.sizeY = 1.5
 
-        pendulum = nil
         tranceThing = nil
         tranceDeathScreen = nil
         psyshochParticle = nil
@@ -191,6 +212,60 @@ return {
         skippedFirstPendulum = false
         trance = 0
         reducedDrain = 3
+
+        pendulum = Sprite()
+        pendulumShadow = Sprite()
+
+        pendulum:setFrames(getSparrow("hypno/Pendelum"))
+        pendulumShadow:setFrames(getSparrow("hypno/Pendelum"))
+
+        pendulum:addAnimByPrefix("idle", "Pendelum instance 1", 24, true)
+        pendulumShadow:addAnimByPrefix("idle", "Pendelum instance 1", 24, true)
+
+        pendulum.scale = {x=1.3, y=1.3}
+        pendulum:updateHitbox()
+        pendulum.angle = math.rad(pendulumOffset)
+
+        pendulumShadow.scale = {x=1.3, y=1.3}
+        pendulumShadow:updateHitbox()
+        pendulumShadow.angle = math.rad(pendulumOffset)
+
+        pendulumShadow.alpha = 0
+
+        pendulumOffset = -9
+
+        pendulum.origin = {x=65,y=0}
+        pendulumShadow.origin = {x=65,y=0}
+
+        function winPendulum()
+            trance = trance - 0.075
+            pendulumShadow.x, pendulumShadow.y = pendulum.x, pendulum.y
+            pendulumShadow.angle = pendulum.angle
+            pendulumShadow.alpha = 0.5
+
+            if ballsLol then
+                Timer.cancel(ballsLol)
+            end
+            ballsLol = Timer.after(beatHandler.stepCrochet/1000, function()
+                ballsLol = Timer.tween(beatHandler.stepCrochet/1000, pendulumShadow, {alpha = 0}, "linear")
+            end)
+        end
+
+        function losePendulum(force)
+            local force = force or false
+
+            if not settings.botplay then
+                trance = trance + 0.115
+
+                -- bleh
+            end
+        end
+
+        maxPendulumAngle = 0
+        alreadyHit = flse
+        canHitPendulum = false
+        tranceInterval = 0
+        beatInterval = 3
 
 		countdownFade = {}
 		countdown = love.filesystem.load("sprites/countdown.lua")()
@@ -313,6 +388,7 @@ return {
 				print(song)
 
 				curWeekData:load()
+                tranceActive = false
 			else
 				self:saveData()
 
@@ -955,6 +1031,8 @@ return {
 										musicTime = 0
 										beatHandler.reset(0)
 
+                                        tranceActive = song ~= 3 and true or false
+
 										if inst then inst:play() end
 										if voices then voices:play() end
 									end
@@ -1020,6 +1098,201 @@ return {
 		end
 		if inCutscene then return end
 		beatHandler.update(dt)
+
+        if pendulum ~= nil and tranceActive then
+            local convertedTime = ((musicTime / (beatHandler.crochet * beatInterval)) * math.pi)
+            pendulum.angle = math.rad((math.sin(convertedTime) * 32) + pendulumOffset)
+
+            local pendulumTimeFrame = math.floor(((convertedTime / math.pi) - math.floor(convertedTime / math.pi)) * 1000) / 1000
+            local reach = 0.2
+            if not tranceNotActiveYet then
+                if pendulumTimeFrame < reach or pendulumTimeFrame > (1 - reach) then
+                    if not alreadyHit then
+                        canHitPendulum = true
+                    end
+                else
+                    alreadyHit = false
+                    if canHitPendulum then
+                        if tranceInterval % 2 == 0 then
+                            losePendulum(tue)
+                        end
+                        tranceInterval = tranceInterval + 1
+                        canHitPendulum = false
+                    end
+                end
+
+                if input:pressed("space") or (settings.botplay and canHitPendulum and not alreadyHit) then
+                    if canHitPendulum then
+                        canHitPendulum = false
+                        alreadyHit = true
+                        winPendulum()
+                    else
+                        losePendulum(true)
+                    end
+                end
+
+                --trance = trance - (((bpm / 200) / 1000) * (dt / (1/90)))
+            end
+        end
+
+        if song == 1 and pendulum ~= nil then
+            local animName = enemy:getAnimName()
+            local curFrame = enemy:getFrameNumber() - 1
+
+            local pendulumOffset = {[0]=0, [1]=0}
+
+            -- the cases are the cur frame number
+            if animName == "idle" then
+                if curFrame == 0 or curFrame == 1 then
+                    pendulumOffset[0] = 814
+                    pendulumOffset[1] = 264
+                elseif curFrame == 2 or curFrame == 3 then
+                    pendulumOffset[0] = 813
+                    pendulumOffset[1] = 270
+                elseif curFrame == 4 then
+                    pendulumOffset[0] = 813
+                    pendulumOffset[1] = 266
+                elseif curFrame == 5 then
+                    pendulumOffset[0] = 813
+                    pendulumOffset[1] = 263
+                elseif curFrame == 6 then
+                    pendulumOffset[0] = 814
+                    pendulumOffset[1] = 255
+                elseif curFrame == 7 then
+                    pendulumOffset[0] = 811
+                    pendulumOffset[1] = 251
+                elseif curFrame == 8 or curFrame == 9 then
+                    pendulumOffset[0] = 809
+                    pendulumOffset[1] = 249
+                elseif curFrame == 10 or curFrame == 11 or curFrame == 12 or curFrame == 13 or curFrame == 14 then
+                    pendulumOffset[0] = 808
+                    pendulumOffset[1] = 248
+                end
+            elseif animName == "singLEFT" then
+                if curFrame == 0 then
+                    pendulumOffset[0] = 775
+                    pendulumOffset[1] = 336
+                elseif curFrame == 1 then
+                    pendulumOffset[0] = 790
+                    pendulumOffset[1] = 351
+                elseif curFrame == 2 then
+                    pendulumOffset[0] = 826
+                    pendulumOffset[1] = 366
+                elseif curFrame == 3 or curFrame == 4 then
+                    pendulumOffset[0] = 830
+                    pendulumOffset[1] = 378
+                elseif curFrame == 5 or curFrame == 6 then
+                    pendulumOffset[0] = 831
+                    pendulumOffset[1] = 393
+                elseif curFrame == 7 or curFrame == 8 or curFrame == 9 or curFrame == 10 or curFrame == 11 or curFrame == 12 or curFrame == 13 or curFrame == 14 or curFrame == 15 or curFrame == 16 or curFrame == 17 then
+                    pendulumOffset[0] = 832
+                    pendulumOffset[1] = 396
+                end
+            elseif animName == "singRIGHT" then
+                if curFrame == 0 or curFrame == 1 or curFrame == 2 then
+                    pendulumOffset[0] = 866
+                    pendulumOffset[1] = 609
+                elseif curFrame == 3 then
+                    pendulumOffset[0] = 858
+                    pendulumOffset[1] = 612
+                elseif curFrame == 4 then
+                    pendulumOffset[0] = 881
+                    pendulumOffset[1] = 610
+                elseif curFrame == 5 then
+                    pendulumOffset[0] = 901
+                    pendulumOffset[1] = 597
+                elseif curFrame == 6 then
+                    pendulumOffset[0] = 903
+                    pendulumOffset[1] = 590
+                elseif curFrame == 7 or curFrame == 8 or curFrame == 9 or curFrame == 10 or curFrame == 11 or curFrame == 12 or curFrame == 13 or curFrame == 14 or curFrame == 15 or curFrame == 16 or curFrame == 17 then
+                    pendulumOffset[0] = 908
+                    pendulumOffset[1] = 586
+                end
+            elseif animName == "singUP" then
+                if curFrame == 0 then
+                    pendulumOffset[0] = 638
+                    pendulumOffset[1] = -300
+                elseif curFrame == 1 then
+                    pendulumOffset[0] = 675
+                    pendulumOffset[1] = -267
+                elseif curFrame == 2 then
+                    pendulumOffset[0] = 681
+                    pendulumOffset[1] = -257
+                elseif curFrame == 3 then
+                    pendulumOffset[0] = 694
+                    pendulumOffset[1] = -249
+                elseif curFrame == 4 then
+                    pendulumOffset[0] = 696
+                    pendulumOffset[1] = -241
+                elseif curFrame == 5 then
+                    pendulumOffset[0] = 705
+                    pendulumOffset[1] = -237
+                elseif curFrame == 6 or curFrame == 7 then
+                    pendulumOffset[0] = 709
+                    pendulumOffset[1] = -236
+                elseif curFrame == 8 or curFrame == 9 or curFrame == 10 or curFrame == 11 or curFrame == 12 or curFrame == 13 or curFrame == 14 or curFrame == 15 or curFrame == 16 or curFrame == 17 then
+                    pendulumOffset[0] = 711
+                    pendulumOffset[1] = -234
+                end
+            elseif animName == "singDOWN" then
+                if curFrame == 0 then
+                    pendulumOffset[0] = 700
+                    pendulumOffset[1] = 222
+                elseif curFrame == 1 then
+                    pendulumOffset[0] = 705
+                    pendulumOffset[1] = 237
+                elseif curFrame == 2 then
+                    pendulumOffset[0] = 692
+                    pendulumOffset[1] = 220
+                elseif curFrame == 3 or curFrame == 4 then
+                    pendulumOffset[0] = 687
+                    pendulumOffset[1] = 213
+                elseif curFrame == 5 then
+                    pendulumOffset[0] = 690
+                    pendulumOffset[1] = 220
+                elseif curFrame == 6 then
+                    pendulumOffset[0] = 689
+                    pendulumOffset[1] = 227
+                elseif curFrame == 7 then
+                    pendulumOffset[0] = 680
+                    pendulumOffset[1] = 242
+                elseif curFrame == 8 then
+                    pendulumOffset[0] = 679
+                    pendulumOffset[1] = 243
+                elseif curFrame == 9 or curFrame == 10 or curFrame == 11 or curFrame == 12 or curFrame == 13 or curFrame == 14 or curFrame == 15 or curFrame == 16 or curFrame == 17 then
+                    pendulumOffset[0] = 673
+                    pendulumOffset[1] = 253
+                end
+            elseif animName == "psyshoch" then
+                if curFrame == 0 then
+                    pendulumOffset[0] = 737
+                    pendulumOffset[1] = 386
+                elseif curFrame == 1 then
+                    pendulumOffset[0] = 713
+                    pendulumOffset[1] = 396
+                elseif curFrame == 2 then
+                    pendulumOffset[0] = 706
+                    pendulumOffset[1] = 394
+                elseif curFrame == 3 then
+                    pendulumOffset[0] = 708
+                    pendulumOffset[1] = 392
+                elseif curFrame == 4 or curFrame == 5 then
+                    pendulumOffset[0] = 709
+                    pendulumOffset[1] = 391
+                elseif curFrame == 6 then
+                    pendulumOffset[0] = 709
+                    pendulumOffset[1] = 405
+                elseif curFrame == 7 or curFrame == 8 or curFrame == 9 or curFrame == 10 or curFrame == 11 or curFrame == 12 or curFrame == 13 or curFrame == 14 or curFrame == 15 or curFrame == 16 or curFrame == 17 then
+                    pendulumOffset[0] = 703
+                    pendulumOffset[1] = 416
+                end
+            end
+
+            if pendulum ~= nil then
+                pendulum.x = enemy.x + pendulumOffset[0] + 75
+                pendulum.y = enemy.y + pendulumOffset[1] + 55
+            end
+        end
 
 		oldMusicThres = musicThres
 		if countingDown or love.system.getOS() == "Web" then -- Source:tell() can't be trusted on love.js!
@@ -1139,15 +1412,15 @@ return {
 					if enemyNote[1].ver ~= "GF Sing" then
 						if enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end" then
 							if useAltAnims then
-								if enemy.holdTimer > enemy.maxHoldTimer then enemy:animate(curAnim .. " alt", _psychmod and true or false) end
+								if enemy.holdTimer > enemy.maxHoldTimer then enemy:animate(curAnim .. " alt", (_psychmod or enemy.useXML) and true or false) end
 							else
-								if enemy.holdTimer > enemy.maxHoldTimer then enemy:animate(curAnim, (_psychmod and true or false)) end
+								if enemy.holdTimer > enemy.maxHoldTimer then enemy:animate(curAnim, ((_psychmod or enemy.useXML) and true or false)) end
 							end
 						else
 							if useAltAnims then
-								enemy:animate(curAnim .. " alt", false)
+								enemy:animate(curAnim .. " alt", (_psychmod or enemy.useXML) and true or false)
 							else
-								enemy:animate(curAnim, false)
+								enemy:animate(curAnim, (_psychmod or enemy.useXML) and true or false)
 							end
 						end
 
@@ -1219,9 +1492,9 @@ return {
 						boyfriendArrow.orientation = boyfriendArrow.orientation + arrowAngles[i]
 
 						if boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end" then
-							if boyfriend.holdTimer >= boyfriend.maxHoldTimer then boyfriend:animate(curAnim, false) end
+							if boyfriend.holdTimer >= boyfriend.maxHoldTimer then boyfriend:animate(curAnim, ((_psychmod or boyfriend.useXML) and true or false)) end
 						else
-							boyfriend:animate(curAnim, false)
+							boyfriend:animate(curAnim, ((_psychmod or boyfriend.useXML) and true or false))
 						end
 
 						boyfriend.lastHit = musicTime
@@ -1356,7 +1629,7 @@ return {
 									boyfriendArrow.orientation = boyfriendArrow.orientation - arrowAngles[boyfriendNote[1].col]
 									boyfriendArrow.orientation = boyfriendArrow.orientation + arrowAngles[i]
 
-									boyfriend:animate(curAnim, false)
+									boyfriend:animate(curAnim, ((_psychmod or boyfriend.useXML) and true or false))
 
 									if boyfriendNote[j]:getAnimName() ~= "hold" and boyfriendNote[j]:getAnimName() ~= "end" then
 										health = health + 0.095
@@ -1406,7 +1679,7 @@ return {
 				health = health + 0.0125
 
 				if boyfriend.holdTimer > boyfriend.maxHoldTimer then
-					boyfriend:animate(curAnim, false)
+					boyfriend:animate(curAnim, ((_psychmod or boyfriend.useXML) and true or false))
 				end
 
 				table.remove(boyfriendNote, 1)

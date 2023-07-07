@@ -15,7 +15,7 @@ local function _stencil()
     end
 end
 
-Sprite.defaultCam = nil
+Sprite.defaultCam = camGame
 
 function Sprite.newFrame(name, x, y, w, h, sw, sh, ox, oy, ow, oh)
     local aw, ah = x+w, y+h
@@ -98,6 +98,8 @@ function Sprite:new(x, y, tex)
     self.singDuration = 4
     self.cameraPosition = {x = 0, y = 0}
 
+    self.idleSuffix = ""
+
     if tex then self:load(tex) end
 end
 
@@ -171,6 +173,15 @@ function Sprite:getFrame()
         return self.curAnim.frames[math.floor(self.curFrame)]
     elseif self._frames then
         return self._frames[1]
+    end
+    return nil
+end
+
+function Sprite:getFrameNumber()
+    if self.curAnim then
+        return math.floor(self.curFrame)
+    elseif self._frames then
+        return 1
     end
     return nil
 end
@@ -299,14 +310,18 @@ function Sprite:addAnimByIndices(n, p, i, fr, l)
 end
 
 function Sprite:animate(anim, force)
-    if not force and self.curAnim and self.curAnim.name == anim and not self.animFinished then
-        self.animFinished = false
-        return
-    end
+    self.holdTimer = 0
+	if not force and self.curAnim and self.curAnim.name == anim and
+		not self.animFinished then
+		self.animFinished = false
+		self.animPaused = false
+		return
+	end
 
-    self.curAnim = self._animations[anim]
-    self.curFrame = 1
-    self.animFinished = false
+	self.curAnim = self._animations[anim]
+	self.curFrame = 1
+	self.animFinished = false
+	self.animPaused = false
 end
 
 Sprite.play = Sprite.animate -- Incase users wan't to use a function more haxeflixel-like
@@ -333,6 +348,8 @@ function Sprite:update(dt)
                 self.animFinished = true
             end
         end
+
+        self.holdTimer = self.holdTimer + dt
     end
 end
 
@@ -353,14 +370,14 @@ function Sprite:beat(beat)
     local curAnimName = self:getAnimName()
     if not curAnimName then return end
     if beatHandler.onBeat() then
-        if self:isAnimName("idle") then
-            if (not self:isAnimated() and util.startsWith(self:getAnimName(), "sing")) or (self:getAnimName() == "idle" or self:getAnimName() == "idle loop") then
+        if self:isAnimName("idle" .. self.idleSuffix) then
+            if (not self:isAnimated() and util.startsWith(self:getAnimName(), "sing")) or (util.startsWith(self:getAnimName(), "idle")) then
                 if self.lastHit ~= nil and self.lastHit > 0 then
                     if beat % 2 == 0 and self.lastHit + beatHandler.stepCrochet * self.singDuration <= musicTime then
-                        self:animate("idle", true)
+                        self:animate("idle" .. self.idleSuffix, true)
                     end
                 elseif beat % 2 == 0 then
-                    self:animate("idle", true)
+                    self:animate("idle" .. self.idleSuffix, true)
                 end
             end
         else
@@ -397,9 +414,12 @@ end
 
 function Sprite:draw()
     if self.tex and (self.alpha > 0 or self.scale.x ~= 0 or self.scale.y ~= 0) then
-        local cam = self.camera or Sprite.defaultCam
+        local cam = self.camera or camGame
         local x, y = self:getScreenPosition(cam)
-        local f, r, sx, sy, ox, oy, kx, ky = self:getFrame(), self.angle, self.scale.x, self.scale.y, self.offset.x, self.offset.y, self.shear.x, self.shear.y
+        local f, r, sx, sy, ox, oy, kx, ky = self:getFrame(), self.angle,
+			self.scale.x, self.scale.y,
+			self.origin.x, self.origin.y,
+			self.shear.x, self.shear.y
 
         love.graphics.setColor(self.color[1], self.color[2], self.color[3], self.alpha)
 
