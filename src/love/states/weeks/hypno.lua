@@ -459,8 +459,14 @@ return {
 				enemyArrows[3].x = 100 + 165 * 3
 				enemyArrows[4].x = 100 + 165 * 4
 			else
-				enemyArrows[i].x = -925 + 165 * i
-				boyfriendArrows[i].x = 100 + 165 * i
+				if song ~= 3 then
+					enemyArrows[i].x = -925 + 165 * i
+					boyfriendArrows[i].x = 100 + 165 * i
+				else
+					-- flip!
+					enemyArrows[i].x = 100 + 165 * i
+					boyfriendArrows[i].x = -925 + 165 * i
+				end
 			end
 
 			enemyArrows[i].y = -400
@@ -1032,6 +1038,9 @@ return {
 										beatHandler.reset(0)
 
                                         tranceActive = song ~= 3 and true or false
+										if song == 3 then
+											mustHitSection = true
+										end
 
 										if inst then inst:play() end
 										if voices then voices:play() end
