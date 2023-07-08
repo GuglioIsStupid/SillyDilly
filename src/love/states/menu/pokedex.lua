@@ -52,7 +52,7 @@ mx
 return {
 	enter = function(self, previous)
 
-		unlockedCharacters = {
+		unlockedCharacters = {   -- remember to remove this
 			true,
 			true,
 			true,
@@ -79,15 +79,15 @@ return {
 			true
 		}
 
-		amongTranslate = 0
+		amongTranslate = 0  --what the fuck is amongTranslate why did we name it this
 
 		dexSelection = 1
-		descY = {200}
+		descY = {245}
 		descOpen = false
 		descClosing = false
 		descOpening = false
 
-		love.graphics.setDefaultFilter("nearest")
+		--love.graphics.setDefaultFilter("nearest")
 
 		bg = graphics.newImage(graphics.imagePath("pokedex/BG"))
 		boxes = graphics.newImage(graphics.imagePath("pokedex/boxes"))
@@ -108,6 +108,8 @@ return {
 
 
 		boxes.sizeX, boxes.sizeY = 1.1,1.1
+		boxes.y = 13
+		descBox.sizeX, descBox.sizeY = 1.1,1.1
 
 
 
@@ -169,30 +171,30 @@ return {
 
 
 		names = {
-			"Hypno (Safety Lullaby)",
-			"Hypno (Left Unchecked)",
-			"Hypno (Lost Cause)",
-			"Gold (Monochrome)",
-			"Gold (Frostbite)",
-			"Red (Dead Red)",
-			"Pikachu (Freakachu)",
-			"Silver",
-			"Feraligatr",
-			"Missingo",
-			"Burried Alive (+ Co)",
-			"S!3V3N",
-			"Glitchy Red",
-			"DISABLED",
-			"Ponyta",
-			"Hell Bell (+ Old Man)",
-			"Purin",
-			"Nurse Joy (+ Co)",
-			"Shinto",
-			"Grey",
-			"Shitno",
-			"Hypno (Pasta Night)",
-			"Lord X",
-			"MX"
+			"Hypno (Safety Lullaby)",  --smash
+			"Hypno (Left Unchecked)",  --smash
+			"Hypno (Lost Cause)",  --smash
+			"Gold (Monochrome)",  --smash
+			"Gold (Frostbite)",  --smash
+			"Red (Dead Red)",   --smash
+			"Pikachu (Freakachu)",   --smash
+			"Silver",  --smash
+			"Feraligatr",  --smash
+			"Missingo",  --smash
+			"Burried Alive (+ Co)",  --smash
+			"S!3V3N",  --smash
+			"Glitchy Red",  --smash
+			"DISABLED",  --smash
+			"Ponyta",  --smash
+			"Hell Bell (+ Old Man)",  --smash
+			"Purin",  --smash
+			"Nurse Joy (+ Co)",  --smash
+			"Shinto",  --smash
+			"Grey",  --smash
+			"Shitno",  --smash
+			"Hypno (Pasta Night)",  --smash
+			"Lord X",  --pass because im not weird
+			"MX"  --smash
 		}
 		subtitles = {
 			"The Hypnosis Pokemon",
@@ -203,7 +205,7 @@ return {
 			"The Frozen Trainer",
 			"The Mouse Pokemon",
 			"The Silenced Trainer",
-			"The Big Jaw Pokemon", -- goofy 
+			"The Fat Fucking Ass Pokemon :hot_face: :drooling_face:",
 			"???",
 			"The Improsoned Half-Man",
 			"...",
@@ -227,7 +229,7 @@ return {
 			"HT 5'06\"   WT 114 lbs,",
 			"HT 5'06\"   WT 114 lbs,",
 			"HT ???   WT ???",
-			"HT 1'04\4   WT 13.2 lbs",
+			"HT 1'04\"   WT 13.2 lbs",
 			"HT 5'07\"   WT 116 lbs",
 			"HT 7'07\"   WT 195.8 lbs",
 			"HT 10'0\"   WT 3507.2 lbs", -- fat fucker
@@ -269,9 +271,13 @@ return {
 			"Rumors say the developers that created this character couldn't be bothered to code him, so they trapped the soul of a dead kid in it and called it a day.", -- yes because human souls can run on the gameboy
 			"Her name is actually Shinto, but due to the fact that it's not possible to beat her in the game she's from, players nicknamed her 'Shitno.' The only way to capture her would be to use a hacked copy and go beyond the glitched difficulty cap. But you don't want to do that...",
 			"Hypno holds a pendulum in its hand. It refuses to let go or put anything else in its hands, so it uses its psychic abilities to lift other objects.",
-			"A sinister entitity comprised of VOID energy, doing whatever it likes so long as it satisfies them. Seems like an innocent game of cards, but things are sure to turn deadly.",
-			"This maniac version of Mario resides within an NES Mario cartridge with the sole purpose of torturing the soul of an innocent child. Although today he's just here to play some cards."
+			"simon is hotter",  -- i gotta remember to change this back 💀💀
+			"SUPER FUCKING MARIO!!!!!!!!!!!"
 		}
+
+		--			"This maniac version of Mario resides within an NES Mario cartridge with the sole purpose of torturing the soul of an innocent child. Although today he's just here to play some cards."
+		--			"A sinister entitity comprised of VOID energy, doing whatever it likes so long as it satisfies them. Seems like an innocent game of cards, but things are sure to turn deadly.",
+
 
 
 		for i = 1, #theGoofyCreatures do
@@ -287,10 +293,10 @@ return {
 			else 
 				dexSelection = dexSelection - 1
 			end
-			if dexSelection <= 20 and dexSelection >= 6 then
+			if dexSelection <= 22 and dexSelection >= 4 then
 				amongTranslate = amongTranslate+35
 			elseif dexSelection == 24 then
-				amongTranslate = -35*15
+				amongTranslate = -35*19
 			end
 		elseif input:pressed("gameDown") and not descClosing and not descOpening and not descOpen then
 			if dexSelection == 24 then
@@ -298,22 +304,22 @@ return {
 			else
 				dexSelection = dexSelection + 1
 			end
-			if dexSelection <= 20 and dexSelection >= 6 then
+			if dexSelection <= 22 and dexSelection >= 4 then
 				amongTranslate = amongTranslate-35
 			elseif dexSelection == 1 then
 				amongTranslate = 0
 			end
-		elseif input:pressed("confirm") and not descClosing and not descOpening and not unlockedCharacters[dexSelection] then
+		elseif input:pressed("confirm") and not descClosing and not descOpening and unlockedCharacters[dexSelection] then
 			if descOpen then
 				descClosing = true
 				descOpen = false
-				Timer.tween(0.5, descY, {[1] = 200}, "linear", function()
+				Timer.tween(0.5, descY, {[1] = 250}, "linear", function()
 					descClosing = false
 				end)
 			else
 				descOpening = true
 				descOpen = true
-				Timer.tween(0.5, descY, {[1] = 60}, "linear", function()
+				Timer.tween(0.5, descY, {[1] = 10}, "linear", function()
 					descOpening = false
 				end)
 			end
@@ -328,7 +334,7 @@ return {
 
 			love.graphics.push()
 			love.graphics.scale(2.52,2.52)
-				love.graphics.rectangle("fill",-1000,-1000,10000,10000)
+				love.graphics.rectangle("fill",-100,-150,273,1000)
 				love.graphics.setFont(pokeFont)
 
 				graphics.setColor(0, 0, 0, 1)
@@ -342,8 +348,6 @@ return {
 
 				love.graphics.push()
 					love.graphics.translate(0,amongTranslate)
-					-- only draw 7 at a time, 3 above, 3 below, and 1 in the middle            thats a lot of work for something a rectangle can do and the rectangle will end up with this code looking cleaner
-					--																		   it literally wasn't added yet lmao
 					for i = 1, #names do
 						if i == dexSelection then
 							graphics.setColor(0, 0, 0, 1)
@@ -351,7 +355,7 @@ return {
 							graphics.setColor(0.5, 0.5, 0.5, 1)
 						end
 						if unlockedCharacters[i] then
-							love.graphics.printf(names[i], 20, -300 + (i * 35), 500, "center", 0, 0.35, 0.35)
+							love.graphics.printf(names[i], 15, -155 + (i * 35), 500, "center", 0, 0.35, 0.35)
 						else
 							love.graphics.printf("???", 20, -300 + (i * 35), 500, "center", 0, 0.35, 0.35)
 						end
@@ -361,12 +365,13 @@ return {
 				graphics.setColor(1, 1, 1, 1)
 
 				boxes:draw()
+				love.graphics.scale(0.8,0.8)
 
-				if not unlockedCharacters[dexSelection] then
+				if unlockedCharacters[dexSelection] then
 					theGoofyCreatures[dexSelection]:draw()
 				end
-				theGoofyCreatures[dexSelection]:draw()
 
+				love.graphics.scale(1.25,1.25)
 
 				graphics.setColor(0, 0, 0, 1)
 
@@ -380,17 +385,14 @@ return {
 
 				graphics.setColor(0, 0, 0, 1)
 
-				--love.graphics.printf(stats[dexSelection], -260, descY[1] - 50, 700,  "left", nil, 0.75, 0.75)
+				love.graphics.printf(stats[dexSelection], -150, descY[1] - 30, 700,  "left", nil, 0.55, 0.55)
 
-				--love.graphics.printf(names[dexSelection], -260, descY[1] - 130, 700,  "left", nil, 1.1, 1.1)
-				--love.graphics.printf(subtitles[dexSelection], -260, descY[1] - 90, 700,  "left", nil, 1, 1)
+				love.graphics.printf(names[dexSelection], -150, descY[1] - 80, 700,  "left", nil, 0.7, 0.7)
 
-				if dexSelection ~= 21 then
-					love.graphics.printf(descriptions[dexSelection], -250, descY[1] + 15, 700,  "left", nil, 0.75, 0.75)
-				else
-					love.graphics.printf(descriptions[dexSelection], -200, descY[1] + 15, 700,  "left", nil, 0.55, 0.5) -- they gave shitno the longest fucking description that exists
-				end
-				--love.graphics.printf("DESCRIPTION", -112, descY[1] - 220, 800, "left", nil, 0.9, 0.9)
+				love.graphics.printf(subtitles[dexSelection], -150, descY[1] - 54, 700,  "left", nil, 0.6, 0.6)
+				love.graphics.printf(descriptions[dexSelection], -155, descY[1] + 15, 700,  "left", nil, 0.45, 0.45)
+
+				love.graphics.printf("DESCRIPTION", -76, descY[1] - 132, 800, "left", nil, 0.6, 0.6)
 
 				graphics.setColor(1, 1, 1, 1)
 
