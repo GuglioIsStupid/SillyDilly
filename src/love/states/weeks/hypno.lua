@@ -265,7 +265,7 @@ return {
         alreadyHit = flse
         canHitPendulum = false
         tranceInterval = 0
-        beatInterval = 3
+        beatInterval = 2
 
 		countdownFade = {}
 		countdown = love.filesystem.load("sprites/countdown.lua")()
@@ -408,6 +408,7 @@ return {
 
 	initUI = function(self, option)
 		events = {}
+		bpmChangeEvents = {}
 		enemyNotes = {}
 		boyfriendNotes = {}
 		gfNotes = {}
@@ -548,19 +549,8 @@ return {
 			voices = love.audio.newSource(voices, "static")
 		end
 
-		for i = 1, #chart["notes"] do
-			bpm = chart["notes"][i]["bpm"]
+		bpm = chart["bpm"]
 
-			if bpm then
-				break
-			end
-		end
-		if not bpm then
-			bpm = chart["bpm"]
-		end
-		if not bpm then
-			bpm = 100
-		end
 		beatHandler.setBPM(bpm)
 
 		if settings.customScrollSpeed == 1 then
@@ -569,7 +559,24 @@ return {
 			speed = settings.customScrollSpeed
 		end
 
+		local curBPM = bpm
+		local totalSteps = 0
+		local totalPos = 0
+
 		for i = 1, #chart["notes"] do
+			if chart.notes[i].changeBPM and chart.notes[i].bpm ~= curBPM then
+				curBPM = chart.notes[i].bpm
+				local event = {
+					stepTime = totalSteps,
+					songTime = totalPos,
+					bpm = curBPM
+				}
+				table.insert(bpmChangeEvents, event)
+			end
+
+			local deltaSteps = chart.notes[i].lengthInSteps or 16
+			totalSteps = totalSteps + deltaSteps
+			totalPos = totalPos + ((60/curBPM) * 1000 / 4) * deltaSteps
 			for j = 1, #chart["notes"][i]["sectionNotes"] do
 				local sprite
 				local sectionNotes = chart["notes"][i]["sectionNotes"]
@@ -1323,15 +1330,20 @@ return {
 		absMusicTime = math.abs(musicTime)
 		musicThres = math.floor(absMusicTime / 100) -- Since "musicTime" isn't precise, this is needed
 
+
+		for i = 1, #bpmChangeEvents do
+			local event = bpmChangeEvents[i]
+
+			if musicTime >= event.songTime then
+				bpm = event.bpm
+				beatHandler.setBPM(bpm)
+				bpmChangeEvents[i] = nil
+			end
+		end
+
 		for i = 1, #events do
 			if events[i].eventTime <= absMusicTime then
 				local oldBpm = bpm
-
-				if events[i].bpm then
-					bpm = events[i].bpm
-					if not bpm then bpm = oldBpm end
-					beatHandler.setBPM(bpm)
-				end
 
 				if camera.mustHit then
 					if events[i].mustHitSection then
