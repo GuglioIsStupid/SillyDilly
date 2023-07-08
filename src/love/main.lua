@@ -497,6 +497,7 @@ function love.load()
 	weekFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 84)
 	weekFontSmall = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 54)
 	pokeFont = love.graphics.newFont("fonts/poketext.ttf", 24)
+	theOtherPokeFont = love.graphics.newFont("fonts/poke.ttf", 24)
 
 	weekNum = 1
 	songDifficulty = 2

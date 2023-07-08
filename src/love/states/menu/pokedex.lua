@@ -16,38 +16,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
-local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
-
---[[
-
---the order they go in
-hypno (safety lullaby)
-hypno (left unchecked)
-hypno (lost cause)
-gold (monochrome)
-gold (frostbite)
-red (dead red)
-pikachu (freakachu)
-Silver
-feraligatr
-missingno
-burried alive (+ co)
-s!3v3n 
-glitchy red
-disabled
-ponyta
-hell bell (+ old man)
-purin
-nurse joy (+ co)
-shinto
-grey
-shitno
-hypno (pasta night)
-lord x
-mx
-
-
---]]
 
 return {
 	enter = function(self, previous)
@@ -87,7 +55,7 @@ return {
 		descClosing = false
 		descOpening = false
 
-		--love.graphics.setDefaultFilter("nearest")
+		love.graphics.setDefaultFilter("nearest")
 
 		bg = graphics.newImage(graphics.imagePath("pokedex/BG"))
 		boxes = graphics.newImage(graphics.imagePath("pokedex/boxes"))
@@ -144,30 +112,30 @@ return {
 		--they have to be individually resized
 
 
-		theGoofyCreatures[1].sizeX, theGoofyCreatures[1].sizeY = 1.5, 1.5
-		theGoofyCreatures[2].sizeX, theGoofyCreatures[2].sizeY = 1.5, 1.5
-		theGoofyCreatures[3].sizeX, theGoofyCreatures[3].sizeY = 1.1, 1.1
-		theGoofyCreatures[4].sizeX, theGoofyCreatures[4].sizeY = 2.5, 2.5
-		theGoofyCreatures[5].sizeX, theGoofyCreatures[5].sizeY = 2.5, 2.5
-		theGoofyCreatures[6].sizeX, theGoofyCreatures[6].sizeY = 2.5, 2.5
-		theGoofyCreatures[7].sizeX, theGoofyCreatures[7].sizeY = 2.5, 2.5
-		theGoofyCreatures[8].sizeX, theGoofyCreatures[8].sizeY = 2.5, 2.5
-		theGoofyCreatures[9].sizeX, theGoofyCreatures[9].sizeY = 1.3, 1.3
-		theGoofyCreatures[10].sizeX, theGoofyCreatures[10].sizeY = 1.8, 1.8
-		theGoofyCreatures[11].sizeX, theGoofyCreatures[11].sizeY = 1.7, 1.7
-		theGoofyCreatures[12].sizeX, theGoofyCreatures[12].sizeY = 2.2, 2.2
-		theGoofyCreatures[13].sizeX, theGoofyCreatures[13].sizeY = 2.2, 2.2
-		theGoofyCreatures[14].sizeX, theGoofyCreatures[14].sizeY = 2, 2
-		theGoofyCreatures[15].sizeX, theGoofyCreatures[15].sizeY = 2, 2
-		theGoofyCreatures[16].sizeX, theGoofyCreatures[16].sizeY = 1.7, 1.7
-		theGoofyCreatures[17].sizeX, theGoofyCreatures[17].sizeY = 2, 2
-		theGoofyCreatures[18].sizeX, theGoofyCreatures[18].sizeY = 1.8, 1.8
-		theGoofyCreatures[19].sizeX, theGoofyCreatures[19].sizeY = 2, 2
-		theGoofyCreatures[20].sizeX, theGoofyCreatures[20].sizeY = 2.5, 2.5
-		theGoofyCreatures[21].sizeX, theGoofyCreatures[21].sizeY = 1.7, 1.7
-		theGoofyCreatures[22].sizeX, theGoofyCreatures[22].sizeY = 1.5, 1.5
-		theGoofyCreatures[23].sizeX, theGoofyCreatures[23].sizeY = 2, 2
-		theGoofyCreatures[24].sizeX, theGoofyCreatures[24].sizeY = 1.5, 1.5
+		theGoofyCreatures[1].sizeX, theGoofyCreatures[1].sizeY = 1.2, 1.2
+		theGoofyCreatures[2].sizeX, theGoofyCreatures[2].sizeY = 1.2, 1.2
+		theGoofyCreatures[3].sizeX, theGoofyCreatures[3].sizeY = 1, 1
+		theGoofyCreatures[4].sizeX, theGoofyCreatures[4].sizeY = 2.2, 2.2
+		theGoofyCreatures[5].sizeX, theGoofyCreatures[5].sizeY = 2.2, 2.2
+		theGoofyCreatures[6].sizeX, theGoofyCreatures[6].sizeY = 2.2, 2.2
+		theGoofyCreatures[7].sizeX, theGoofyCreatures[7].sizeY = 2.2, 2.2
+		theGoofyCreatures[8].sizeX, theGoofyCreatures[8].sizeY = 2.2, 2.2
+		theGoofyCreatures[9].sizeX, theGoofyCreatures[9].sizeY = 1, 1
+		theGoofyCreatures[10].sizeX, theGoofyCreatures[10].sizeY = 1.5, 1.5
+		theGoofyCreatures[11].sizeX, theGoofyCreatures[11].sizeY = 1.4, 1.4
+		theGoofyCreatures[12].sizeX, theGoofyCreatures[12].sizeY = 1.9, 1.9
+		theGoofyCreatures[13].sizeX, theGoofyCreatures[13].sizeY = 1.9, 1.9
+		theGoofyCreatures[14].sizeX, theGoofyCreatures[14].sizeY = 1.7, 1.7
+		theGoofyCreatures[15].sizeX, theGoofyCreatures[15].sizeY = 1.7, 1.7
+		theGoofyCreatures[16].sizeX, theGoofyCreatures[16].sizeY = 1.4, 1.4
+		theGoofyCreatures[17].sizeX, theGoofyCreatures[17].sizeY = 1.7, 1.7
+		theGoofyCreatures[18].sizeX, theGoofyCreatures[18].sizeY = 1.5, 1.5
+		theGoofyCreatures[19].sizeX, theGoofyCreatures[19].sizeY = 1.7, 1.7
+		theGoofyCreatures[20].sizeX, theGoofyCreatures[20].sizeY = 2.2, 2.2
+		theGoofyCreatures[21].sizeX, theGoofyCreatures[21].sizeY = 1.4, 1.4
+		theGoofyCreatures[22].sizeX, theGoofyCreatures[22].sizeY = 1.2, 1.2
+		theGoofyCreatures[23].sizeX, theGoofyCreatures[23].sizeY = 1.7, 1.7
+		theGoofyCreatures[24].sizeX, theGoofyCreatures[24].sizeY = 1.2, 1.2
 
 
 		names = {
@@ -271,17 +239,12 @@ return {
 			"Rumors say the developers that created this character couldn't be bothered to code him, so they trapped the soul of a dead kid in it and called it a day.", -- yes because human souls can run on the gameboy
 			"Her name is actually Shinto, but due to the fact that it's not possible to beat her in the game she's from, players nicknamed her 'Shitno.' The only way to capture her would be to use a hacked copy and go beyond the glitched difficulty cap. But you don't want to do that...",
 			"Hypno holds a pendulum in its hand. It refuses to let go or put anything else in its hands, so it uses its psychic abilities to lift other objects.",
-			"simon is hotter",  -- i gotta remember to change this back 💀💀
-			"SUPER FUCKING MARIO!!!!!!!!!!!"
-		}
-
-		--			"This maniac version of Mario resides within an NES Mario cartridge with the sole purpose of torturing the soul of an innocent child. Although today he's just here to play some cards."
-		--			"A sinister entitity comprised of VOID energy, doing whatever it likes so long as it satisfies them. Seems like an innocent game of cards, but things are sure to turn deadly.",
-
-
+			"A sinister entitity comprised of VOID energy, doing whatever it likes so long as it satisfies them. Seems like an innocent game of cards, but things are sure to turn deadly.",
+			"This maniac version of Mario resides within an NES Mario cartridge with the sole purpose of torturing the soul of an innocent child. Although today he's just here to play some cards."
+	}
 
 		for i = 1, #theGoofyCreatures do
-			theGoofyCreatures[i].x, theGoofyCreatures[i].y = -115, 0
+			theGoofyCreatures[i].x, theGoofyCreatures[i].y = -100, 0
 		end
 	end,
 
@@ -375,11 +338,16 @@ return {
 
 				graphics.setColor(0, 0, 0, 1)
 
+
 				if unlockedCharacters[dexSelection] then
-				--	love.graphics.printf(names[dexSelection], -285, -175, 500, "center", 0, titleScale, titleScale)
+					love.graphics.printf(names[dexSelection], -167, -135, 452, "center", 0, 0.43, 0.43)
+					love.graphics.printf(subtitles[dexSelection], -167, -121, 510, "center", 0, 0.37, 0.37)
+
 				else
-				--	love.graphics.printf("???", -285, -175, 500, "left", 0, titleScale, titleScale)
+					love.graphics.printf("???", -155, -135, 500, "left", 0, 0.43, 0.43)
+					love.graphics.printf("???", -155, -135, 500, "left", 0, 0.43, 0.43)
 				end
+
 				graphics.setColor(1, 1, 1, 1)
 				descBox:draw()
 
