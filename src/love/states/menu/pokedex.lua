@@ -245,7 +245,7 @@ return {
 			"HT 6'05\"   WT 26.5 lbs",
 			"3'03\" WT 77 lbs",
 			"HT ???   WT ???"
-		}
+		} 
 		descriptions = {
 			"Hypno holds a pendulum in its hand. The arcing movement and glitter of the pendulum lull the foe into a deep state of hypnosis. While this Pokemon searches for prey, it polishes the pendulum.",
 			"When it is very hungry, it puts humans it meets to sleep, then it feasts on their dreams.",
