@@ -347,7 +347,8 @@ function love.load()
 		["mall"] = require "stages.mall",
 		["school"] = require "stages.school",
 		["evilSchool"] = require "stages.evilSchool",
-		["tank"] = require "stages.tank"
+		["tank"] = require "stages.tank",
+		["dt"] = require "stages.dt",
 	}
 
 	-- Load Menus
@@ -364,6 +365,7 @@ function love.load()
 	-- Load weeks
 	weeks = require "states.weekss" -- default
 	hypnoWeek = require "states.weeks.hypno"
+	dtWeek = require "states.weeks.dt"
 
 	-- Load substates
 	gameOver = require "substates.game-over"
@@ -372,7 +374,7 @@ function love.load()
 	-- Load week data
 	weekData = {
 		require "weeks.hypno",
-		require "weeks.hypno"
+		require "weeks.dt"
 	}
 	testData = require "weeks.test"
 
@@ -401,7 +403,9 @@ function love.load()
 		{
 			"Tutorial",
 			{
-				"Tutorial"
+				"Tutorial",
+				"Tutorial2",
+				"Tutorial3"
 			}
 		},
 		{
