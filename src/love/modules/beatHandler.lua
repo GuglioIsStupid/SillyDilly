@@ -22,8 +22,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- its simple and easy to use
 local beatHandler = {}
 
-beatHandler.beat = 0
+beatHandler.curStep = 0
 beatHandler.beatTime = 0
+
+beatHandler.step = 0
+-- 1 step = 1/4 of a beat
 
 beatHandler.bpm = 100
 
@@ -60,6 +63,8 @@ end
 function beatHandler.update(dt)
     beatHandler.isBeatHit = false
     beatHandler.curBeat = math.abs(math.floor((musicTime / 1000) * (beatHandler.bpm / 60)))
+
+    beatHandler.curStep = math.abs(math.floor((musicTime / 1000) * (beatHandler.bpm / 60) * 4))
 
     
 
