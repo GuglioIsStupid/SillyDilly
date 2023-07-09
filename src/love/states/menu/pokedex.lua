@@ -342,7 +342,6 @@ return {
 				if unlockedCharacters[dexSelection] then
 					love.graphics.printf(names[dexSelection], -167, -135, 452, "center", 0, 0.43, 0.43)
 					love.graphics.printf(subtitles[dexSelection], -167, -121, 510, "center", 0, 0.37, 0.37)
-
 				else
 					love.graphics.printf("???", -155, -135, 500, "left", 0, 0.43, 0.43)
 					love.graphics.printf("???", -155, -135, 500, "left", 0, 0.43, 0.43)
