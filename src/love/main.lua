@@ -341,14 +341,8 @@ function love.load()
 	-- Load stages
 	stages = {
 		["stage"] = require "stages.stage",
-		["hauntedHouse"] = require "stages.hauntedHouse",
-		["city"] = require "stages.city",
-		["sunset"] = require "stages.sunset",
-		["mall"] = require "stages.mall",
-		["school"] = require "stages.school",
-		["evilSchool"] = require "stages.evilSchool",
-		["tank"] = require "stages.tank",
 		["dt"] = require "stages.dt",
+		["frostbite"] = require "stages.frostbite",
 	}
 
 	-- Load Menus
@@ -375,7 +369,8 @@ function love.load()
 	-- Load week data
 	weekData = {
 		require "weeks.hypno",
-		require "weeks.dt"
+		require "weeks.dt",
+		require "weeks.frostbite",
 	}
 	testData = require "weeks.test"
 

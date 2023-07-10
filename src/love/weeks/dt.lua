@@ -94,7 +94,7 @@ return {
 		contract.y = math.sin(newTime) * 0.15
 
         -- hell bell bong
-		if musicTime >= 10212.7659574468 and musicTime < 10237.7659574468 then  -- its indented a bit so i can just hide it
+		if musicTime >= 10212.7659574468 and musicTime < 10237.7659574468 then  -- its indented a bit so i can just hide it         thats actually genius i never thought of doing that
                 bong()
             end
             if musicTime >= 11489.3617021277 and musicTime < 11514.3617021277 then 
