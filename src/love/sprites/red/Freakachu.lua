@@ -71,5 +71,5 @@ return graphics.newSprite(
 		["pain split"] = {start = 16, stop = 44, speed = 24, offsetX = 0, offsetY = 0}
 	},
 	"idle",
-	false,
+	false
 )

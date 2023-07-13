@@ -35,10 +35,11 @@ return {
 
 	load = function(self)
 		weeks:load()
-		stages["frostbite"]:load()
-
 		inst = love.audio.newSource("songs/frostbite/Inst.ogg", "stream")
 		voices = love.audio.newSource("songs/frostbite/Voices.ogg", "stream")
+		stages["frostbite"]:load()
+
+
 		
 
 		self:initUI()
