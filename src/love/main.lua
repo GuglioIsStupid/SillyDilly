@@ -343,6 +343,7 @@ function love.load()
 		["stage"] = require "stages.stage",
 		["dt"] = require "stages.dt",
 		["frostbite"] = require "stages.frostbite",
+		["shinto"] = require "stages.shinto",
 	}
 
 	-- Load Menus
@@ -371,6 +372,7 @@ function love.load()
 		require "weeks.hypno",
 		require "weeks.dt",
 		require "weeks.frostbite",
+		require "weeks.shinto",
 	}
 	testData = require "weeks.test"
 
