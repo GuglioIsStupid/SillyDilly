@@ -17,7 +17,26 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 __VERSION__ = love.filesystem.read("version.txt")
-if love.filesystem.isFused() then function print() end end -- print functions tend the make the game lag when in update functions, so we do this to prevent that
+--if love.filesystem.isFused() then function print() end end -- print functions tend the make the game lag when in update functions, so we do this to prevent that
+consoleTable = {}
+function print(text)
+table.insert(consoleTable, 1, text.."\n")
+if #consoleTable > 70 then
+	table.remove(consoleTable,#consoleTable)
+end
+end
+function dump(o)
+   if type(o) == 'table' then
+      local s = ''
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. dump(v) 
+      end
+      return s 
+   else
+      return tostring(o)
+   end
+end
 function uitextflarge(text,x,y,limit,align,hovered,r,sx,sy,ox,oy,kx,ky)
 	local x = x or 0
 	local y = y or 0
@@ -649,7 +668,7 @@ function love.draw()
 
 	-- Debug output
 	if settings.showDebug then
-		borderedText(status.getDebugStr(settings.showDebug), 5, 5, nil, 0.6, 0.6)
+		borderedText(status.getDebugStr(settings.showDebug).."\n\n"..dump(consoleTable), 5, 5, nil, 0.6, 0.6)
 	end
 end
 
