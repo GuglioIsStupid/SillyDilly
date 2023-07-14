@@ -38,13 +38,14 @@ return {
 		inst = love.audio.newSource("songs/frostbite/Inst.ogg", "stream")
 		voices = love.audio.newSource("songs/frostbite/Voices.ogg", "stream")
 		stages["frostbite"]:load()
-
-
-		
-
 		self:initUI()
-
-		weeks:setupCountdown()
+		countingDown = false
+		previousFrameTime = love.timer.getTime() * 1000
+		musicTime = 0
+		beatHandler.reset(0)
+		if inst then inst:play() end
+		if voices then voices:play() end
+		countdownFade[1] = 0
 	end,
 
 	initUI = function(self)

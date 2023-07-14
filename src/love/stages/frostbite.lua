@@ -19,23 +19,31 @@ return {
         boyfriend = love.filesystem.load("sprites/gold/Cold_Gold.lua")()
         typhlosion = love.filesystem.load("sprites/gold/TYPHLOSION_MECHANIC.lua")()
 
-        camera.defaultZoom = 0.7
-        camera:addPoint("boyfriend", 184, 45, 0.7, 0.7)
-        camera:addPoint("enemy", 184, 45, 0.7, 0.7)
+        camera.defaultZoom = 0.8
+        camera:addPoint("boyfriend", 184, 192, 0.7, 0.7)
+        camera:addPoint("enemy", 184, 192, 0.7, 0.7)
         camera:addPoint("pikachuZoom", 80, 99, 1.7, 1.7)
-        boyfriend.x, boyfriend.y = -730, 233
+        boyfriend.x, boyfriend.y = -619, 50
         enemy.x, enemy.y = 369, -201
-        enemy.sizeX, enemy.sizeY = 0.8, 0.8
+        enemy.sizeX, enemy.sizeY = 0.7, 0.7
         typhlosion.x, typhlosion.y = -406, 399
-        stageImages["blastoise"].x, stageImages["blastoise"].y = -709, -187
-        stageImages["blastoise"].sizeX, stageImages["blastoise"].sizeY = 0.5, 0.5
+        stageImages["blastoise"].x, stageImages["blastoise"].y = -812, -411
+        stageImages["blastoise"].sizeX, stageImages["blastoise"].sizeY = 0.4, 0.4
         stageImages["pokemon"].x, stageImages["pokemon"].y = 276, -342
-        stageImages["pokemon"].sizeX, stageImages["pokemon"].sizeY = 0.3, 0.3
-        deadRed.sizeX, deadRed.sizeY = 0.8, 0.8
+        stageImages["pokemon"].sizeX, stageImages["pokemon"].sizeY = 0.2, 0.2
+        deadRed.sizeX, deadRed.sizeY = 0.7, 0.7
         deadRed.x, deadRed.y = 369, -201
-        stageImages["pikachu entrance"].x, stageImages["pikachu entrance"].y = 126, -188
-        stageImages["pikachu"].sizeX, stageImages["pikachu"].sizeY = 1.6, 1.6
-        stageImages["pikachu"].x, stageImages["pikachu"].y = -44, -85
+        stageImages["pikachu entrance"].x, stageImages["pikachu entrance"].y = 152, -194
+        stageImages["pikachu entrance"].sizeX, stageImages["pikachu entrance"].sizeY = 0.9, 0.9
+        stageImages["pikachu"].sizeX, stageImages["pikachu"].sizeY = 1.5, 1.5
+        stageImages["pikachu"].x, stageImages["pikachu"].y = 2, -106
+        stageImages["charizard"].x, stageImages["charizard"].y = 20, -503
+        stageImages["charizard"].sizeX, stageImages["charizard"].sizeY = 0.5, 0.5
+        stageImages["fog"].x, stageImages["fog"].y = 0, -290
+        stageImages["fog"].sizeX, stageImages["fog"].sizeY = 1.8, 1.8
+        stageImages["background"].x, stageImages["background"].y = 0, -319
+        
+
 
         stageImages["pikachu"]:animate("idle", true)
 
@@ -50,12 +58,18 @@ return {
         changedScrollSpeed = false
         pikachuSpawned = false
 
+        introFade = {1}
+        Timer.tween(6, introFade, {0}, "in-expo")
 
 
 
 
-        voices:seek(85)
-        inst:seek(85)
+
+
+
+
+        --voices:seek(85)
+        --inst:seek(85)
     end,
 
     update = function(self, dt)
@@ -65,14 +79,22 @@ return {
         stageImages["pikachu"]:update(dt)
 
 
-        if (not deadRed:isAnimated())  and beatHandler.onBeat() then
-            deadRed:animate("idle", false)
+
+
+        --print(musicTime)
+
+
+
+
+        if (not deadRed:isAnimated()) then
+            deadRed:animate("idle", false)    -- He isnt supposed to do the idle with the bpm 
+
         elseif deadRed:getAnimName() ~= enemy:getAnimName() then
             deadRed:animate(enemy:getAnimName())
         end
 
 
-       -- if musicTime >= 89739 and musicTime < 89789 then
+
 
 
           --  89739 summon pikachu
@@ -95,13 +117,15 @@ return {
                 print("timer.after started")
                 Timer.after(1, function()
                     print("timer.after finished")
-                    Timer.tween(0.6, camera, {defaultZoom = 0.7}, "out-quad")
-                    camera:addPoint("boyfriend", 184, 45, 0.7, 0.7)
-                    camera:addPoint("enemy", 184, 45, 0.7, 0.7)
+                    Timer.tween(0.6, camera, {defaultZoom = 0.8}, "out-quad")
+                    camera:addPoint("boyfriend", 184, 192, 0.7, 0.7)
+                    camera:addPoint("enemy", 184, 192, 0.7, 0.7)
                 end)
             end)
             camera:moveToPoint(0.5, "pikachuZoom")
         end
+
+        --[[
 
         if musicTime >= 90652 and musicTime < 90652+50 then
             --i love how the game doesnt say what the scroll speed changes to so i have to just guess
@@ -119,6 +143,7 @@ return {
             print("scroll speed: " .. speed)
         end
 
+    --]]
              
              
     end,
@@ -131,6 +156,7 @@ return {
             stageImages["background"]:draw()
             stageImages["pokemon"]:draw()
             stageImages["blastoise"]:draw()
+            stageImages["charizard"]:draw()
 
             if not pikachuSpawned and not stageImages["pikachu entrance"]:isAnimated() then
                 enemy:draw()
@@ -140,7 +166,7 @@ return {
                 end
             end
 
-            if musicTime < 89740 then
+            if musicTime < 89739 then
                 enemy:draw()
             else
                 if stageImages["pikachu entrance"]:isAnimated() then
@@ -165,6 +191,10 @@ return {
             typhlosion:draw()            
             boyfriend:draw()
             stageImages["fog"]:draw()
+            love.graphics.setColor(1,1,1,introFade[1])
+            love.graphics.rectangle("fill", -1000, -1000, 10000, 10000)
+            love.graphics.setColor(1,1,1,1)
+
 		love.graphics.pop()
     end,
 
