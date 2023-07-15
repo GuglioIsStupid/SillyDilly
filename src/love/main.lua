@@ -434,19 +434,15 @@ function love.load()
 			}
 		},
 		{
-			"Week 2",
+			"Frostbite",
 			{
-				"Spookeez",
-				"South",
-				"Monster"
+				"Frostbite"
 			}
 		},
 		{
-			"Week 3",
+			"Shinto",
 			{
-				"Pico",
-				"Philly Nice",
-				"Blammed"
+				"Shinto"
 			}
 		},
 		{

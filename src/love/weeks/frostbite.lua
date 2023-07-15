@@ -31,6 +31,20 @@ return {
 		enemyIcon:animate("daddy dearest", false)
 
 		self:load()
+
+
+		--[[
+
+		function useTyphlosion()
+			typlosionSound:play()
+			typhlosion:animate("anim", false, function()
+				typhlosion:animate("idle", true)
+			end)
+			typhlosionUses = typhlosionUses - 1
+			if typhlosionUses 
+		end
+
+		--]]
 	end,
 
 	load = function(self)
@@ -46,11 +60,15 @@ return {
 		if inst then inst:play() end
 		if voices then voices:play() end
 		countdownFade[1] = 0
+		typhlosionUses = 10
 	end,
 
 	initUI = function(self)
 		weeks:initUI()
-
+		for i = 1,4 do
+			enemyArrows[i].x = 100 + 165 * i
+			boyfriendArrows[i].x = -925 + 165 * i
+		end
 		weeks:generateNotes("songs/frostbite/frostbite-hard.json")
 
 	end,
@@ -83,6 +101,10 @@ return {
 		love.graphics.pop()
 
 		weeks:drawUI()
+		love.graphics.scale(uiScale.zoom, uiScale.zoom)
+
+		stageImages["thermometer"]:draw()
+		stageImages["thermometer typhlosion"]:draw()
 	end,
 
 	leave = function(self)
@@ -97,3 +119,40 @@ return {
 		weeks:leave()
 	end
 }
+
+
+
+--[[
+    function useTyphlosion()
+    {
+        FlxG.sound.play(Paths.sound('TyphlosionUse'));
+
+        typhlosion.playAnim('fire');
+        typhlosion.animation.finishCallback = function(name:String)
+            typhlosion.playAnim('idle');
+        typhlosionUses -= 1;
+        switch (typhlosionUses)
+        {
+            case 8: frostbiteTheromometerTyphlosion.animation.play('stage2');
+            case 6: frostbiteTheromometerTyphlosion.animation.play('stage3');
+            case 4: frostbiteTheromometerTyphlosion.animation.play('stage4');
+            case 2: frostbiteTheromometerTyphlosion.animation.play('stage5');
+        }
+        coldness -= (0.35 * (typhlosionUses * 0.075)) + 0.20;
+
+        if (typhlosionUses == 0)
+            {
+                new FlxTimer().start(0.85, function(tmr:FlxTimer)
+                    {
+                        FlxG.sound.play(Paths.sound('TyphlosionDeath'));
+                        typhlosion.playAnim('fire', true);
+                        typhlosion.animation.finishCallback = function(name:String)
+                            {
+                                typhlosion.animation.curAnim.pause();
+                            }
+                        FlxTween.tween(typhlosion, {y: typhlosion.y + 500}, 1.5, {ease: FlxEase.quadInOut});
+                    });
+            }
+    }
+
+    --]]

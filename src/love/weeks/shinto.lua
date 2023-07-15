@@ -21,7 +21,7 @@ local stageBack, stageFront, curtains
 
 return {
 	enter = function(self, from, songNum, songAppend)
-		weeks:enter()
+		weeks:enter("pixel")
 
 		stages["shinto"]:enter()
 

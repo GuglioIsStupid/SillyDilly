@@ -8,6 +8,8 @@ return {
             ["pokemon"]  = graphics.newImage(graphics.imagePath("stages/mountain/Pokemons")),
             ["pikachu"] = love.filesystem.load("sprites/red/Freakachu.lua")(),
             ["pikachu entrance"] = love.filesystem.load("sprites/red/freakachu_entrance.lua")(),
+            ["thermometer"] = love.filesystem.load("sprites/frostbite/thermometer.lua")(),
+            ["thermometer typhlosion"] = love.filesystem.load("sprites/frostbite/typhlosion.lua")(),
         }
 
         debug = false
@@ -42,6 +44,9 @@ return {
         stageImages["fog"].x, stageImages["fog"].y = 0, -290
         stageImages["fog"].sizeX, stageImages["fog"].sizeY = 1.8, 1.8
         stageImages["background"].x, stageImages["background"].y = 0, -319
+
+        stageImages["thermometer"].x, stageImages["thermometer"].y = 35, 350
+        stageImages["thermometer typhlosion"].x, stageImages["thermometer typhlosion"].y = stageImages["thermometer"].x, stageImages["thermometer"].y -218
         
 
 
@@ -195,6 +200,8 @@ return {
             love.graphics.rectangle("fill", -1000, -1000, 10000, 10000)
             love.graphics.setColor(1,1,1,1)
 
+
+
 		love.graphics.pop()
     end,
 
@@ -206,3 +213,4 @@ return {
         graphics.clearCache()
     end
 }
+
