@@ -1,5 +1,6 @@
 return {
     enter = function()
+        love.graphics.setDefaultFilter("nearest")
         stageImages = {
             ["background"] = graphics.newImage(graphics.imagePath("shinto/BG_shitno")),
 		    ["pokeball"] = love.filesystem.load("sprites/shinto/shitno_pokeball.lua")()
@@ -18,12 +19,11 @@ return {
         camera:addPoint("boyfriend", 0, 618, 0.7, 0.7)
         camera:addPoint("enemy", 0, 618, 0.7, 0.7)
         camera:moveToPoint(0, "boyfriend")
-        love.graphics.setDefaultFilter("linear")
     end,
 
     update = function(self, dt)
     end,
-
+ 
     draw = function()
 		love.graphics.push()
 
