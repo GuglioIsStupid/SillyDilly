@@ -97,10 +97,10 @@ return graphics.newSprite(
 		{x = 3474, y = 2872, width = 529, height = 654, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0} -- 70: Norm Red right0013
 	},
 	{
-		["singDOWN"] = {start = 29, stop = 42, speed = 24, offsetX = 0, offsetY = 0},
-		["singLEFT"] = {start = 43, stop = 56, speed = 24, offsetX = 0, offsetY = 0},
-		["singRIGHT"] = {start = 57, stop = 70, speed = 24, offsetX = 0, offsetY = 0},
-		["singUP"] = {start = 15, stop = 28, speed = 24, offsetX = 0, offsetY = 0},
+		["singDOWN"] = {start = 29, stop = 42, speed = 24, offsetX = 12, offsetY = 6},
+		["singLEFT"] = {start = 43, stop = 56, speed = 24, offsetX = 20, offsetY = 0},
+		["singRIGHT"] = {start = 57, stop = 70, speed = 24, offsetX = -59, offsetY = 0},
+		["singUP"] = {start = 15, stop = 28, speed = 24, offsetX = 0, offsetY = 22},
 		["idle"] = {start = 1, stop = 14, speed = 24, offsetX = 0, offsetY = 0},
 	},
 	"idle",

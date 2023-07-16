@@ -40,6 +40,8 @@ return {
 		menuID = 1
 		selection = 3
 
+		love.keyboard.setKeyRepeat(true)
+
 		menus = {
 			{
 				1,

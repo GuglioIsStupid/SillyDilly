@@ -98,10 +98,10 @@ return graphics.newSprite(
 		},
 	
 	{
-		["singDOWN"] = {start = 15, stop = 28, speed = 24, offsetX = 0, offsetY = 0},
-		["singLEFT"] = {start = 29, stop = 42, speed = 24, offsetX = 0, offsetY = 0},
-		["singRIGHT"] = {start = 43, stop = 56, speed = 24, offsetX = 0, offsetY = 0},
-		["singUP"] = {start = 57, stop = 70, speed = 24, offsetX = 0, offsetY = 0},
+		["singDOWN"] = {start = 15, stop = 28, speed = 24, offsetX = 16, offsetY = -5},
+		["singLEFT"] = {start = 29, stop = 42, speed = 24, offsetX = 175, offsetY = 3},
+		["singRIGHT"] = {start = 43, stop = 56, speed = 24, offsetX = -83, offsetY = 1},
+		["singUP"] = {start = 57, stop = 70, speed = 24, offsetX = -1, offsetY = 21},
 		["idle"] = {start = 1, stop = 14, speed = 24, offsetX = 0, offsetY = 0},
 	},
 	"idle",

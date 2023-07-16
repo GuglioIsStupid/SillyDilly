@@ -140,6 +140,7 @@ return graphics.newSprite(
 		["idle"] = {start = 49, stop = 62, speed = 24, offsetX = 0, offsetY = 0},
 		["lose"] = {start = 69, stop = 92, speed = 24, offsetX = 0, offsetY = 0},
 		["end"] = {start = 7, stop = 48, speed = 24, offsetX = 0, offsetY = 0},
+		["end1"] = {start = 48, stop = 48, speed = 24, offsetX = 0, offsetY = 0},
 
 	},
 	"idle",
