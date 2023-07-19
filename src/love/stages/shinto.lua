@@ -37,8 +37,8 @@ return {
         camera:addPoint("enemy", 0, 618, 0.7, 0.7)
         camera:moveToPoint(0, "boyfriend")
 
-     ---   voices:seek(150)
-        --inst:seek(150)
+        voices:seek(150)
+        inst:seek(150)
     end,
 
     update = function(self, dt)
@@ -50,7 +50,7 @@ return {
             end
         end
     end,
- 
+
     draw = function()
 		love.graphics.push()
 
@@ -58,7 +58,7 @@ return {
             love.graphics.translate(camera.ex, camera.ey)
             stageImages["background"]:udraw()
 			enemy:udraw()
-            if stageImages["pokeball"]:isAnimated() then
+            if stageImages["pokeball"]:isAnimated() and musicTime > 5000 then
                 stageImages["pokeball"]:udraw(5.5, 5.5)
             end
             graphics.setColor(1,1,1)

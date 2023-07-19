@@ -23,6 +23,10 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		weeks:enter()
 
+		typlosionSound = love.audio.newSource("sounds/frostbite/TyphlosionUse.ogg", "static")
+		typlosionDeath = love.audio.newSource("sounds/frostbite/TyphlosionDeath.ogg", "static")
+
+
 		stages["frostbite"]:enter()
 
 		song = songNum
@@ -32,19 +36,68 @@ return {
 
 		self:load()
 
+		typhlosionUses = 10
 
-		--[[
+		--inst:setVolume(0)
+		--voices:setVolume(0)
+		coldness = 0
+		doingColdnessTween = false
+
+		coldnessDisplay = {coldness}
+
+
+		
 
 		function useTyphlosion()
-			typlosionSound:play()
-			typhlosion:animate("anim", false, function()
-				typhlosion:animate("idle", true)
-			end)
-			typhlosionUses = typhlosionUses - 1
-			if typhlosionUses 
+			if typhlosionUses > 0 then
+				if typlosionSound:isPlaying() then
+					typlosionSound:stop()
+				end
+				typlosionSound:play()
+				typhlosion:animate("fire", false, function()
+					typhlosion:animate("idle", true)
+				end)
+				typhlosionUses = typhlosionUses - 1
+				if typhlosionUses > 8 then
+					stageImages["thermometer typhlosion"]:animate("stage2", true)
+				elseif typhlosionUses > 6 then
+					stageImages["thermometer typhlosion"]:animate("stage3", true)
+				elseif typhlosionUses > 4 then
+					stageImages["thermometer typhlosion"]:animate("stage4", true)
+				elseif typhlosionUses > 2 then
+					stageImages["thermometer typhlosion"]:animate("stage5", true)
+				elseif typhlosionUses == 0 then
+					Timer.tween(1.5, typhlosion, {y = typhlosion.y + 500}, "in-out-quad")  -- why tf is this an in out quad its really like that in the real game
+					typlosionDeath:play()
+				end
+			coldness = coldness - (0.35 * (typhlosionUses * 0.075)) + 0.20
+				print("typhlosion uses: " .. typhlosionUses)
+				if coldnessTween then
+					Timer.cancel(coldnessTween)
+				end
+				if doingColdnessTween then
+					doingColdnessTween = false
+				end
+				doingColdnessTween = true
+				coldnessTween = Timer.tween(0.5, coldnessDisplay, {coldness}, "out-quad", function()
+					doingColdnessTween = false
+				end)
+				print("ACTUAL COLDNESS: " .. coldness)
+			end
 		end
 
-		--]]
+
+		function coldnessReadout()
+			Timer.after(3, function()
+				print(coldness)
+				coldnessReadout()
+			end)
+		end
+
+
+		coldnessReadout()
+
+		
 	end,
 
 	load = function(self)
@@ -61,6 +114,8 @@ return {
 		if voices then voices:play() end
 		countdownFade[1] = 0
 		typhlosionUses = 10
+		coldness = 0
+		doingColdnessTween = false
 	end,
 
 	initUI = function(self)
@@ -77,6 +132,18 @@ return {
 		weeks:update(dt)
 		stages["frostbite"]:update(dt)
 
+		if coldness < 323 then
+
+			coldness = coldness + 6 * dt
+		end
+
+		if not doingColdnessTween then
+			coldnessDisplay[1] = coldness
+		end
+		if doingColdnessTween then
+			print(coldnessDisplay[1])
+		end
+
 		if health >= 1.595 then
 			if enemyIcon:getAnimName() == "daddy dearest" then
 				enemyIcon:animate("daddy dearest losing", false)
@@ -85,6 +152,10 @@ return {
 			if enemyIcon:getAnimName() == "daddy dearest losing" then
 				enemyIcon:animate("daddy dearest", false)
 			end
+		end
+
+		if input:pressed("space") then
+			useTyphlosion()
 		end
 
 		weeks:checkSongOver()
@@ -103,7 +174,13 @@ return {
 		weeks:drawUI()
 		love.graphics.scale(uiScale.zoom, uiScale.zoom)
 
+
+		love.graphics.setColor(0,0,0)
+		love.graphics.rectangle("fill", stageImages["thermometer"].x-7, stageImages["thermometer"].y + 138, 13, -coldnessDisplay[1])      -- completely full is -322
+		love.graphics.setColor(1,1,1,1)
+
 		stageImages["thermometer"]:draw()
+
 		stageImages["thermometer typhlosion"]:draw()
 	end,
 

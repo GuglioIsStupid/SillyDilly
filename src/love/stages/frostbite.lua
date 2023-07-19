@@ -10,6 +10,7 @@ return {
             ["pikachu entrance"] = love.filesystem.load("sprites/red/freakachu_entrance.lua")(),
             ["thermometer"] = love.filesystem.load("sprites/frostbite/thermometer.lua")(),
             ["thermometer typhlosion"] = love.filesystem.load("sprites/frostbite/typhlosion.lua")(),
+            ["test typhlosion"] = love.filesystem.load("sprites/gold/TYPHLOSION_MECHANIC.lua")(),
         }
 
         debug = false
@@ -28,7 +29,7 @@ return {
         boyfriend.x, boyfriend.y = -619, 50
         enemy.x, enemy.y = 369, -201
         enemy.sizeX, enemy.sizeY = 0.7, 0.7
-        typhlosion.x, typhlosion.y = -406, 399
+        typhlosion.x, typhlosion.y = -282, 221
         stageImages["blastoise"].x, stageImages["blastoise"].y = -812, -411
         stageImages["blastoise"].sizeX, stageImages["blastoise"].sizeY = 0.4, 0.4
         stageImages["pokemon"].x, stageImages["pokemon"].y = 276, -342
@@ -45,12 +46,16 @@ return {
         stageImages["fog"].sizeX, stageImages["fog"].sizeY = 1.8, 1.8
         stageImages["background"].x, stageImages["background"].y = 0, -319
 
+
         stageImages["thermometer"].x, stageImages["thermometer"].y = 35, 350
         stageImages["thermometer typhlosion"].x, stageImages["thermometer typhlosion"].y = stageImages["thermometer"].x, stageImages["thermometer"].y -218
         
 
+        typhlosion:animate("idle", true)
+
 
         stageImages["pikachu"]:animate("idle", true)
+        stageImages["thermometer typhlosion"]:animate("stage1", true)
 
         if debug then
             stageImages["pikachu entrance"]:animate("anim", true)
@@ -66,6 +71,9 @@ return {
         introFade = {1}
         Timer.tween(6, introFade, {0}, "in-expo")
 
+        typhlosion.x, typhlosion.y = -282, 221
+
+
 
 
 
@@ -80,6 +88,8 @@ return {
     update = function(self, dt)
         deadRed:update(dt)
         typhlosion:update(dt)
+        stageImages["test typhlosion"]:update(dt)
+        stageImages["thermometer typhlosion"]:update(dt)
         stageImages["pikachu entrance"]:update(dt)
         stageImages["pikachu"]:update(dt)
 
@@ -130,7 +140,7 @@ return {
             camera:moveToPoint(0.5, "pikachuZoom")
         end
 
-        --[[
+       -- --[[    wtf i just learned you can comment out the start of a block comment
 
         if musicTime >= 90652 and musicTime < 90652+50 then
             --i love how the game doesnt say what the scroll speed changes to so i have to just guess
@@ -193,7 +203,8 @@ return {
                 love.graphics.setColor(1,1,1,1)
             end
 
-            typhlosion:draw()            
+            typhlosion:draw()       
+            --stageImages["test typhlosion"]:draw()     
             boyfriend:draw()
             stageImages["fog"]:draw()
             love.graphics.setColor(1,1,1,introFade[1])

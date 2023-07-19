@@ -37,6 +37,7 @@ return graphics.newSprite(
 		{x = 1501, y = 495, width = 748, height = 490, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 14: TYPHLOSION MECHANIC0013
 		{x = 1501, y = 495, width = 748, height = 490, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 15: TYPHLOSION MECHANIC0014
 		{x = 2249, y = 495, width = 748, height = 490, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 16: TYPHLOSION MECHANIC0015
+
 		{x = 2997, y = 495, width = 748, height = 490, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 17: TYPHLOSION MECHANIC0016
 		{x = 5, y = 985, width = 748, height = 490, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 18: TYPHLOSION MECHANIC0017
 		{x = 5, y = 985, width = 748, height = 490, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 19: TYPHLOSION MECHANIC0018
@@ -53,8 +54,9 @@ return graphics.newSprite(
 		{x = 753, y = 1475, width = 748, height = 490, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0} -- 30: TYPHLOSION MECHANIC0029
 	},
 	{
-		["anim"] = {start = 1, stop = 30, speed = 24, offsetX = 0, offsetY = 0},
+		["idle"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},
+		["fire"] = {start = 16, stop = 30, speed = 24, offsetX = 0, offsetY = 0},
 	},
-	"anim",
+	"idle",
 	false
 )
