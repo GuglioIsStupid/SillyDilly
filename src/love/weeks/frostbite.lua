@@ -27,6 +27,9 @@ return {
 		typlosionDeath = love.audio.newSource("sounds/frostbite/TyphlosionDeath.ogg", "static")
 
 
+		local debug = true
+
+
 		stages["frostbite"]:enter()
 
 		song = songNum
@@ -70,7 +73,12 @@ return {
 					Timer.tween(1.5, typhlosion, {y = typhlosion.y + 500}, "in-out-quad")  -- why tf is this an in out quad its really like that in the real game
 					typlosionDeath:play()
 				end
-			coldness = coldness - (0.35 * (typhlosionUses * 0.075)) + 0.20
+				--coldness = coldness - (0.35 * (typhlosionUses * 0.075)) + 0.20          idk how this is supposed to work so im just gonna kinda make something similar, if you can figure out how the real game works you can change this to be more accurate
+				if coldness < 140 then
+					coldness = 0 
+				else
+					coldness = coldness - 140
+				end
 				print("typhlosion uses: " .. typhlosionUses)
 				if coldnessTween then
 					Timer.cancel(coldnessTween)
@@ -79,7 +87,7 @@ return {
 					doingColdnessTween = false
 				end
 				doingColdnessTween = true
-				coldnessTween = Timer.tween(0.5, coldnessDisplay, {coldness}, "out-quad", function()
+				coldnessTween = Timer.tween(1, coldnessDisplay, {coldness}, "out-quad", function()
 					doingColdnessTween = false
 				end)
 				print("ACTUAL COLDNESS: " .. coldness)
@@ -132,15 +140,17 @@ return {
 		weeks:update(dt)
 		stages["frostbite"]:update(dt)
 
+		health = health - (coldness/850) * dt
+
 		if coldness < 323 then
 
-			coldness = coldness + 6 * dt
+			coldness = coldness + 3 * dt
 		end
 
 		if not doingColdnessTween then
 			coldnessDisplay[1] = coldness
 		end
-		if doingColdnessTween then
+		-- if doingColdnessTween then
 			print(coldnessDisplay[1])
 		end
 
@@ -154,9 +164,14 @@ return {
 			end
 		end
 
-		if input:pressed("space") then
+		if input:pressed("space") and not settings.botplay() then
 			useTyphlosion()
 		end
+
+		if settings.botPlay and coldness > 125 and health < 1.3 then
+			useTyphlosion()
+		end
+
 
 		weeks:checkSongOver()
 
@@ -180,6 +195,8 @@ return {
 		love.graphics.setColor(1,1,1,1)
 
 		stageImages["thermometer"]:draw()
+			
+
 
 		stageImages["thermometer typhlosion"]:draw()
 	end,
