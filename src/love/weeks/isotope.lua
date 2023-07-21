@@ -167,8 +167,8 @@ return {
 		inst = love.audio.newSource("songs/isotope/Inst.ogg", "stream")
 		voices = love.audio.newSource("songs/isotope/Voices.ogg", "stream")
 
---		voices:seek(140)
-  --      inst:seek(140)
+		voices:seek(140)
+        inst:seek(140)
 
 		self:initUI()
 
