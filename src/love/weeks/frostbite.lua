@@ -50,7 +50,7 @@ return {
 
 
 		
-
+		
 		function useTyphlosion()
 			if typhlosionUses > 0 then
 				if typlosionSound:isPlaying() then
@@ -93,6 +93,8 @@ return {
 				print("ACTUAL COLDNESS: " .. coldness)
 			end
 		end
+
+		
 
 
 		function coldnessReadout()
@@ -150,7 +152,7 @@ return {
 		if not doingColdnessTween then
 			coldnessDisplay[1] = coldness
 		end
-		-- if doingColdnessTween then
+		if doingColdnessTween then
 			print(coldnessDisplay[1])
 		end
 
@@ -164,7 +166,7 @@ return {
 			end
 		end
 
-		if input:pressed("space") and not settings.botplay() then
+		if input:pressed("space") and not settings.botplay then
 			useTyphlosion()
 		end
 
