@@ -363,6 +363,7 @@ function love.load()
 		["dt"] = require "stages.dt",
 		["frostbite"] = require "stages.frostbite",
 		["shinto"] = require "stages.shinto",
+		["isotope"] = require "stages.isotope",
 	}
 
 	-- Load Menus
@@ -381,6 +382,7 @@ function love.load()
 	weeks = require "states.weekss" -- default
 	hypnoWeek = require "states.weeks.hypno"
 	dtWeek = require "states.weeks.dt"
+	weeksFrostbite = require "states.weeks.weeksFrostbite"
 
 	-- Load substates
 	gameOver = require "substates.game-over"
@@ -392,6 +394,7 @@ function love.load()
 		require "weeks.dt",
 		require "weeks.frostbite",
 		require "weeks.shinto",
+		require "weeks.isotope",
 	}
 	testData = require "weeks.test"
 
@@ -446,11 +449,9 @@ function love.load()
 			}
 		},
 		{
-			"Week 4",
+			"Isotope",
 			{
-				"Satin Panties",
-				"High",
-				"M.I.L.F"
+				"Isotope"
 			}
 		},
 		{

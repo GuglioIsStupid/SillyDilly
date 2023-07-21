@@ -21,7 +21,7 @@ local stageBack, stageFront, curtains
 
 return {
 	enter = function(self, from, songNum, songAppend)
-		weeks:enter()
+		weeksFrostbite:enter()
 
 		typlosionSound = love.audio.newSource("sounds/frostbite/TyphlosionUse.ogg", "static")
 		typlosionDeath = love.audio.newSource("sounds/frostbite/TyphlosionDeath.ogg", "static")
@@ -31,6 +31,7 @@ return {
 
 
 		stages["frostbite"]:enter()
+		setThermometerPosition()      -- what is this 💀  like genuinely what is this function what was i doing lmao
 
 		song = songNum
 		difficulty = songAppend
@@ -109,7 +110,7 @@ return {
 	end,
 
 	load = function(self)
-		weeks:load()
+		weeksFrostbite:load()
 		inst = love.audio.newSource("songs/frostbite/Inst.ogg", "stream")
 		voices = love.audio.newSource("songs/frostbite/Voices.ogg", "stream")
 		stages["frostbite"]:load()
@@ -127,17 +128,17 @@ return {
 	end,
 
 	initUI = function(self)
-		weeks:initUI()
+		weeksFrostbite:initUI()
 		for i = 1,4 do
 			enemyArrows[i].x = 100 + 165 * i
 			boyfriendArrows[i].x = -925 + 165 * i
 		end
-		weeks:generateNotes("songs/frostbite/frostbite-hard.json")
+		weeksFrostbite:generateNotes("songs/frostbite/frostbite-hard.json")
 
 	end,
 
 	update = function(self, dt)
-		weeks:update(dt)
+		weeksFrostbite:update(dt)
 		stages["frostbite"]:update(dt)
 
 		health = health - (coldness/850) * dt
@@ -150,7 +151,7 @@ return {
 		if not doingColdnessTween then
 			coldnessDisplay[1] = coldness
 		end
-		-- if doingColdnessTween then
+		if doingColdnessTween then
 			print(coldnessDisplay[1])
 		end
 
@@ -164,7 +165,7 @@ return {
 			end
 		end
 
-		if input:pressed("space") and not settings.botplay() then
+		if input:pressed("space") and not settings.botplay then
 			useTyphlosion()
 		end
 
@@ -173,9 +174,9 @@ return {
 		end
 
 
-		weeks:checkSongOver()
+		weeksFrostbite:checkSongOver()
 
-		weeks:updateUI(dt)
+		weeksFrostbite:updateUI(dt)
 	end,
 
 	draw = function(self)
@@ -186,19 +187,9 @@ return {
 			stages["frostbite"]:draw()
 		love.graphics.pop()
 
-		weeks:drawUI()
+		weeksFrostbite:drawUI()
 		love.graphics.scale(uiScale.zoom, uiScale.zoom)
 
-
-		love.graphics.setColor(0,0,0)
-		love.graphics.rectangle("fill", stageImages["thermometer"].x-7, stageImages["thermometer"].y + 138, 13, -coldnessDisplay[1])      -- completely full is -322
-		love.graphics.setColor(1,1,1,1)
-
-		stageImages["thermometer"]:draw()
-			
-
-
-		stageImages["thermometer typhlosion"]:draw()
 	end,
 
 	leave = function(self)
@@ -210,7 +201,7 @@ return {
 
 		graphics.clearCache()
 
-		weeks:leave()
+		weeksFrostbite:leave()
 	end
 }
 
