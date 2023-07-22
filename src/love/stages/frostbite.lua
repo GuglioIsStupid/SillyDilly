@@ -46,6 +46,10 @@ return {
         stageImages["fog"].sizeX, stageImages["fog"].sizeY = 1.8, 1.8
         stageImages["background"].x, stageImages["background"].y = 0, -319
 
+        stageImages["thermometer"].x, stageImages["thermometer"].y = 35, 350
+        stageImages["thermometer typhlosion"].x, stageImages["thermometer typhlosion"].y = stageImages["thermometer"].x, stageImages["thermometer"].y -218
+    
+
 
 
 

@@ -70,13 +70,7 @@ return {
 		beatHandler.reset()
 		option = option or "normal"
 
-		function setThermometerPosition()  -- ok i know this is a goofy ass(and very shitty way) of doing this but im kinda goofy rn so i cant really think that well
-											-- but if it works im not changing it
-			stageImages["thermometer"].x, stageImages["thermometer"].y = 35, 350
-			stageImages["thermometer typhlosion"].x, stageImages["thermometer typhlosion"].y = stageImages["thermometer"].x, stageImages["thermometer"].y -218
-								
-			
-		end
+		
 
 		arrowAngles = {math.rad(180), math.rad(90), math.rad(270), math.rad(0)}
 		if settings.downscroll then
@@ -1719,15 +1713,7 @@ return {
 				graphics.setColor(1, 1, 1)
 			end
 
-			love.graphics.setColor(0,0,0)
-			love.graphics.rectangle("fill", stageImages["thermometer"].x-7, stageImages["thermometer"].y + 138, 13, -coldnessDisplay[1])      -- completely full is -322
-			love.graphics.setColor(1,1,1,1)
-	
-			stageImages["thermometer"]:draw()
-				
-	
-	
-			stageImages["thermometer typhlosion"]:draw()
+
 		love.graphics.pop()
 	end,
 

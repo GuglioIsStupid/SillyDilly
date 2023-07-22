@@ -157,6 +157,8 @@ return {
 
 		enemyIcon:animate("daddy dearest", false)
 
+
+
 		self:load()
 	end,
 
@@ -168,9 +170,10 @@ return {
 		voices = love.audio.newSource("songs/isotope/Voices.ogg", "stream")
 
 		voices:seek(140)
-        inst:seek(140)
+       inst:seek(140)
 
 		self:initUI()
+
 
 		weeks:setupCountdown()
 	end,
@@ -178,8 +181,12 @@ return {
 	initUI = function(self)
 		weeks:initUI()
 
+		for i = 1,4 do
+			enemyArrows[i].x = 2000 -- just put them off screen instead of editing weeks.lua
+			boyfriendArrows[i].x = -925 + 165 * i
+		end
+
 		weeks:generateNotes("songs/isotope/isotope-hard.json")
-		--Lyrics.parseLyrics("songs/hypno/safety-lullaby/lyrics.json")
 
 		Lyrics.parseLyrics("songs/isotope/lyrics.json")
 	end,
@@ -213,7 +220,10 @@ return {
 			stages["isotope"]:draw()
 		love.graphics.pop()
 
-		weeks:drawUI()
+		if not doingScene then      --THIS IS TEMPORARY UNTIL HUD FADE IS ADDED
+
+			weeks:drawUI()
+		end
 
 		for i = 1, #Lyrics.drawLyrics do
 			Lyrics.drawLyrics[i]:draw()

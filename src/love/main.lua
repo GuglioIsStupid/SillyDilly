@@ -586,7 +586,9 @@ function love.keypressed(key)
 		if fixVol <= 0.9 then
 			love.audio.setVolume(love.audio.getVolume() + 0.1)
 		end
-    else
+    elseif key == "c" and love.keyboard.isDown("lalt") then
+		consoleTable = {}
+	else
 		Gamestate.keypressed(key)
 	end
 end

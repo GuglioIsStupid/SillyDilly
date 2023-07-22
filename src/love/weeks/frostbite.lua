@@ -31,7 +31,6 @@ return {
 
 
 		stages["frostbite"]:enter()
-		setThermometerPosition()      -- what is this 💀  like genuinely what is this function what was i doing lmao
 
 		song = songNum
 		difficulty = songAppend
@@ -191,6 +190,15 @@ return {
 
 		weeksFrostbite:drawUI()
 		love.graphics.scale(uiScale.zoom, uiScale.zoom)
+		love.graphics.setColor(0,0,0)
+		love.graphics.rectangle("fill", stageImages["thermometer"].x-7, stageImages["thermometer"].y + 138, 13, -coldnessDisplay[1])      -- completely full is -322
+		love.graphics.setColor(1,1,1,1)
+
+		stageImages["thermometer"]:draw()
+			
+
+
+		stageImages["thermometer typhlosion"]:draw()
 
 	end,
 

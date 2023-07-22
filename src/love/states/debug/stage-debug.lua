@@ -298,7 +298,7 @@ return {
                     end
                     graphics.setColor(1, 1, 1)
                         
-                    love.graphics.print("\n\n\n\n\n\nCamX: " .. camera.x .. "\nCamY: " .. camera.y ..
+                    love.graphics.print("\n\n\n\n\n\nCamX: " .. camera.x .. "\nCamY: " .. camera.y .. "\nCamSize: " .. camera.zoom ..
 					"\n\nPress Esc to exit at any time", 0, (#menus[menuID] + 1) * 20)
                 end
 			else
