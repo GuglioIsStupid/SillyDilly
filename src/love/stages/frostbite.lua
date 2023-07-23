@@ -56,6 +56,8 @@ return {
         typhlosion:animate("idle", true)
 
 
+
+
         stageImages["pikachu"]:animate("idle", true)
         stageImages["thermometer typhlosion"]:animate("stage1", true)
 
@@ -78,13 +80,14 @@ return {
 
 
 
+        camera.camBopIntensity = 1
+        camera.camBopInterval = 4
 
 
 
 
-
-        --voices:seek(85)
-        --inst:seek(85)
+        voices:seek(85)
+        inst:seek(85)
     end,
 
     update = function(self, dt)
@@ -158,6 +161,8 @@ return {
 
             print("scroll speed change")
             print("scroll speed: " .. speed)
+            camera.camBopIntensity = 3
+            camera.camBopInterval = 1
         end
 
     --]]
@@ -179,7 +184,7 @@ return {
                 enemy:draw()
             else
                 if not stageImages["pikachu entrance"]:isAnimated() then
-                    deadRed:draw()
+                   deadRed:draw()
                 end
             end
 
