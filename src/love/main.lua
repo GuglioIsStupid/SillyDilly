@@ -364,6 +364,7 @@ function love.load()
 		["frostbite"] = require "stages.frostbite",
 		["shinto"] = require "stages.shinto",
 		["isotope"] = require "stages.isotope",
+		["insomnia"] = require "stages.insomnia",
 	}
 
 	-- Load Menus
@@ -395,6 +396,7 @@ function love.load()
 		require "weeks.frostbite",
 		require "weeks.shinto",
 		require "weeks.isotope",
+		require "weeks.insomnia",
 	}
 	testData = require "weeks.test"
 
@@ -455,11 +457,9 @@ function love.load()
 			}
 		},
 		{
-			"Week 5",
+			"Insomnia",
 			{
-				"Cocoa",
-				"Eggnog",
-				"Winter Horrorland"
+				"Insomnia"
 			}
 		},
 		{

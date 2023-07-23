@@ -170,7 +170,7 @@ return {
 		voices = love.audio.newSource("songs/isotope/Voices.ogg", "stream")
 
 		--voices:seek(140)
-       --inst:seek(140)
+        --inst:seek(140)
 
 		self:initUI()
 
@@ -220,7 +220,7 @@ return {
 			stages["isotope"]:draw()
 		love.graphics.pop()
 
-		if not doingScene then      --THIS IS TEMPORARY UNTIL HUD FADE IS ADDED
+		if not sceneHUDHide then      --THIS IS TEMPORARY UNTIL HUD FADE IS ADDED
 
 			weeks:drawUI()
 		end

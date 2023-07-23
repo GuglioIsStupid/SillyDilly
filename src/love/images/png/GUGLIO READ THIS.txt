@@ -1,3 +1,10 @@
 we need to add a characters folder
 
 all the characters are already in their own folders but we should put those into a folder called characters so that stage assets can be kept seperate in a folder called stages
+
+
+
+
+
+
+actually i too lazy to move assets so we dont need this anymore

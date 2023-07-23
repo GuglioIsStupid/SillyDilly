@@ -12,23 +12,30 @@ return {
 
 
         enemy = love.filesystem.load("sprites/red/Glitchy_Red_Assets_elpepe.lua")()
-        enemy.sizeX, enemy.sizeY = 1.15, 1.15
+        enemy.sizeX, enemy.sizeY = 1.25, 1.25
 
         red_but_he_mad = love.filesystem.load("sprites/red/Glitchy_Red_Assets_angrybitch.lua")()
-        red_but_he_mad.sizeX, red_but_he_mad.sizeY = 1.15, 1.15
+        red_but_he_mad.sizeX, red_but_he_mad.sizeY = 1.25, 1.25
 
 
 
         girlfriend = love.filesystem.load("sprites/isotope/FUCKKKKK.lua")()
 
+        boyfriend = love.filesystem.load("sprites/a folder of boyfriends im cumming holy shit/Boyfriend_Isotope.lua")()
 
-        enemy.x, enemy.y = 687, 120
+
+        enemy.x, enemy.y = 712, 174
         red_but_he_mad.x, red_but_he_mad.y = enemy.x, enemy.y
-        girlfriend.x, girlfriend.y = 173, 375
+        girlfriend.x, girlfriend.y = 208, 414
+        girlfriend.sizeX, girlfriend.sizeY = 1.4, 1.4
+        boyfriend.x, boyfriend.y = -670, 587
+        boyfriend.sizeX, boyfriend.sizeY = 1.3, 1.3
 
         camera.defaultZoom = 0.5
 
         camera:addPoint("cutscene", -700, -25, 0.9)
+        camera:addPoint("boyfriend", 70, -76, 0.5)
+        camera:addPoint("enemy", -615, -54, 0.6)
 
 
 
@@ -39,12 +46,30 @@ return {
         isotopeFades = {0,0,1,1}
         doneFirstFlash = false
         doneSecondFlash = false
+        camera.camBopIntensity = 1
+
 
 
 
     end,
 
     update = function(self, dt)
+
+        
+
+        if mustHitSection and not doingScene then
+            if camZoomTween then
+                Timer.cancel(camZoomTween)
+            end
+
+            camZoomTween = Timer.tween(1.25, camera, {defaultZoom = 0.5, zoom = 0.5}, "out-quad")
+        elseif not doingScene then
+            if camZoomTween then
+                Timer.cancel(camZoomTween)
+            end
+            camZoomTween = Timer.tween(1.25, camera, {defaultZoom = 0.6, zoom = 0.6}, "out-quad")
+        end
+
         stageImages["talking"]:update(dt)
         red_but_he_mad:update(dt)
 
@@ -66,6 +91,7 @@ return {
 
         if musicTime >= 149371 and musicTime < 149371+50 and not doneFirstFlash then
             print("start cutscene")
+            sceneHUDHide = true
             camera.camBopIntensity = 0
             doingScene = true
             camera.defaultZoom = 0.9
@@ -91,11 +117,14 @@ return {
             camera.zoom = 0.5
             Timer.after(0.45, function()
                 isotopeFades[1] = 0
+                sceneHUDHide = false
             end)
         end
 
         if doingScene then       -- yes i know its dumb but the camera refused to stay in place for the cutscene so i did this
             camera:moveToPoint(0, "cutscene")
+            camera.defaultZoom = 0.9
+            camera.zoom = 0.9
         end
 
     end,
@@ -124,7 +153,7 @@ return {
             else
                 red_but_he_mad:draw()
             end
-            --boyfriend:draw()
+            boyfriend:draw()
             girlfriend:draw()
             love.graphics.setColor(1,1,1,1)
         love.graphics.pop()
