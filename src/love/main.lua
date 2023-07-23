@@ -365,6 +365,7 @@ function love.load()
 		["shinto"] = require "stages.shinto",
 		["isotope"] = require "stages.isotope",
 		["insomnia"] = require "stages.insomnia",
+		["dissension"] = require "stages.dissension",
 	}
 
 	-- Load Menus
@@ -397,6 +398,7 @@ function love.load()
 		require "weeks.shinto",
 		require "weeks.isotope",
 		require "weeks.insomnia",
+		require "weeks.dissension",
 	}
 	testData = require "weeks.test"
 
@@ -463,12 +465,10 @@ function love.load()
 			}
 		},
 		{
-			"Week 6",
+			"Dissension",
 			{
-				"Senpai",
-				"Roses",
-				"Thorns"
-			},
+				"Dissension"
+			}
 		},
 		{
 			"Week 7",
