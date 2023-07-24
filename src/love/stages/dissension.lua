@@ -21,7 +21,7 @@ return {
 
     end,
 
-    update = function(self, dt)
+    update = function(self, dt) 
         stageImages["intro enemy"]:update(dt)
         stageImages["room enemy"]:update(dt)
         stageImages["arm enemy"]:update(dt)

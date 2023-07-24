@@ -43,6 +43,10 @@ return {
         if not enemy:isAnimated() then
             enemy:animate("idle", false)  -- to make him always animate
         end
+
+        if ((math.floor(ratingPercent * 10000) / 100) < 90) then
+            print((math.floor(ratingPercent * 10000) / 100))
+        end
     end,
 
     draw = function()
