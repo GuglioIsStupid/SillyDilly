@@ -1,3 +1,6 @@
+local falseIntensity = 0
+local intensity = 0
+local oldStep = 0
 return {
     enter = function()
         stageImages = {
@@ -17,8 +20,6 @@ return {
         red_but_he_mad = love.filesystem.load("sprites/red/Glitchy_Red_Assets_angrybitch.lua")()
         red_but_he_mad.sizeX, red_but_he_mad.sizeY = 1.25, 1.25
 
-
-
         girlfriend = love.filesystem.load("sprites/isotope/FUCKKKKK.lua")()
 
         boyfriend = love.filesystem.load("sprites/a folder of boyfriends im cumming holy shit/Boyfriend_Isotope.lua")()
@@ -36,9 +37,6 @@ return {
         camera:addPoint("cutscene", -700, -25, 0.9)
         camera:addPoint("boyfriend", 70, -76, 0.5)
         camera:addPoint("enemy", -615, -54, 0.6)
-
-
-
     end,
 
     load = function()
@@ -47,15 +45,17 @@ return {
         doneFirstFlash = false
         doneSecondFlash = false
         camera.camBopIntensity = 1
-
-
-
-
     end,
 
     update = function(self, dt)
-
-        
+        local newStep = math.floor(musicTime / (beatHandler.stepCrochet * 16))
+        falseIntensity = util.lerp(falseIntensity, 0, dt * 2)
+        redAberration:send("intensity", falseIntensity)
+        if oldStep ~= newStep and newStep > oldStep then
+            falseIntensity = intensity
+            redAberration:send("intensity", falseIntensity)
+            oldStep = newStep
+        end 
 
         if mustHitSection and not doingScene then
             if camZoomTween then
@@ -121,6 +121,17 @@ return {
             end)
         end
 
+        if musicTime >= 88164.8936170212 and musicTime < 88224.8936170212 then
+            intensity = 5
+            redAberration:send("intensity", intensity)
+        end
+
+        if musicTime >= 88164.8936170212 then
+            glitchVignette:send("prob", 0.75)
+		    glitchVignette:send("time", musicTime / (beatHandler.stepCrochet * 16))
+        end
+
+
         if doingScene then       -- yes i know its dumb but the camera refused to stay in place for the cutscene so i did this
             camera:moveToPoint(0, "cutscene")
             camera.defaultZoom = 0.9
@@ -148,11 +159,13 @@ return {
             love.graphics.translate((camera.ex)/2 * 1.1, (camera.ey)/2 * 1.1)
             love.graphics.setColor(1,1,1,isotopeFades[4])
 
+            love.graphics.setShader(redAberration)
             if musicTime < 88085 then
                 enemy:draw()
             else
                 red_but_he_mad:draw()
             end
+            love.graphics.setShader()
             boyfriend:draw()
             girlfriend:draw()
             love.graphics.setColor(1,1,1,1)
