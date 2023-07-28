@@ -312,6 +312,7 @@ return {
 
 	initUI = function(self, option)
 		events = {}
+		bpmChangeEvents = {}
 		enemyNotes = {}
 		boyfriendNotes = {}
 		gfNotes = {}
@@ -467,7 +468,25 @@ return {
 			speed = settings.customScrollSpeed
 		end
 
+		local curBPM = bpm
+		local totalSteps = 0
+		local totalPos = 0
+
 		for i = 1, #chart["notes"] do
+
+			if chart.notes[i].changeBPM and chart.notes[i].bpm ~= curBPM then
+				curBPM = chart.notes[i].bpm
+				local event = {
+					stepTime = totalSteps,
+					songTime = totalPos,
+					bpm = curBPM
+				}
+				table.insert(bpmChangeEvents, event)
+			end
+
+			local deltaSteps = chart.notes[i].lengthInSteps or 16
+			totalSteps = totalSteps + deltaSteps
+			totalPos = totalPos + ((60/curBPM) * 1000 / 4) * deltaSteps
 			for j = 1, #chart["notes"][i]["sectionNotes"] do
 				local sprite
 				local sectionNotes = chart["notes"][i]["sectionNotes"]
@@ -1020,6 +1039,16 @@ return {
 		end
 		absMusicTime = math.abs(musicTime)
 		musicThres = math.floor(absMusicTime / 100) -- Since "musicTime" isn't precise, this is needed
+
+		for i = 1, #bpmChangeEvents do
+			local event = bpmChangeEvents[i]
+
+			if musicTime >= event.songTime then
+				bpm = event.bpm
+				beatHandler.setBPM(bpm)
+				bpmChangeEvents[i] = nil
+			end
+		end
 
 		for i = 1, #events do
 			if events[i].eventTime <= absMusicTime then
