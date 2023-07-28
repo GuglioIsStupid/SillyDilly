@@ -44,9 +44,28 @@ return {
             enemy:animate("idle", false)  -- to make him always animate
         end
 
-        if ((math.floor(ratingPercent * 10000) / 100) < 90) then
+        if ((math.floor(ratingPercent * 10000) / 100) < 90) and not ((math.floor(ratingPercent * 10000) / 100) < 90) == 0 then
             print((math.floor(ratingPercent * 10000) / 100))
+            if feralisleepZooming then
+                Timer.cancel(feralisleepZooming)
+            end
+            feralisleepZooming = Timer.tween(10, camera, {zoom = 1.2, defaultZoom = 1.2})
+            camera:moveToPoint(10, "feralisleep")
+        else
+            if feralisleepZooming then
+                Timer.cancel(feralisleepZooming)
+            end
+            camera:moveToPoint(1, "boyfriend")
+            feralisleepZooming = Timer.tween(1, camera, {zoom = 0.8, defaultZoom = 0.8})
+
         end
+
+        if camera.zoom > 1.15 then
+            Gamestate.push(gameOverFeralisleep)
+        end
+
+
+
     end,
 
     draw = function()

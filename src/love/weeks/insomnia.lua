@@ -30,15 +30,7 @@ return {
 
 		enemyIcon:animate("daddy dearest", false)
 
-		function accuracyPrintFunc()
-			if accuracy then
-				Timer.after(3, function()
-					print(accuracy)
-					accuracyPrintFunc()
-				end)
-			end
-		end
-		accuracyPrintFunc()
+
 		self:load()
 	end,
 

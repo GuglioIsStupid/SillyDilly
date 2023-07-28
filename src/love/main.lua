@@ -388,6 +388,7 @@ function love.load()
 
 	-- Load substates
 	gameOver = require "substates.game-over"
+	gameOverFeralisleep = require "substates.game-over-feralisleep"
 	settingsKeybinds = require "substates.settings-keybinds"
 
 	-- Load week data
