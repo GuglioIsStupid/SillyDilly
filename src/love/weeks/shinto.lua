@@ -38,9 +38,6 @@ return {
 		voices = love.audio.newSource("songs/shinto/Voices.ogg", "stream")
 		stages["shinto"]:load()
 
-
-		
-
 		self:initUI()
 
 		weeks:setupCountdown()

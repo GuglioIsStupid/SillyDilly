@@ -28,8 +28,6 @@ return {
         if debug then
             stageImages["pokeball"]:animate("anim", true)
         end
-
-
     end,
 
     load = function()
@@ -37,8 +35,8 @@ return {
         camera:addPoint("enemy", 0, 618, 0.7, 0.7)
         camera:moveToPoint(0, "boyfriend")
 
-        voices:seek(150)
-        inst:seek(150)
+        --voices:seek(150)
+        --inst:seek(150)
     end,
 
     update = function(self, dt)

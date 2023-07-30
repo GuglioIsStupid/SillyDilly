@@ -44,8 +44,8 @@ return {
             enemy:animate("idle", false)  -- to make him always animate
         end
 
-        if ((math.floor(ratingPercent * 10000) / 100) < 90) and not ((math.floor(ratingPercent * 10000) / 100) < 90) == 0 then
-            print((math.floor(ratingPercent * 10000) / 100))
+        local accuracy = math.floor(ratingPercent * 10000) / 100
+        if accuracy < 90 and score ~= 0 then
             if feralisleepZooming then
                 Timer.cancel(feralisleepZooming)
             end

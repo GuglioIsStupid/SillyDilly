@@ -74,7 +74,6 @@ return {
 			end
 		end
 
-
 		if accuracy then
 			if accuracy < 90 then
 				camera:moveToPoint(10, "feralisleep")
