@@ -9,15 +9,30 @@ return {
             ["intro enemy"] = love.filesystem.load("sprites/dissension/alt_steven_pov.lua")(),
             ["room enemy"] = love.filesystem.load("sprites/dissension/steven_phase_1.lua")(),
             ["arm enemy"] = love.filesystem.load("sprites/dissension/steven_phase_2.lua")(),
-            ["room player"] = love.filesystem.load("sprites/boyfriend.lua")(),
+            ["room player"] = love.filesystem.load("sprites/dissension/mike.lua")(),
         }
 
         enemy = love.filesystem.load("sprites/dissension/steve.lua")()
         boyfriend = love.filesystem.load("sprites/dissension/BRO_DEAD.lua")()
 
+
+        camera:addPoint("boyfriend", -82, 38, 40, 1.1)  
+        camera:addPoint("enemy", -82, 38, 40, 1.1)   --because im too lazy to just lock the camera
+
+
+        stageImages["intro enemy"].x, stageImages["intro enemy"].y = 39, 25
+        stageImages["intro enemy"].sizeX, stageImages["intro enemy"].sizeY = 1.6 ,1.6
+
+        
     end,
 
     load = function()
+        dissensionAlphaValues = {0,0}
+
+        camera.defaultZoom = 1.3
+        Timer.tween(3, camera, {defaultZoom = 1.1}, "out-quad")
+        camera:moveToPoint(0,"boyfriend")
+        Timer.tween(3, dissensionAlphaValues, {[1] = 0}, "linear")
 
     end,
 
@@ -49,6 +64,8 @@ return {
 		love.graphics.push()
 			love.graphics.translate(camera.x, camera.y)
             love.graphics.translate(camera.ex, camera.ey)
+
+            stageImages["back"]:draw()
 
             if introStage then
                 stageImages["intro enemy"]:draw()
