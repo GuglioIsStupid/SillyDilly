@@ -60,8 +60,9 @@ return {
 
         end
 
-        if camera.zoom > 1.15 then
-            Gamestate.push(gameOverFeralisleep)
+        if camera.zoom > 1.1 then
+            Gamestate.push(gameOverFeralisleep)  -- had to do this cuz i couldnt get a timer to work (pls guglio make a timer work this is a terrible way of doing it)
+                            -- actually after just chaning it to 1.1 it feels exactly like the real game so its fine but still if you wanna make a timer that would be nice but this is fine as it is
         end
 
 

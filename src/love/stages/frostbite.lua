@@ -86,8 +86,8 @@ return {
 
 
 
-        voices:seek(85)
-        inst:seek(85)
+      --  voices:seek(85)
+       -- inst:seek(85)
     end,
 
     update = function(self, dt)
@@ -227,6 +227,7 @@ return {
         for i, v in pairs(stageImages) do
             v = nil
 		end
+        camera:reset()
 
         graphics.clearCache()
     end
