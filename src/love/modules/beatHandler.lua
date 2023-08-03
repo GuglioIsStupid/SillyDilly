@@ -37,6 +37,9 @@ beatHandler.lastBeat = 0
 beatHandler.curBeat = 0
 beatHandler.isBeatHit = false
 
+beatHandler.lastStep = 0
+beatHandler.isStepHit = false
+
 function beatHandler.setBPM(bpm)
     bpm = bpm or 100
     beatHandler.bpm = bpm
@@ -81,6 +84,13 @@ function beatHandler.update(dt)
             beatHandler.lastBeat = beatHandler.curBeat
         end
     end
+
+    if beatHandler.curStep > beatHandler.lastStep then
+        beatHandler.isStepHit = true
+        beatHandler.lastStep = beatHandler.curStep
+    else
+        beatHandler.isStepHit = false
+    end
 end
 
 function beatHandler.reset()
@@ -100,7 +110,7 @@ function beatHandler.setBeat(beat)
 end
 
 function beatHandler.onStep()
-    return beatHandler.beatTime % beatHandler.stepCrochet == 0
+    return beatHandler.isStepHit
 end
 
 function beatHandler.onBeatNumber(beatNumber)

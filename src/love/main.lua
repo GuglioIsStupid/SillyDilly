@@ -19,11 +19,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 __VERSION__ = love.filesystem.read("version.txt")
 --if love.filesystem.isFused() then function print() end end -- print functions tend the make the game lag when in update functions, so we do this to prevent that
 consoleTable = {}
-function print(text)
+local oprint = print
+function print(text) -- Fuck you ch, here I am, trying to figure out why it's not printing, and its because of this.
 table.insert(consoleTable, 1, text.."\n")
 if #consoleTable > 70 then
 	table.remove(consoleTable,#consoleTable)
 end
+oprint(text)
 end
 function dump(o)
    if type(o) == 'table' then
@@ -239,6 +241,7 @@ function love.load()
 	settings = require "settings"
 	NoteSplash = require "modules.Splash"
 	require "modules.savedata"
+	require "modules.lyrics"
 	loadSavedata()
 	
 	-- XML Modules
@@ -388,6 +391,7 @@ function love.load()
 
 	-- Load substates
 	gameOver = require "substates.game-over"
+	gameOverFeralisleep = require "substates.game-over-feralisleep"
 	settingsKeybinds = require "substates.settings-keybinds"
 
 	-- Load week data
@@ -544,6 +548,7 @@ end
 
 function love.resize(width, height)
 	push.resize(width, height)
+	if Gamestate.resize then Gamestate.resize(width, height) end
 end
 
 function love.keypressed(key)

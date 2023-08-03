@@ -125,7 +125,6 @@ Lyrics = {
 		Lyrics.currentFocusedLyric = nil
 	end,
 }
-
 return {
 	enter = function(self, from, songNum, songAppend)
 		hypnoWeek:enter()
