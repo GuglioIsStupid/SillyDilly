@@ -49,7 +49,16 @@ return {
 		idfkWhatToCallThisOneStage = false
 		changedScrollSpeed = false
 		drawStrangle = false
+		doneDeath = false
 		dissensionAlphaValues = {0,0}
+		switchToTheGoofyStageIdk = false
+		function startShake(duration, magnitude)
+            t, shakeDuration, shakeMagnitude = 0, duration or 1, magnitude or 5
+        end
+
+        screenshakex = 0
+		shakeMagnitude = 0
+        screenshakey = 0
 
 	end,
 
@@ -83,20 +92,39 @@ return {
 			sceneHUDHide = false
 		end
 
-		if musicTime >= 50000 and musicTime < 50000+50 then
+		if musicTime >= 50000 and musicTime < 50000+50 and not switchToTheGoofyStageIdk then
 			introStage = false
 			bedroomStage = false
 			idfkWhatToCallThisOneStage = true
 			changedScrollSpeed = true
-            if customScrollSpeed == 1 then
+			switchToTheGoofyStageIdk = true
+			camera.camBopIntensity = 2.5
+			camera.camBopInterval = 1
+			
+			
+			whatAreYouDoingYouHaveToGoIHitYouOhMyGoshThatShouldBeTheNameWhyDoYouLaughLikeThatIThoughKatherineWasInTheBackNobodyKnowsHowToPlayThatGameYesTheyDoItsNotHardTheresTheHomelessVillageTheresALotOfHomelessPeopleInThsoeTrees()  --named it this cuz i thought it was funny now i dont remember what this does 💀
+            print("scroll speed before change: " .. speed)
+			
+			--[[if customScrollSpeed == 1 then
                 speed = 4.9
+				print("custom scroll off")
             else
                 if not changedScrollSpeed then
                     changedScrollSpeed = true
                     speed = speed + 2
+					print("custom scroll on")
+
+                end
+            end--]]
+
+			if customScrollSpeed == 1 then
+                speed = 3
+            else
+                if not changedScrollSpeed then
+                    changedScrollSpeed = true
+                    speed = speed + 1.2
                 end
             end
-            print("scroll speed change")
             print("scroll speed: " .. speed)
 		end
 
@@ -119,24 +147,45 @@ return {
 			redOverlayTimer = Timer.tween(0.6, dissensionAlphaValues, {[2] = 0}, "linear")
 		end
 
+
+		if musicTime >= 65875 and musicTime < 65875+50 then
+			camera.camBopIntensity = 1
+			camera.camBopInterval = 4
+		end
+
+
+		if musicTime >= 180000 and musicTime < 180000+50 and not doneDeath then
+			doneDeath = true
+			Timer.tween(1, player, { y = -756}, "in-quad")
+			camera.zoom = camera.zoom + 0.015 * camera.camBopIntensity
+			uiScale.zoom = uiScale.zoom + 0.03 * camera.camBopIntensity
+
+		end
+
 		weeks:checkSongOver()
 
 		weeks:updateUI(dt)
 	end,
 
 	draw = function(self)
-		love.graphics.push()
-			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
-			love.graphics.scale(camera.zoom, camera.zoom)
+		if musicTime < 183625 then
+			love.graphics.push()
+			if not paused then
+				screenshakex = love.math.random(-shakeMagnitude, shakeMagnitude)
+				screenshakey = love.math.random(-shakeMagnitude, shakeMagnitude)
+				love.graphics.translate(screenshakex, screenshakey)
+			end
+				love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
+				love.graphics.scale(camera.zoom, camera.zoom)
 
-			stages["dissension"]:draw()
-			love.graphics.setColor(0,0,0,dissensionAlphaValues[1])
+				stages["dissension"]:draw()
+				love.graphics.setColor(0,0,0,dissensionAlphaValues[1])
 
-			love.graphics.rectangle("fill",-1000, -1000, 100000, 10000)
-		love.graphics.pop()
-
-		if not sceneHUDHide then
-			weeks:drawUI()
+				love.graphics.rectangle("fill",-1000, -1000, 100000, 10000)
+			love.graphics.pop()
+			if not sceneHUDHide then
+				weeks:drawUI()
+			end
 		end
 	end,
 

@@ -17,22 +17,53 @@ return {
 
 
         camera:addPoint("boyfriend", -82, 38, 40, 1.1)  
-        camera:addPoint("enemy", -82, 38, 40, 1.1)   --because im too lazy to just lock the camera
+        camera:addPoint("enemy", -82, 38, 40, 1.1)   --because im too lazy to just lock the camera          actually it turns out this song does have a moving camera so locking it for the whole song wouldnt work anyway
 
 
         stageImages["intro enemy"].x, stageImages["intro enemy"].y = 39, 25
         stageImages["intro enemy"].sizeX, stageImages["intro enemy"].sizeY = 1.6 ,1.6
 
+
+        stageImages["room enemy"].x, stageImages["room enemy"].y = -215, -3
+        stageImages["room player"].x, stageImages["room player"].y = -274, 146
+
+        stageImages["room enemy"].sizeX, stageImages["room enemy"].sizeY = 1.3, 1.3
+        stageImages["room player"].sizeX, stageImages["room player"].sizeY = 0.8, 0.8
+
+        stageImages["arm enemy"].x, stageImages["arm enemy"].y = 74, 120
+
+
+        function whatAreYouDoingYouHaveToGoIHitYouOhMyGoshThatShouldBeTheNameWhyDoYouLaughLikeThatIThoughKatherineWasInTheBackNobodyKnowsHowToPlayThatGameYesTheyDoItsNotHardTheresTheHomelessVillageTheresALotOfHomelessPeopleInThsoeTrees()
+            enemy.y = 673
+            boyfriend.y = -756
+            enemy.x = -197
+            boyfriend.x = 358
+            enemy.sizeX, enemy.sizeY = 0.8, 0.8
+            boyfriend.sizeX, boyfriend.sizeY = 0.8, 0.8
+            Timer.tween(4, enemy, {y = 142}, "out-quad")
+            Timer.tween(4, boyfriend, {y = -221}, "out-quad")
+
+        end
+
+
+
+        function L_Bozo_imagine_dying_what_a_loser() --180000
+            Timer.tween(1, boyfriend, {y = -756}, "out-quad")
+
+        end
+
         
     end,
 
     load = function()
+        camera:reset()
         dissensionAlphaValues = {0,0}
 
         camera.defaultZoom = 1.3
         Timer.tween(3, camera, {defaultZoom = 1.1}, "out-quad")
         camera:moveToPoint(0,"boyfriend")
         Timer.tween(3, dissensionAlphaValues, {[1] = 0}, "linear")
+
 
     end,
 
@@ -73,6 +104,7 @@ return {
                 stageImages["back"]:draw()
                 stageImages["room enemy"]:draw()
                 stageImages["bed"]:draw()
+                stageImages["pillow"]:draw()
                 stageImages["portrait"]:draw()
                 stageImages["room player"]:draw()
             elseif idfkWhatToCallThisOneStage then

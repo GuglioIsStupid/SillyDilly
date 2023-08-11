@@ -43,7 +43,7 @@ function camera:reset()
     camera.ex = 0
     camera.ey = 0
     camera.esizeX = 1
-    camera.esizeY = 1
+    camera.esizeY = 1  -- shouldn't camera intensity and bop interval be here?
 end
 
 function camera:flash(time, x, col)

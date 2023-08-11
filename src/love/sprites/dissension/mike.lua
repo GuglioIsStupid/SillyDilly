@@ -1,6 +1,6 @@
 --[[----------------------------------------------------------------------------
 This file is part of Friday Night Funkin' Rewritten
-
+ 
 Copyright (C) 2021  HTV04
 
 This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("path")),
+	love.graphics.newImage(graphics.imagePath("dissension/mike")),
 	-- Automatically generated from mike.xml
 	{
 		{x = 0, y = 0, width = 977, height = 461, offsetX = 0, offsetY = 0, offsetWidth = 200, offsetHeight = 200}, -- 1: mike_idle 0000
