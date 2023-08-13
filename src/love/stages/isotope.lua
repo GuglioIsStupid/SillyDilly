@@ -157,13 +157,15 @@ return {
 		love.graphics.push()
 			love.graphics.translate(camera.x * 1.1, camera.y * 1.1)
             love.graphics.translate((camera.ex)/2 * 1.1, (camera.ey)/2 * 1.1)
-            love.graphics.setColor(1,1,1,isotopeFades[4])
 
             love.graphics.setShader(redAberration)
+
             if musicTime < 88085 then
                 enemy:draw()
             else
-                red_but_he_mad:draw()
+                if not doingScene then
+                    red_but_he_mad:draw()
+                end
             end
             love.graphics.setShader()
             boyfriend:draw()

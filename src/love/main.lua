@@ -431,19 +431,17 @@ function love.load()
 	}
 	weekMeta = { -- Add/remove weeks here
 		{
-			"Tutorial",
+			"Hypno",
 			{
-				"Tutorial",
-				"Tutorial2",
-				"Tutorial3"
+				"Safety Lullaby",
+				"Left Unchecked",
+				"Lost Cause"
 			}
 		},
 		{
-			"Week 1",
+			"Death Toll",
 			{
-				"Bopeebo",
-				"Fresh",
-				"Dadbattle"
+				"Death Toll"
 			}
 		},
 		{
@@ -477,11 +475,9 @@ function love.load()
 			}
 		},
 		{
-			"Week 7",
+			"Purin",
 			{
-				"Ugh",
-				"Guns",
-				"Stress"
+				"Purin"
 			}
 		}
 	}
