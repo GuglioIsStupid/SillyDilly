@@ -18,9 +18,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 __VERSION__ = love.filesystem.read("version.txt")
 --if love.filesystem.isFused() then function print() end end -- print functions tend the make the game lag when in update functions, so we do this to prevent that
-consoleTable = {}
+consoleTable = {"Press ALT+C to clear console."}
 local oprint = print
-function print(text) -- Fuck you ch, here I am, trying to figure out why it's not printing, and its because of this.
+function print(text) -- Fuck you ch, here I am, trying to figure out why it's not printing, and its because of this.         whoopsies sorry 
 table.insert(consoleTable, 1, text.."\n")
 if #consoleTable > 70 then
 	table.remove(consoleTable,#consoleTable)
@@ -369,6 +369,7 @@ function love.load()
 		["isotope"] = require "stages.isotope",
 		["insomnia"] = require "stages.insomnia",
 		["dissension"] = require "stages.dissension",
+		["pokecenter"] = require "stages.pokecenter"
 	}
 
 	-- Load Menus
@@ -403,6 +404,7 @@ function love.load()
 		require "weeks.isotope",
 		require "weeks.insomnia",
 		require "weeks.dissension",
+		require "weeks.purin"
 	}
 	testData = require "weeks.test"
 

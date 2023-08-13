@@ -49,6 +49,7 @@ return {
 		idfkWhatToCallThisOneStage = false
 		changedScrollSpeed = false
 		drawStrangle = false
+		didBedroomZoom = false
 		doneDeath = false
 		dissensionAlphaValues = {0,0}
 		switchToTheGoofyStageIdk = false
@@ -60,6 +61,26 @@ return {
 		shakeMagnitude = 0
         screenshakey = 0
 
+
+
+
+		--[[delete everything under this line
+
+		inst:seek(170)
+		voices:seek(170)
+		introStage = false
+		bedroomStage = false
+		idfkWhatToCallThisOneStage = true
+		changedScrollSpeed = true
+		switchToTheGoofyStageIdk = true
+		whatAreYouDoingYouHaveToGoIHitYouOhMyGoshThatShouldBeTheNameWhyDoYouLaughLikeThatIThoughKatherineWasInTheBackNobodyKnowsHowToPlayThatGameYesTheyDoItsNotHardTheresTheHomelessVillageTheresALotOfHomelessPeopleInThsoeTrees()  --named it this cuz i thought it was funny now i dont remember what this does 💀
+		sceneHUDHide = false
+		drawStrangle = true
+
+--		dissensionAlphaValues[2] = 1
+
+
+--]]
 	end,
 
 	initUI = function(self)
@@ -72,6 +93,26 @@ return {
 	update = function(self, dt)
 		weeks:update(dt)
 		stages["dissension"]:update(dt)
+
+		----[[
+
+
+		if bedroomStage then
+			if mustHitSection then
+				if camZoomTween then
+					Timer.cancel(camZoomTween)
+				end
+	
+				camZoomTween = Timer.tween(1.25, camera, {defaultZoom = 1.1, zoom = 1.1}, "out-quad")
+			elseif not doingScene then
+				if camZoomTween then
+					Timer.cancel(camZoomTween)
+				end
+				camZoomTween = Timer.tween(1.25, camera, {defaultZoom = 1.2, zoom = 1.2}, "out-quad")
+			end
+		end
+
+		--]]
 
 
 		if health >= 1.595 then
@@ -90,6 +131,15 @@ return {
 			bedroomStage = true
 			idfkWhatToCallThisOneStage = false
 			sceneHUDHide = false
+			if not didBedroomZoom then
+				didBedroomZoom = true
+				camera.defaultZoom = 2
+				camera.zoom = 2
+				Timer.tween(0.8, camera, {defaultZoom = 1.1, zoom = 1.1}, "out-quad")
+			end
+			camera:addPoint("boyfriend", -96, 26, 1.1, 1.1)
+			camera:addPoint("enemy", 53, 55, 1.2, 1.2)
+
 		end
 
 		if musicTime >= 50000 and musicTime < 50000+50 and not switchToTheGoofyStageIdk then
@@ -100,7 +150,12 @@ return {
 			switchToTheGoofyStageIdk = true
 			camera.camBopIntensity = 2.5
 			camera.camBopInterval = 1
-			
+
+			camera.defaultZoom = 1
+			camera.zoom = 1
+			camera:addPoint("boyfriend", -82, 38, 40, 1.1)  
+			camera:addPoint("enemy", -82, 38, 40, 1.1) 
+			camera:moveToPoint(0, "boyfriend")
 			
 			whatAreYouDoingYouHaveToGoIHitYouOhMyGoshThatShouldBeTheNameWhyDoYouLaughLikeThatIThoughKatherineWasInTheBackNobodyKnowsHowToPlayThatGameYesTheyDoItsNotHardTheresTheHomelessVillageTheresALotOfHomelessPeopleInThsoeTrees()  --named it this cuz i thought it was funny now i dont remember what this does 💀
             print("scroll speed before change: " .. speed)
@@ -156,9 +211,12 @@ return {
 
 		if musicTime >= 180000 and musicTime < 180000+50 and not doneDeath then
 			doneDeath = true
-			Timer.tween(1, player, { y = -756}, "in-quad")
-			camera.zoom = camera.zoom + 0.015 * camera.camBopIntensity
-			uiScale.zoom = uiScale.zoom + 0.03 * camera.camBopIntensity
+			dissensionAlphaValues[2] = 1
+			Timer.tween(1, dissensionAlphaValues, {[2] = 0}, "linear")
+
+			Timer.tween(1, boyfriend, { y = -756}, "in-quad")
+			camera.zoom = camera.zoom + 0.015 * 4
+			uiScale.zoom = uiScale.zoom + 0.03 * 4
 
 		end
 

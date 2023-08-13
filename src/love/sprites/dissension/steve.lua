@@ -97,10 +97,10 @@ return graphics.newSprite(
 		{x = 3297, y = 2715, width = 774, height = 855, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0} -- 70: STEVE UP0013
 	},
 	{
-		["singDOWN"] = {start = 1, stop = 14, speed = 24, offsetX = 0, offsetY = 0},
-		["singLEFT"] = {start = 29, stop = 42, speed = 24, offsetX = 0, offsetY = 0},
-		["singRIGHT"] = {start = 43, stop = 56, speed = 24, offsetX = 0, offsetY = 0},
-		["singUP"] = {start = 57, stop = 70, speed = 24, offsetX = 0, offsetY = 0},
+		["singDOWN"] = {start = 1, stop = 14, speed = 24, offsetX = 15, offsetY = 7},
+		["singLEFT"] = {start = 29, stop = 42, speed = 24, offsetX = 61, offsetY = -7},
+		["singRIGHT"] = {start = 43, stop = 56, speed = 24, offsetX = -11, offsetY = 6},
+		["singUP"] = {start = 57, stop = 70, speed = 24, offsetX = 27, offsetY = 47},
 		["idle"] = {start = 15, stop = 28, speed = 24, offsetX = 0, offsetY = 0},
 	},
 	"idle",

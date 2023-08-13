@@ -30,7 +30,9 @@ return {
         stageImages["room enemy"].sizeX, stageImages["room enemy"].sizeY = 1.3, 1.3
         stageImages["room player"].sizeX, stageImages["room player"].sizeY = 0.8, 0.8
 
-        stageImages["arm enemy"].x, stageImages["arm enemy"].y = 74, 120
+        stageImages["arm enemy"].x, stageImages["arm enemy"].y = 118, 120
+
+        stageImages["red"].x, stageImages["red"].y = 80, -40
 
 
         function whatAreYouDoingYouHaveToGoIHitYouOhMyGoshThatShouldBeTheNameWhyDoYouLaughLikeThatIThoughKatherineWasInTheBackNobodyKnowsHowToPlayThatGameYesTheyDoItsNotHardTheresTheHomelessVillageTheresALotOfHomelessPeopleInThsoeTrees()
@@ -67,7 +69,7 @@ return {
 
     end,
 
-    update = function(self, dt) 
+    update = function(self, dt)
         stageImages["intro enemy"]:update(dt)
         stageImages["room enemy"]:update(dt)
         stageImages["arm enemy"]:update(dt)
@@ -96,7 +98,11 @@ return {
 			love.graphics.translate(camera.x, camera.y)
             love.graphics.translate(camera.ex, camera.ey)
 
-            stageImages["back"]:draw()
+           -- stageImages["back"]:draw()
+           love.graphics.setColor(0,0,0)
+           love.graphics.rectangle("fill", -1000, -1000, 10000, 10000)
+           love.graphics.setColor(1,1,1)
+
 
             if introStage then
                 stageImages["intro enemy"]:draw()
