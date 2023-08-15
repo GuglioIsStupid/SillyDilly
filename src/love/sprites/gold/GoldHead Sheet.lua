@@ -191,10 +191,10 @@ return graphics.newSprite(
 		{x = 6591, y = 5333, width = 543, height = 557, offsetX = 0, offsetY = -90, offsetWidth = 586, offsetHeight = 647} -- 164: GoldHead Up0024
 	},
 	{
-		["singDOWN"] = {start = 1, stop = 25, speed = 24, offsetX = 0, offsetY = 0},
-		["singLEFT"] = {start = 90, stop = 114, speed = 24, offsetX = 0, offsetY = 0},
-		["singRIGHT"] = {start = 115, stop = 139, speed = 24, offsetX = 0, offsetY = 0},
-		["singUP"] = {start = 140, stop = 164, speed = 24, offsetX = 0, offsetY = 0},
+		["singDOWN"] = {start = 1, stop = 25, speed = 24, offsetX = -12, offsetY = -232},
+		["singLEFT"] = {start = 90, stop = 114, speed = 24, offsetX = 189, offsetY = 7},
+		["singRIGHT"] = {start = 115, stop = 139, speed = 24, offsetX = -179, offsetY = 35},
+		["singUP"] = {start = 140, stop = 164, speed = 24, offsetX = -59, offsetY = 166},
 		["idle"] = {start = 26, stop = 89, speed = 24, offsetX = 0, offsetY = 0},
 	},
 	"idle",
