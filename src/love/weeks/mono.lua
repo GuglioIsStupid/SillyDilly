@@ -41,8 +41,8 @@ return {
 		inst = love.audio.newSource("songs/monochrome/Inst.ogg", "stream")
 		voices = love.audio.newSource("songs/monochrome/Voices.ogg", "stream")
 
-		--inst:seek(135)
-        --voices:seek(135)
+		inst:seek(135)
+        voices:seek(135)
 
 
 		self:initUI()

@@ -294,7 +294,7 @@ return {
 				love.graphics.setColor(freeColour[1]/255, freeColour[2]/255, freeColour[3]/255)
 				love.graphics.scale(camera.zoom, camera.zoom)
 				for i = 1, #weekDesc do
-					weekImages[i]:draw()
+					weekImages[1]:draw()
 				end
 
 				titleBG:draw()

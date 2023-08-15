@@ -371,6 +371,7 @@ function love.load()
 		["dissension"] = require "stages.dissension",
 		["pokecenter"] = require "stages.pokecenter",
 		["mono"] = require "stages.mono",
+		["shitno"] = require "stages.shitno",
 	}
 
 	-- Load Menus
@@ -391,6 +392,7 @@ function love.load()
 	dtWeek = require "states.weeks.dt"
 	weeksFrostbite = require "states.weeks.weeksFrostbite"
 	weeksMono = require "states.weeks.weeksMono"
+	weeksShitno = require "states.weeks.weeksShitno"
 
 	-- Load substates
 	gameOver = require "substates.game-over"
@@ -407,7 +409,8 @@ function love.load()
 		require "weeks.insomnia",
 		require "weeks.dissension",
 		require "weeks.purin",
-		require "weeks.mono"
+		require "weeks.mono",
+		require "weeks.shitno"
 	}
 	testData = require "weeks.test"
 
@@ -420,7 +423,8 @@ function love.load()
 		"RED SNOW",
 		"HATING SIMULATOR FT. MOAWLING",
 		"TANKMAN",
-		"MONOCHROME"
+		"MONOCHROME",
+		"SHITNO"
 	}
 
 
@@ -479,6 +483,12 @@ function love.load()
 			"Monochrome",
 			{
 				"Monochrome"
+			}
+		},
+		{
+			"Shitno",
+			{
+				"Shitno"
 			}
 		}
 	}

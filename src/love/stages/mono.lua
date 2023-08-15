@@ -199,13 +199,13 @@ return {
                 jumpscare(0.4,250)
             end
             if musicTime >= 90375 and musicTime < 90375+50 then
-                jumpscare(0.2,250)
+                jumpscare(0.1,250)
             end
             if musicTime >= 91031 and musicTime < 91031+50 then
-                jumpscare(0.2,250)
+                jumpscare(0.1,250)
             end
             if musicTime >= 91875 and musicTime < 91875+50 then
-                jumpscare(0.2,250)
+                jumpscare(0.1,250)
             end
             if musicTime >= 104625 and musicTime < 104625+50 then
                 jumpscare(0.4,250)
@@ -223,10 +223,10 @@ return {
                 jumpscare(0.4, 250)
             end
             if musicTime >= 189090 and musicTime < 189090+50 then
-                jumpscare(0.2, 250)
+                jumpscare(0.1, 250)
             end
             if musicTime >= 189272 and musicTime < 189272+50 then
-                jumpscare(0.2, 250)
+                jumpscare(0.1, 250)
             end
             if musicTime >= 189454 and musicTime < 189454+50 then
                 jumpscare(0.4, 250)
@@ -244,19 +244,19 @@ return {
                 jumpscare(0.4, 250)
             end
             if musicTime >= 219636 and musicTime < 219636+50 then
-                jumpscare(0.2, 250)
+                jumpscare(0.1, 250)
             end
             if musicTime >= 219818 and musicTime < 219818+50 then
-                jumpscare(0.2, 250)
+                jumpscare(0.1, 250)
             end
             if musicTime >= 228363 and musicTime < 228363+50 then
                 jumpscare(0.4, 250)
             end
             if musicTime >= 229818 and musicTime < 229818+50 then
-                jumpscare(0.2, 250)
+                jumpscare(0.1, 250)
             end
             if musicTime >= 229999 and musicTime < 229999+50 then
-                jumpscare(0.2, 250)
+                jumpscare(0.1, 250)
             end
             if musicTime >= 231272 and musicTime < 231272+50 then
                 jumpscare(0.4, 250)
@@ -265,10 +265,10 @@ return {
                 jumpscare(0.4, 250)
             end
             if musicTime >= 235636 and musicTime < 235636+50 then
-                jumpscare(0.2, 250)
+                jumpscare(0.1, 250)
             end
             if musicTime >= 235818 and musicTime < 235818+50 then
-                jumpscare(0.2, 250)
+                jumpscare(0.1, 250)
             end
             if musicTime >= 237090 and musicTime < 237090+50 then
                 jumpscare(0.4, 250)
@@ -277,10 +277,10 @@ return {
                 jumpscare(0.4, 250)
             end
             if musicTime >= 241454 and musicTime < 241454+50 then
-                jumpscare(0.2, 250)
+                jumpscare(0.1, 250)
             end
             if musicTime >= 241636 and musicTime < 241636+50 then
-                jumpscare(0.2, 250)
+                jumpscare(0.1, 250)
             end
             if musicTime >= 242909 and musicTime < 242909+50 then
                 jumpscare(0.4, 250)
