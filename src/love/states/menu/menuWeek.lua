@@ -122,8 +122,8 @@ return {
 
 		--week images
 		weekImages = {}
-		for i = 0, 7 do 
-			table.insert(weekImages, graphics.newImage(graphics.imagePath("menu/week" .. i)))
+		for i = 0, 8 do 
+			table.insert(weekImages, graphics.newImage(graphics.imagePath("menu/week1")))
 		end
 
 		for i = 1, #weekImages do

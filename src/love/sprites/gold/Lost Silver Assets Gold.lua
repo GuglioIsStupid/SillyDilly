@@ -126,10 +126,10 @@ return graphics.newSprite(
 		{x = 3558, y = 2619, width = 386, height = 578, offsetX = 0, offsetY = 0, offsetWidth = 387, offsetHeight = 578} -- 98: Silver Spawn Full0017
 	},
 	{
-		["singDOWN"] = {start = 37, stop = 54, speed = 24, offsetX = 0, offsetY = 0},
-		["singLEFT"] = {start = 19, stop = 36, speed = 24, offsetX = 0, offsetY = 0},
-		["singRIGHT"] = {start = 63, stop = 80, speed = 24, offsetX = 0, offsetY = 0},
-		["singUP"] = {start = 1, stop = 18, speed = 24, offsetX = 0, offsetY = 0},
+		["singDOWN"] = {start = 37, stop = 54, speed = 24, offsetX = -106, offsetY = -234},
+		["singLEFT"] = {start = 19, stop = 36, speed = 24, offsetX = 309, offsetY = 24},
+		["singRIGHT"] = {start = 63, stop = 80, speed = 24, offsetX = -313, offsetY = 49},
+		["singUP"] = {start = 1, stop = 18, speed = 24, offsetX = 0, offsetY = 105},
 		["idle"] = {start = 55, stop = 62, speed = 24, offsetX = 0, offsetY = 0},
 		["spawn"] = {start = 81, stop = 98, speed = 24, offsetX = 0, offsetY = 0},
 	},
