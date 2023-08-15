@@ -28,9 +28,9 @@ return {
         stageImages["6"].sizeX, stageImages["6"].sizeY = 0.9, 0.9
 
         function loserIsDeadLmaoImagine()
-            Timer.tween(1, stageImages["6"], {orientation = -0.1}, "out-quad", function()
+            Timer.tween(1, stageImages["6"], {orientation = -0.07}, "out-quad", function()
                 Timer.tween(1, stageImages["6"], {orientation = 0}, "in-quad", function()
-                    Timer.tween(1, stageImages["6"], {orientation = 0.1}, "out-quad", function()
+                    Timer.tween(1, stageImages["6"], {orientation = 0.07}, "out-quad", function()
                         Timer.tween(1, stageImages["6"], {orientation = 0}, "in-quad", function()
                             loserIsDeadLmaoImagine()
                         end)
