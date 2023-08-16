@@ -425,7 +425,7 @@ function love.load()
 		"TANKMAN",
 		"MONOCHROME",
 		"SHITNO"
-	}
+	} 
 
 
 	weekMeta = { -- Add/remove weeks here
