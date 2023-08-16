@@ -1,51 +1,84 @@
 return {
     enter = function()
         stageImages = {
-            ["Stage Back"] = graphics.newImage(graphics.imagePath("week1/stage-back")), -- stage-back
-		    ["Stage Front"] = graphics.newImage(graphics.imagePath("week1/stage-front")), -- stage-front
-		    ["Curtains"] = graphics.newImage(graphics.imagePath("week1/curtains")) -- curtains
+            ["1"] = graphics.newImage(graphics.imagePath("purin/1darknessoverlay")),
+            ["2"] = graphics.newImage(graphics.imagePath("purin/2painting")),
+            ["3"] = graphics.newImage(graphics.imagePath("purin/3window")),
+            ["4"] = graphics.newImage(graphics.imagePath("purin/4toplayer")),
+            ["5"] = graphics.newImage(graphics.imagePath("purin/5table")),
+            ["6"] = graphics.newImage(graphics.imagePath("purin/6nursejoy")),
+            ["7"] = graphics.newImage(graphics.imagePath("purin/7backlayer")),
+            ["8"] = graphics.newImage(graphics.imagePath("purin/8floor")),
+
         }
 
-        stageImages["Stage Front"].y = 400
-        stageImages["Curtains"].y = -100
 
-        enemy = love.filesystem.load("sprites/week1/daddy-dearest.lua")()
+        enemy = love.filesystem.load("sprites/purin/jigglyassets.lua")()
+        boyfriend = love.filesystem.load("sprites/purin/Full_pico_purin.lua")()
 
-        girlfriend.x, girlfriend.y = 30, -90
-        enemy.x, enemy.y = -380, -110
-        boyfriend.x, boyfriend.y = 260, 100
+        enemy.x, enemy.y = -303, 448
+        enemy.sizeX, enemy.sizeY = 0.5, 0.5
+        boyfriend.x, boyfriend.y = 334, 364
+        camera.defaultZoom = 0.9
+        camera.zoom = 0.9
+        camera:addPoint("enemy", 229, -331, 0.9, 0.9)
+        camera:addPoint("boyfriend", -268, -242, 0.8, 0.8)
+
+        stageImages["6"].x, stageImages["6"].y = 0, -70
+        stageImages["6"].sizeX, stageImages["6"].sizeY = 0.9, 0.9
+
+        function loserIsDeadLmaoImagine()
+            Timer.tween(1, stageImages["6"], {orientation = -0.07}, "out-quad", function()
+                Timer.tween(1, stageImages["6"], {orientation = 0}, "in-quad", function()
+                    Timer.tween(1, stageImages["6"], {orientation = 0.07}, "out-quad", function()
+                        Timer.tween(1, stageImages["6"], {orientation = 0}, "in-quad", function()
+                            loserIsDeadLmaoImagine()
+                        end)
+                    end)
+                end)
+            end)
+        end
+        loserIsDeadLmaoImagine()
+
     end,
 
     load = function()
+        camera:moveToPoint(1.25, "enemy")
 
     end,
 
     update = function(self, dt)
+        if mustHitSection then
+            if camZoomTween then
+                Timer.cancel(camZoomTween)
+            end
+
+            camZoomTween = Timer.tween(1.25, camera, {defaultZoom = 0.8, zoom = 0.8}, "out-quad")
+        elseif not doingScene then
+            if camZoomTween then
+                Timer.cancel(camZoomTween)
+            end
+            camZoomTween = Timer.tween(1.25, camera, {defaultZoom = 0.9, zoom = 0.9}, "out-quad")
+        end
     end,
 
     draw = function()
-        love.graphics.push()
-			love.graphics.translate(camera.x * 0.9, camera.y * 0.9)
-            love.graphics.translate(camera.ex * 0.9, camera.ey * 0.9)
-
-			stageImages["Stage Back"]:draw()
-			stageImages["Stage Front"]:draw()
-
-			girlfriend:draw()
-		love.graphics.pop()
 		love.graphics.push()
 			love.graphics.translate(camera.x, camera.y)
             love.graphics.translate(camera.ex, camera.ey)
+            stageImages["8"]:draw()
+            stageImages["7"]:draw()
+            stageImages["6"]:draw()
+            stageImages["5"]:draw()
+            stageImages["4"]:draw()
+            stageImages["3"]:draw()
+            stageImages["2"]:draw()
+            stageImages["1"]:draw()
+
 			enemy:draw()
 			boyfriend:draw()
             graphics.setColor(1,1,1)
             
-		love.graphics.pop()
-		love.graphics.push()
-			love.graphics.translate(camera.x * 1.1, camera.y * 1.1)
-            love.graphics.translate(camera.ex * 1.1, camera.ey * 1.1)
-
-			stageImages["Curtains"]:draw()
 		love.graphics.pop()
     end,
 

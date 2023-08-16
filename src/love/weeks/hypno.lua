@@ -449,7 +449,7 @@ return {
 
 		hypnoWeek:setupCountdown()
 
-		thething = 1
+		thething = 1              --ohhhhhhh the thing 
 	end,
 
 	initUI = function(self)

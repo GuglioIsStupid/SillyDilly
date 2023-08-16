@@ -45,5 +45,5 @@ return graphics.newSprite(
 		["anim"] = {start = 1, stop = 19, speed = 24, offsetX = 0, offsetY = 0},
 	},
 	"anim",
-	false,
+	false
 )

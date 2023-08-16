@@ -23,7 +23,7 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		weeks:enter()
 
-		stages["stage"]:enter()
+		stages["pokecenter"]:enter()
 
 		song = songNum
 		difficulty = songAppend
@@ -35,7 +35,7 @@ return {
 
 	load = function(self)
 		weeks:load()
-		stages["stage"]:load()
+		stages["pokecenter"]:load()
 
 
 		inst = love.audio.newSource("songs/purin/Inst.ogg", "stream")
@@ -56,11 +56,8 @@ return {
 
 	update = function(self, dt)
 		weeks:update(dt)
-		stages["stage"]:update(dt)
+		stages["pokecenter"]:update(dt)
 
-		if song == 1 and musicThres ~= oldMusicThres and math.fmod(absMusicTime + 500, 480000 / bpm) < 100 then
-			boyfriend:animate("hey", false)
-		end
 
 		if health >= 1.595 then
 			if enemyIcon:getAnimName() == "daddy dearest" then
@@ -82,14 +79,14 @@ return {
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 			love.graphics.scale(camera.zoom, camera.zoom)
 
-			stages["stage"]:draw()
+			stages["pokecenter"]:draw()
 		love.graphics.pop()
 
 		weeks:drawUI()
 	end,
 
 	leave = function(self)
-		stages["stage"]:leave()
+		stages["pokecenter"]:leave()
 
 		enemy = nil
 		boyfriend = nil

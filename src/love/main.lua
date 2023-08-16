@@ -369,7 +369,9 @@ function love.load()
 		["isotope"] = require "stages.isotope",
 		["insomnia"] = require "stages.insomnia",
 		["dissension"] = require "stages.dissension",
-		["pokecenter"] = require "stages.pokecenter"
+		["pokecenter"] = require "stages.pokecenter",
+		["mono"] = require "stages.mono",
+		["shitno"] = require "stages.shitno",
 	}
 
 	-- Load Menus
@@ -389,6 +391,8 @@ function love.load()
 	hypnoWeek = require "states.weeks.hypno"
 	dtWeek = require "states.weeks.dt"
 	weeksFrostbite = require "states.weeks.weeksFrostbite"
+	weeksMono = require "states.weeks.weeksMono"
+	weeksShitno = require "states.weeks.weeksShitno"
 
 	-- Load substates
 	gameOver = require "substates.game-over"
@@ -404,7 +408,9 @@ function love.load()
 		require "weeks.isotope",
 		require "weeks.insomnia",
 		require "weeks.dissension",
-		require "weeks.purin"
+		require "weeks.purin",
+		require "weeks.mono",
+		require "weeks.shitno"
 	}
 	testData = require "weeks.test"
 
@@ -416,34 +422,25 @@ function love.load()
 		"MOMMY MUST MURDER",
 		"RED SNOW",
 		"HATING SIMULATOR FT. MOAWLING",
-		"TANKMAN"
+		"TANKMAN",
+		"MONOCHROME",
+		"SHITNO"
 	}
 
-	weekDesc = { -- Add your week description here
-		"LEARN TO FUNK",
-		"DADDY DEAREST",
-		"SPOOKY MONTH",
-		"PICO",
-		"MOMMY MUST MURDER",
-		"RED SNOW",
-		"HATING SIMULATOR FT. MOAWLING",
-		"TANKMAN"
-	}
+
 	weekMeta = { -- Add/remove weeks here
 		{
-			"Tutorial",
+			"Hypno",
 			{
-				"Tutorial",
-				"Tutorial2",
-				"Tutorial3"
+				"Safety Lullaby",
+				"Left Unchecked",
+				"Lost Cause"
 			}
 		},
 		{
-			"Week 1",
+			"Death Toll",
 			{
-				"Bopeebo",
-				"Fresh",
-				"Dadbattle"
+				"Death Toll"
 			}
 		},
 		{
@@ -477,11 +474,21 @@ function love.load()
 			}
 		},
 		{
-			"Week 7",
+			"Purin",
 			{
-				"Ugh",
-				"Guns",
-				"Stress"
+				"Purin"
+			}
+		},
+		{
+			"Monochrome",
+			{
+				"Monochrome"
+			}
+		},
+		{
+			"Shitno",
+			{
+				"Shitno"
 			}
 		}
 	}
