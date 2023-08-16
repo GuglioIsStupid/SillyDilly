@@ -372,6 +372,7 @@ function love.load()
 		["pokecenter"] = require "stages.pokecenter",
 		["mono"] = require "stages.mono",
 		["shitno"] = require "stages.shitno",
+		["amusia"] = require "stages.amusia",
 	}
 
 	-- Load Menus
@@ -410,7 +411,8 @@ function love.load()
 		require "weeks.dissension",
 		require "weeks.purin",
 		require "weeks.mono",
-		require "weeks.shitno"
+		require "weeks.shitno",
+		require "weeks.amusia"
 	}
 	testData = require "weeks.test"
 
@@ -424,7 +426,8 @@ function love.load()
 		"HATING SIMULATOR FT. MOAWLING",
 		"TANKMAN",
 		"MONOCHROME",
-		"SHITNO"
+		"SHITNO",
+		"AMUSIA"
 	} 
 
 
@@ -489,6 +492,12 @@ function love.load()
 			"Shitno",
 			{
 				"Shitno"
+			}
+		},
+		{
+			"Amusia",
+			{
+				"Amusia"
 			}
 		}
 	}
