@@ -1043,10 +1043,11 @@ return {
 		for i = 1, #bpmChangeEvents do
 			local event = bpmChangeEvents[i]
 
-			if musicTime >= event.songTime then
+			if event and musicTime >= event.songTime then
 				bpm = event.bpm
 				beatHandler.setBPM(bpm)
 				bpmChangeEvents[i] = nil
+				break
 			end
 		end
 
