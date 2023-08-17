@@ -21,7 +21,7 @@ local stageBack, stageFront, curtains
 
 return {
 	enter = function(self, from, songNum, songAppend)
-		weeks:enter()
+		weeksAmusia:enter()
 
 		stages["amusia"]:enter()
 
@@ -34,7 +34,7 @@ return {
 	end,
 
 	load = function(self)
-		weeks:load()
+		weeksAmusia:load()
 		stages["amusia"]:load()
 
 		inst = love.audio.newSource("songs/amusia/Inst.ogg", "stream")
@@ -42,18 +42,18 @@ return {
 
 		self:initUI()
 
-		weeks:setupCountdown()
+		weeksAmusia:setupCountdown()
 	end,
 
 	initUI = function(self)
-		weeks:initUI()
+		weeksAmusia:initUI()
 
 
-		weeks:generateNotes("songs/amusia/amusia-hard.json")
+		weeksAmusia:generateNotes("songs/amusia/amusia-hard.json")
 	end,
 
 	update = function(self, dt)
-		weeks:update(dt)
+		weeksAmusia:update(dt)
 		stages["amusia"]:update(dt)
 
 		if health >= 1.595 then
@@ -66,9 +66,9 @@ return {
 			end
 		end
 
-		weeks:checkSongOver()
+		weeksAmusia:checkSongOver()
 
-		weeks:updateUI(dt)
+		weeksAmusia:updateUI(dt)
 	end,
 
 	draw = function(self)
@@ -79,7 +79,7 @@ return {
 			stages["amusia"]:draw()
 		love.graphics.pop()
 
-		weeks:drawUI()
+		weeksAmusia:drawUI()
 	end,
 
 	leave = function(self)
@@ -91,6 +91,6 @@ return {
 
 		graphics.clearCache()
 
-		weeks:leave()
+		weeksAmusia:leave()
 	end
 }

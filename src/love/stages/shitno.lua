@@ -38,41 +38,26 @@ return {
         if musicTime >= 34666 and musicTime < 34666+50 then          -- guglio pls make this look actually good it looks nothing like the real mod and idk why :(
             shitnoAlpha = 0.125
         end
-
         if musicTime >= 35000 and musicTime < 35000+50 then
-            shitnoAlpha = 0.125*2
-
+            shitnoAlpha = 0.25
         end
-
         if musicTime >= 35333 and musicTime < 35333+50 then
-            shitnoAlpha = 0.125*3
-
+            shitnoAlpha = 0.375
         end
-
         if musicTime >= 35666 and musicTime < 35666+50 then
-            shitnoAlpha = 0.125*4
-
+            shitnoAlpha = 0.5
         end
-        
-
         if musicTime >= 36000 and musicTime < 36000+50 then
-            shitnoAlpha = 0.125*5
-
+            shitnoAlpha = 0.625
         end
-
         if musicTime >= 36333 and musicTime < 36333+50 then
-            shitnoAlpha = 0.125*6
-
+            shitnoAlpha = 0.75
         end
-
         if musicTime >= 36666 and musicTime < 36666+50 then
-            shitnoAlpha = 0.125*7
-
+            shitnoAlpha = 0.875
         end
-
         if musicTime >= 37000 and musicTime < 37000+50 then
-            shitnoAlpha = 0.125*8
-
+            shitnoAlpha = 1
         end
 
 
