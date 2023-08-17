@@ -5,6 +5,7 @@ return {
 		    ["backgroundPurple"] = graphics.newImage(graphics.imagePath("amusia/background2")),
 		    ["jumpscare"] = graphics.newImage(graphics.imagePath("amusia/jumpscare")),
             ["platform"] = graphics.newImage(graphics.imagePath("amusia/Purple_place")),
+            ["platform2"] = graphics.newImage(graphics.imagePath("amusia/Purple_place")),
             ["half platform"] = graphics.newImage(graphics.imagePath("amusia/Purple_place_half_part")),
             ["questionare"] = graphics.newImage(graphics.imagePath("amusia/questionare"))
         }
@@ -32,18 +33,25 @@ return {
 
         camera:addPoint("enemy", 0, 0, 1, 1)
         camera:addPoint("boyfriend", -242, 45, 1.2, 1.2)
-
-        platformPositions = {
+--[[
+        platformPositions = {     -- this is how i wish it could be but it cant because im too dumb to make this work :(
             {-150, 307, 1},
             {452, 37, 0.6}
         }
+--]]
 
+        platformPositions = {
+            -150, 307, 1,
+            452, 37, 0.6
+        }
 
     end,
 
     load = function()
         green = true
         doneSwitch = false
+
+        amusiaAlphaValues = {1,1}
     end,
 
     update = function(self, dt) 
@@ -52,7 +60,6 @@ return {
             if camZoomTween then
                 Timer.cancel(camZoomTween)
             end
-
             camZoomTween = Timer.tween(1.25, camera, {defaultZoom = 1.2, zoom = 1.2}, "out-quad")
         else
             if camZoomTween then
@@ -64,13 +71,22 @@ return {
 
         if musicTime >= 45250 and musicTime < 45250+50 then
             green = false
+            print("purple")
         end
 
         if musicTime > 66166 and not doneSwitch then
             doneSwitch = true
-            --Timer.tween(1, platformPositions, {[1][1] = 850, [2][1] = -548}, "in-quad")
-            Timer.tween(1, enemy1, {x = enemy1.x + 1200}, "in-quad")
-            Timer.tween(1, boyfriend1, {x = boyfriend1.x - 1200}, "in-quad")
+            print("switch")
+            Timer.tween(0.8, platformPositions, {[1] = platformPositions[1]+1200, [4] = platformPositions[4]-1200}, "in-quad", function()
+                Timer.tween(0.8, platformPositions, {[1] = platformPositions[1]-1200, [4] = platformPositions[4]+1200}, "out-quad")
+            end)
+            Timer.tween(0.8, enemy1, {x = enemy1.x + 1200}, "in-quad", function()
+
+            end)
+            Timer.tween(0.8, boyfriend1, {x = boyfriend1.x - 1200}, "in-quad", function()
+
+                
+            end)
         end
 
     end,
@@ -89,15 +105,36 @@ return {
 			love.graphics.translate(camera.x, camera.y)
             love.graphics.translate(camera.ex, camera.ey)
 
+
+            --[[      i cant tween the platform positions with the way i had the platformPositions table set up, but after redoing the platformPositions table this code cant work
+
             for i = 1,2 do
                 stageImages["platform"].x, stageImages["platform"].y = platformPositions[i][1], platformPositions[i][2]
                 stageImages["platform"].sizeX, stageImages["platform"].sizeY = platformPositions[i][3], platformPositions[i][3]
                 stageImages["platform"]:draw()
             end
 
+            --]]
+            stageImages["platform"].x, stageImages["platform"].y = platformPositions[1], platformPositions[2]
+            stageImages["platform2"].x, stageImages["platform2"].y = platformPositions[4], platformPositions[5]
+            stageImages["platform"].sizeX, stageImages["platform"].sizeY = platformPositions[3], platformPositions[3]
+            stageImages["platform2"].sizeX, stageImages["platform2"].sizeY = platformPositions[6], platformPositions[6]
+
+
+
+
+
+
+
+            love.graphics.setColor(1,1,1,amusiaAlphaValues[1])
+            stageImages["platform2"]:draw()
 
 			boyfriend1:draw()
+            love.graphics.setColor(1,1,1,amusiaAlphaValues[2])
+            stageImages["platform"]:draw()
+
             enemy1:draw()
+            love.graphics.setColor(1,1,1,1)
 
 
 		love.graphics.pop()

@@ -21,7 +21,7 @@ local stageBack, stageFront, curtains
 
 return {
 	enter = function(self, from, songNum, songAppend)
-		weeks:enter()
+		weeksShitno:enter()
 
 		stages["shitno"]:enter()
 
@@ -34,7 +34,7 @@ return {
 	end,
 
 	load = function(self)
-		weeks:load()
+		weeksShitno:load()
 		stages["shitno"]:load()
 
 		inst = love.audio.newSource("songs/shitno/Inst.ogg", "stream")
@@ -42,17 +42,17 @@ return {
 
 		self:initUI()
 
-		weeks:setupCountdown()
+		weeksShitno:setupCountdown()
 	end,
 
 	initUI = function(self)
-		weeks:initUI()
+		weeksShitno:initUI()
 
-		weeks:generateNotes("songs/shitno/shitno-hard.json")
+		weeksShitno:generateNotes("songs/shitno/shitno-hard.json")
 	end,
 
 	update = function(self, dt)
-		weeks:update(dt)
+		weeksShitno:update(dt)
 		stages["shitno"]:update(dt)
 
 
@@ -67,9 +67,9 @@ return {
 			end
 		end
 
-		weeks:checkSongOver()
+		weeksShitno:checkSongOver()
 
-		weeks:updateUI(dt)
+		weeksShitno:updateUI(dt)
 	end,
 
 	draw = function(self)
@@ -77,10 +77,15 @@ return {
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 			love.graphics.scale(camera.zoom, camera.zoom)
 
-			stages["shitno"]:draw()
+
+			if musicTime < 244916 then
+				stages["shitno"]:draw()
+			end
+
+			
 		love.graphics.pop()
 
-		weeks:drawUI()
+		weeksShitno:drawUI()
 	end,
 
 	leave = function(self)
@@ -92,6 +97,6 @@ return {
 
 		graphics.clearCache()
 
-		weeks:leave()
+		weeksShitno:leave()
 	end
 }

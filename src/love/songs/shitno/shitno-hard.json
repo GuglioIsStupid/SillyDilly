@@ -649,7 +649,7 @@
 						1291.66666666667
 					]
 				],
-				"bpm": 360,
+				"bpm": 180,
 				"mustHitSection": false,
 				"changeBPM": true
 			},
@@ -4527,7 +4527,7 @@
 				"altAnim": false,
 				"mustHitSection": false,
 				"changeBPM": true,
-				"bpm": 360
+				"bpm": 180
 			},
 			{
 				"sectionNotes": [],

@@ -213,7 +213,12 @@ return {
 		combo = 0
 
 		if enemy then enemy:animate("idle") end
-		boyfriend:animate("idle")
+
+		if beforeTurn then
+			boyfriend:animate("cold idle")
+		else
+			boyfriend:animate("idle")
+		end
 
 		if not camera.points["boyfriend"] then camera:addPoint("boyfriend", -boyfriend.x + 100, -boyfriend.y + 75) end
 		if not camera.points["enemy"] then 
@@ -1209,9 +1214,12 @@ return {
 					end
 
 					table.remove(boyfriendNote, 1)
+					if beforeTurn then
+						boyfriend:animate("cold " .. curAnim .. " miss", false)
+					else
 
-					boyfriend:animate(curAnim .. " miss", false)
-
+						boyfriend:animate(curAnim .. " miss", false)
+					end
 					if combo >= 5 then girlfriend:animate("sad", false) end
 
 					combo = 0
@@ -1228,9 +1236,17 @@ return {
 						boyfriendArrow.orientation = boyfriendArrow.orientation + arrowAngles[i]
 
 						if boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end" then
-							if boyfriend.holdTimer >= boyfriend.maxHoldTimer then boyfriend:animate(curAnim, false) end
+							if beforeTurn then
+								if boyfriend.holdTimer >= boyfriend.maxHoldTimer then boyfriend:animate(curAnim, false) end
+							else
+								if boyfriend.holdTimer >= boyfriend.maxHoldTimer then boyfriend:animate("cold " .. curAnim, false) end
+							end
 						else
-							boyfriend:animate(curAnim, false)
+							if beforeTurn then
+								boyfriend:animate("cold " .. curAnim, false)
+							else
+								boyfriend:animate(curAnim, false)
+							end
 						end
 
 						boyfriend.lastHit = musicTime
@@ -1364,8 +1380,12 @@ return {
 									boyfriendArrow:animate(noteList[boyfriendNote[1].col] .. " confirm", false)
 									boyfriendArrow.orientation = boyfriendArrow.orientation - arrowAngles[boyfriendNote[1].col]
 									boyfriendArrow.orientation = boyfriendArrow.orientation + arrowAngles[i]
+									if beforeTurn then
+										boyfriend:animate("cold " .. curAnim, false)
+									else
+										boyfriend:animate(curAnim, false)
 
-									boyfriend:animate(curAnim, false)
+									end
 
 									if boyfriendNote[j]:getAnimName() ~= "hold" and boyfriendNote[j]:getAnimName() ~= "end" then
 										health = health + 0.095
@@ -1392,8 +1412,12 @@ return {
 					notMissed[noteNum] = false
 
 					if combo >= 5 then girlfriend:animate("sad", false) end
+					if beforeTurn then
 
-					boyfriend:animate(curAnim .. " miss", false)
+						boyfriend:animate("cold " .. curAnim .. " miss", false)
+					else
+						boyfriend:animate(curAnim .. " miss", false)
+					end
 
 					score = score - 10
 					combo = 0
@@ -1415,7 +1439,11 @@ return {
 				health = health + 0.0125
 
 				if boyfriend.holdTimer > boyfriend.maxHoldTimer then
-					boyfriend:animate(curAnim, false)
+					if beforeTurn then
+						boyfriend:animate("cold " .. curAnim, false)
+					else
+						boyfriend:animate(curAnim, false)
+					end
 				end
 
 				table.remove(boyfriendNote, 1)

@@ -295,6 +295,7 @@ return graphics.newSprite(
 		{x = 834, y = 2424, width = 274, height = 305, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 253: Grey_Talk10037
 		{x = 834, y = 2424, width = 274, height = 305, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 254: Grey_Talk10038
 		{x = 834, y = 2424, width = 274, height = 305, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 255: Grey_Talk10039
+
 		{x = 1111, y = 2424, width = 274, height = 305, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 256: Grey_Talk20000
 		{x = 1111, y = 2424, width = 274, height = 305, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 257: Grey_Talk20001
 		{x = 1388, y = 2424, width = 274, height = 305, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 258: Grey_Talk20002
@@ -364,7 +365,8 @@ return graphics.newSprite(
 		["cold singLEFT miss"] = {start = 31, stop = 34, speed = 24, offsetX = 0, offsetY = 0},
 		["cold singRIGHT miss"] = {start = 35, stop = 38, speed = 24, offsetX = 0, offsetY = 0},
 		["cold singUP miss"] = {start = 39, stop = 42, speed = 24, offsetX = 0, offsetY = 0},
-		["talk"] = {start = 216, stop = 299, speed = 24, offsetX = 0, offsetY = 0},
+		["talk"] = {start = 216, stop = 255, speed = 24, offsetX = 0, offsetY = 0},
+		["talk2"] = {start = 256, stop = 299, speed = 24, offsetX = 0, offsetY = 0},
 		["cold talk"] = {start = 49, stop = 129, speed = 24, offsetX = 0, offsetY = 0},
 		["idle"] = {start = 174, stop = 187, speed = 24, offsetX = 0, offsetY = 0},
 		["cold idle"] = {start = 7, stop = 20, speed = 24, offsetX = 0, offsetY = 0},

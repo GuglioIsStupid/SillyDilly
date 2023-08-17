@@ -21,19 +21,89 @@ return {
 
 
 
+
+
+
     end,
 
     load = function()
 
         shitnoAlpha = 0
 
+        beforeTurn = true
+
         camera:addPoint("enemy", 328, 0, 1, 1)
         camera:addPoint("boyfriend", 328, 0, 1, 1)
 
+        boyfriend:animate("cold idle", true)
+
+
+        camera.camBopIntensity = 1
+        camera.camBopInterval = 4
 
     end,
 
     update = function(self, dt)
+
+        if beforeTurn and beatHandler.onBeat() and not talking then
+            if boyfriend:getAnimName() ~= "cold idle" then
+                boyfriend:animate("cold idle", true)
+            end
+        end
+
+
+        if musicTime >= 7333 and musicTime < 7333+50 then
+            talking = true
+            boyfriend:animate("cold talk", false, function()
+                talking = false
+            end)
+        end
+
+        if musicTime >= 34666 and musicTime < 34666+50 then
+            talking = true
+            boyfriend:animate("turn", false, function()
+                beforeTurn = false
+                talking = false
+            end)
+        end
+
+        if musicTime >= 46125 and musicTime < 46125+50 then
+            talking = true
+            boyfriend:animate("talk", false, function()
+                talking = false
+            end)
+        end
+
+        if musicTime >= 58666 and musicTime < 58666+50 then
+            camera.camBopIntensity = 2
+            camBopInterval = 1
+        end
+
+        if musicTime >= 101333 and musicTime < 101333+50 then
+            camera.camBopIntensity = 1
+            camera.camBopInterval = 4
+        end
+
+        if musicTime >= 168958 and musicTime < 168958+50 then
+            talking = true
+            boyfriend:animate("talk2", false, function()
+                talking = false
+            end)
+        end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         if musicTime >= 34666 and musicTime < 34666+50 then          -- guglio pls make this look actually good it looks nothing like the real mod and idk why :(
             shitnoAlpha = 0.125
@@ -86,6 +156,9 @@ return {
             v = nil
 		end
 
+
+        camera.camBopIntensity = 1
+        camera.camBopInterval = 4
         graphics.clearCache()
     end
 }
