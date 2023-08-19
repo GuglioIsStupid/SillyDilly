@@ -48,8 +48,8 @@ return {
 
 
 
-	--inst:seek(60)
-	--	voices:seek(60)
+	inst:seek(150)
+		voices:seek(150)
 	end,
 
 	initUI = function(self)
@@ -94,7 +94,7 @@ return {
 
 		love.graphics.push()
 			love.graphics.scale(love.graphics.getWidth() / 1280, love.graphics.getHeight() / 720)
-			if doneFlash then
+			if doneFlash and not questionare then
 				weeksAmusia:drawUI()
 			end
 			love.graphics.setColor(1,1,1,amusiaAlphaValues[9])
