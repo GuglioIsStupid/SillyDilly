@@ -206,7 +206,7 @@ return {
 
         if hoverNotes then
             if hoverFactor < 24 then
-                hoverFactor = hoverFactor + (dt / (1/60))
+                hoverFactor = hoverFactor + 4 * dt
             end
             for i = 1, 4 do
                 for j = 1, #boyfriendNotes[i] do
@@ -221,7 +221,7 @@ return {
 
             if finishedRotating then
                 if horizontalFactor < 64 then
-                    horizontalFactor = horizontalFactor + (dt / (1/60))
+                    horizontalFactor = horizontalFactor + 8 * dt
                 end
                 for i = 1, 4 do
                     for j = 1, #boyfriendNotes[i] do

@@ -9,17 +9,18 @@ function splash:setup()
     else
         self.image = love.graphics.newImage(graphics.imagePath("pixel/pixelSplashes"))
     end
+    if not pixel then
+        self.oSprite = love.filesystem.load("sprites/noteSplashes.lua")
+    else
+        self.oSprite = love.filesystem.load("sprites/pixel/pixelSplashes.lua")
+    end
 end
 
 function splash:new(settings, id)
     local s = {}
     s.anim = settings.anim
     s.posX = settings.posX
-    if not pixel then
-        s.sprite = love.filesystem.load("sprites/noteSplashes.lua")()
-    else
-        s.sprite = love.filesystem.load("sprites/pixel/pixelSplashes.lua")()
-    end
+    s.sprite = self.oSprite()
     s.sprite.x = s.posX
     s.sprite.y = -400
     s.sprite.id = id
