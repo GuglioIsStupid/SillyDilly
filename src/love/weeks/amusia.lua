@@ -94,7 +94,12 @@ return {
 
 		love.graphics.push()
 			love.graphics.scale(love.graphics.getWidth() / 1280, love.graphics.getHeight() / 720)
-			weeksAmusia:drawUI()
+			if doneFlash then
+				weeksAmusia:drawUI()
+			end
+			love.graphics.setColor(1,1,1,amusiaAlphaValues[9])
+			love.graphics.rectangle("fill", -1000, -1000, 10000, 10000)
+			love.graphics.setColor(1,1,1,1)
 		love.graphics.pop()
 	end,
 

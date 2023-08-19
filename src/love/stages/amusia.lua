@@ -72,7 +72,7 @@ return {
             -150, 307, 1,
             452, 37, 0.6
         }
-        amusiaAlphaValues = {0,0,0,0,0}
+        amusiaAlphaValues = {0,0,0,0,0,0,0,0,0}
 
         function WigglesChange(myHardCock)
             local wigglyState = myHardCock
@@ -94,20 +94,41 @@ return {
 
 
         function introFlash()
-            Timer.tween(3125, amusiaAlphaValues[6], )
+            flashes = flashes - 1
+            doingFlash = true
+            print("start flash")
+            Timer.tween(0.3125, amusiaAlphaValues, {[6] = 0.5}, "linear", function()
+                Timer.tween(0.3125, amusiaAlphaValues, {[6] = 0}, "linear", function()
+                    if flashes > 0 then
+                        introFlash()
+                        print("continue flash")
+                    elseif flashes == 0 then
+                        print("end flash")
+                        doneFlash = true
+                        amusiaAlphaValues[9] = 1
+                        Timer.tween(0.5, amusiaAlphaValues, {[9] = 0}, "linear")
+                    end
+                    doingFlash = false
+                    print(flashes)
+                end)
+            end)
         end
-        
     end,
 
     load = function()
+        doneWigglyTween = false
+        donePonytaTween = false
+
         green = true
         currentWigglyState = 0
         doneSwitch = false
         flashes = 4
+        doneFlash = false
 
-        amusiaAlphaValues = {1,1,0,0,0}
-        camera:addPoint("enemy", 0, 0, 1, 1)
-        camera:addPoint("boyfriend", -242, 45, 1.2, 1.2)
+        doneIntro = false
+        amusiaAlphaValues = {1,1,0,0,0,0,0,0,0}
+        camera:addPoint("enemy", -66, -1, 1, 1)
+        camera:addPoint("boyfriend", -66, -1, 1.2, 1.2)
         didTransition = false
 
         staticOverlayAlpha = {0}
@@ -115,10 +136,45 @@ return {
         hoverFactor = 0
         finishedRotating = false
         horizontalFactor = 0
+        camera:moveToPoint(0,"enemy")
     end,
 
     update = function(self, dt) 
 
+
+        if musicTime >= 2666 and musicTime < 2666+50 then
+            camera:addPoint("enemy", 0, 0, 1, 1)
+            camera:addPoint("boyfriend", -242, 45, 1.2, 1.2)
+            camera:moveToPoint(1,"enemy")
+        end
+
+
+
+        if musicTime >= 1333 and not doneWigglyTween then
+            amusiaAlphaValues[7] = 1
+            doneWigglyTween = true
+            enemyPos = enemy1.x
+            enemy1.x = enemy1.x + 1200
+            Timer.tween(0.5, enemy1, {x = enemy1.x - 1200}, "out-quad")
+        end
+
+        if musicTime >= 1999 and not donePonytaTween then
+            amusiaAlphaValues[8] = 1
+            donePonytaTween = true
+            playerPos = boyfriend1.x
+            boyfriend1.x = boyfriend1.x - 1200
+            Timer.tween(0.5, boyfriend1, {x = boyfriend1.x + 1200}, "out-quad")
+        end
+
+        if musicTime >= 01 and not doneIntro then
+            doneIntro = true
+            introFlash()
+        end
+
+
+       -- if doingFlash then
+        --    print(amusiaAlphaValues[6])
+        --end
         pincushionShader:send("prob", pincushionShaderIntensity)
         pincushionShader:send("time", musicTime / (beatHandler.stepCrochet * 8))
 
@@ -463,10 +519,27 @@ return {
             love.graphics.setColor(1,1,1,amusiaAlphaValues[4])
             boyfriend3:draw()
 
+
+            ----[[
+
+            if not doneFlash then
+                love.graphics.setColor(amusiaAlphaValues[6],amusiaAlphaValues[6],amusiaAlphaValues[6],1)
+                love.graphics.rectangle("fill", -1000, -1000, 10000, 10000)
+                love.graphics.setColor(0,0,0,1)
+                love.graphics.setColor(0,0,0,amusiaAlphaValues[7])
+                enemy1:draw()
+                love.graphics.setColor(0,0,0,amusiaAlphaValues[8])
+                boyfriend1:draw()
+            end
+
+            --]]
             love.graphics.setColor(1,1,1,1)
+
+        
 
            -- boyfriend:draw()
           -- enemy:draw()
+
  
 
 		love.graphics.pop()
