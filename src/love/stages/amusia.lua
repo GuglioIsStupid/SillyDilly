@@ -82,22 +82,29 @@ return {
             if currentWigglyState == 1 then
                 pincushionShaderIntensity = 0.05
             elseif currentWigglyState == 2 then
-                pincushionShaderIntensity = 0.125
+                pincushionShaderIntensity = 0.125 
             elseif currentWigglyState == 3 then
                 pincushionShaderIntensity = 0.5
             else
                 pincushionShaderIntensity = 0.0125
             end
 
-            currentWigglyState = myHardCock
             print("WiggleChange(" ..currentWigglyState .. ")")
         end
+        flashes = 4
+
+
+        function introFlash()
+            Timer.tween(3125, amusiaAlphaValues[6], )
+        end
+        
     end,
 
     load = function()
         green = true
         currentWigglyState = 0
         doneSwitch = false
+        flashes = 4
 
         amusiaAlphaValues = {1,1,0,0,0}
         camera:addPoint("enemy", 0, 0, 1, 1)
@@ -485,7 +492,7 @@ return {
 
            -- boyfriend:draw()
           -- enemy:draw()
-
+ 
 
 		love.graphics.pop()
     end,
