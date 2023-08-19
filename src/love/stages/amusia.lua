@@ -75,7 +75,6 @@ return {
         amusiaAlphaValues = {0,0,0,0,0}
 
         function WigglesChange(myHardCock)
-<<<<<<< HEAD
             local wigglyState = myHardCock
             currentWigglyState = wigglyState
 
@@ -89,9 +88,7 @@ return {
                 pincushionShaderIntensity = 0.0125
             end
 
-=======
             currentWigglyState = myHardCock
->>>>>>> b33c8bd89cb24ca344362ce1efa8616cbecef7eb
             print("WiggleChange(" ..currentWigglyState .. ")")
         end
     end,
