@@ -61,9 +61,7 @@ return {
 
 
         function WigglesChange(myHardCock)
-            local wigglyState = myHardCock
-            currentWigglyState = wigglyState
-
+            currentWigglyState = myHardCock
             print("WiggleChange(" ..currentWigglyState .. ")")
         end
 
