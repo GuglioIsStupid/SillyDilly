@@ -1575,7 +1575,7 @@ return {
 				graphics.setColor(1, 1, 1)
 				if not pixel then 
 					boyfriendArrows[i]:draw()
-					NoteSplash:draw()
+					 
 				else
 					if not settings.downscroll then
 						boyfriendArrows[i]:udraw(8, 8)

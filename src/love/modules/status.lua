@@ -39,7 +39,7 @@ return {
 	getDebugStr = function(type)
 		local debugStr
 		local stats = love.graphics.getStats()
-		if type == "detailed" then
+		if type == "detailed" or type == "console" then
 			debugStr = "FPS: " .. tostring(love.timer.getFPS()) ..
 			"\nLUA MEM USAGE (KB): " .. tostring(math.floor(collectgarbage("count"))) ..
 			"\nGRAPHICS MEM USAGE (MB): " .. tostring(math.floor(stats.texturememory / 1048576)) ..

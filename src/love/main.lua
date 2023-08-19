@@ -745,7 +745,7 @@ function love.draw()
 
 	-- Debug output
 	if settings.showDebug then
-		borderedText(status.getDebugStr(settings.showDebug).."\n\n"..dump(consoleTable), 5, 5, nil, 0.6, 0.6)
+		borderedText(status.getDebugStr(settings.showDebug)..(settings.showDebug == "console" and "\n\n"..dump(consoleTable) or ""), 5, 5, nil, 0.6, 0.6)
 	end
 end
 
