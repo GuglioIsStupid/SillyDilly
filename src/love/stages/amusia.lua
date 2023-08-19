@@ -1,3 +1,19 @@
+pincushionShaderIntensity = 0.0125
+local staticOverlayAlpha = {0}
+hoverFactor = 0
+horizontalFactor = 0
+finishedRotating = false
+
+local function flipStrum(startX, strum)
+    local xpos = {}
+    for i = 1, #strum do
+        xpos[i] = startX + 165 * i
+    end
+
+    for i = 1, #strum do
+        Timer.tween(beatHandler.stepCrochet/1000 * 16, strum[i], {x = xpos[i]}, "in-out-circ")
+    end
+end
 return {
     enter = function()
         stageImages = {
@@ -16,8 +32,8 @@ return {
 
 
 
-
-
+        pincushionShader = love.graphics.newShader("shaders/pincushion.frag")
+        pincushionShader:send("distort", 1.5)
 
 
         enemy1 = love.filesystem.load("sprites/amusia/wiggles_glitchy.lua")()
@@ -58,15 +74,22 @@ return {
         }
         amusiaAlphaValues = {0,0,0,0,0}
 
-
-
         function WigglesChange(myHardCock)
             local wigglyState = myHardCock
             currentWigglyState = wigglyState
 
+            if currentWigglyState == 1 then
+                pincushionShaderIntensity = 0.05
+            elseif currentWigglyState == 2 then
+                pincushionShaderIntensity = 0.125
+            elseif currentWigglyState == 3 then
+                pincushionShaderIntensity = 0.5
+            else
+                pincushionShaderIntensity = 0.0125
+            end
+
             print("WiggleChange(" ..currentWigglyState .. ")")
         end
-
     end,
 
     load = function()
@@ -77,11 +100,19 @@ return {
         amusiaAlphaValues = {1,1,0,0,0}
         camera:addPoint("enemy", 0, 0, 1, 1)
         camera:addPoint("boyfriend", -242, 45, 1.2, 1.2)
+        didTransition = false
+
+        staticOverlayAlpha = {0}
+        hoverNotes = false
+        hoverFactor = 0
+        finishedRotating = false
+        horizontalFactor = 0
     end,
 
     update = function(self, dt) 
 
-
+        pincushionShader:send("prob", pincushionShaderIntensity)
+        pincushionShader:send("time", musicTime / (beatHandler.stepCrochet * 8))
 
 
         for i = 1,3 do
@@ -96,6 +127,38 @@ return {
 
         --enemy2.x, enemy2.y = boyfriend1.x, boyfriend1.y
         --boyfriend3.x, boyfriend3.y = enemy1.x, enemy1.y
+
+        if hoverNotes then
+            if hoverFactor < 24 then
+                hoverFactor = hoverFactor + (dt / (1/60))
+            end
+            for i = 1, 4 do
+                for j = 1, #boyfriendNotes[i] do
+                    boyfriendNotes[i][j].offsetY = (hoverFactor/2) + math.sin((musicTime / ((beatHandler.stepCrochet*8) - i)) * math.pi) * hoverFactor
+                end
+                boyfriendArrows[i].offsetY = (hoverFactor/2) + math.sin((musicTime / ((beatHandler.stepCrochet*8) - i)) * math.pi) * hoverFactor
+                for j = 1, #enemyNotes[i] do
+                    enemyNotes[i][j].offsetY = (hoverFactor/2) + math.sin((musicTime / ((beatHandler.stepCrochet*8) - i)) * math.pi) * hoverFactor
+                end
+                enemyArrows[i].offsetY = (hoverFactor/2) + math.sin((musicTime / ((beatHandler.stepCrochet*8) - i)) * math.pi) * hoverFactor
+            end 
+
+            if finishedRotating then
+                if horizontalFactor < 64 then
+                    horizontalFactor = horizontalFactor + (dt / (1/60))
+                end
+                for i = 1, 4 do
+                    for j = 1, #boyfriendNotes[i] do
+                        boyfriendNotes[i][j].offsetX = -math.cos((musicTime/ ((beatHandler.stepCrochet*16))) * math.pi) * horizontalFactor
+                    end
+                    boyfriendArrows[i].offsetX = -math.cos((musicTime/ ((beatHandler.stepCrochet*16))) * math.pi) * horizontalFactor
+                    for j = 1, #enemyNotes[i] do
+                        enemyNotes[i][j].offsetX = -math.cos((musicTime/ ((beatHandler.stepCrochet*16))) * math.pi) * horizontalFactor
+                    end
+                    enemyArrows[i].offsetX = -math.cos((musicTime/ ((beatHandler.stepCrochet*16))) * math.pi) * horizontalFactor
+                end
+            end
+        end
 
         if doneSwitch then
             if not mustHitSection then
@@ -130,6 +193,7 @@ return {
 
         if musicTime >= 45250 and musicTime < 45250+50 then
             green = false
+            pincushionShaderIntensity = 0.75
             print("purple")
         end
 
@@ -268,24 +332,86 @@ return {
         if musicTime >= 60500 and musicTime < 60500+50 then
             WigglesChange(3)
         end
+        if musicTime >= 60583.3333333334 and musicTime < 60583.3333333334+50 then
+            ChromaticRiser(1.5, 8)
+        end
         if musicTime >= 61000 and musicTime < 61000+50 then
             WigglesChange(1)
         end
         if musicTime >= 61331 and musicTime < 61331+50 then
             WigglesChange(3)
+            ChromaticRiser(0, 0.1)
         end
 
+        if musicTime >= 66666.6666666667 and musicTime <= 66666.6666666667+50 and not didTransition then
+            didTransition = true
+
+            Timer.tween(beatHandler.stepCrochet/1000 * 8, staticOverlayAlpha, {1}, "in-circ", function()
+                pincushionShaderIntensity = 1.25
+                for i = 1, 4 do
+                    for j = 1, #boyfriendNotes[i] do
+                        Timer.tween(beatHandler.stepCrochet/1000 * 16, boyfriendNotes[i][j], {rotation = 360}, "in-out-cubic")
+                    end
+                    Timer.tween(beatHandler.stepCrochet/1000 * 16, boyfriendArrows[i], {rotation = 360}, "in-out-cubic")
+
+                    for j = 1, #enemyNotes[i] do
+                        Timer.tween(beatHandler.stepCrochet/1000 * 16, enemyNotes[i][j], {rotation = 360}, "in-out-cubic")
+                    end
+                    Timer.tween(beatHandler.stepCrochet/1000 * 16, enemyArrows[i], {rotation = 360}, "in-out-cubic")
+                end
+
+                hoverNotes = true
+
+                flipStrum(-925, boyfriendArrows)
+                flipStrum(100, enemyArrows)
+            end)
+        end
+
+        if musicTime >= 67333.3333333334 and musicTime < 67333.3333333334+50 then
+            ChromaticRiser(1.15, 8)
+        end
+
+        if musicTime >= 108666.666666667 and musicTime < 108666.666666667+50 then
+            ChromaticRiser(0, 8)
+        end
+
+        if musicTime >= 169666.666666667 and musicTime <= 169666.666666667+50 then
+            runningAway = true
+        end
+
+
+        -- STEP STUFF
+        if beatHandler.onStep then
+            if not runningAway then 
+                if amusiaAlphaValues[5] == 1 and beatHandler.curStep % 32 == 0 then
+                    finishedRotating = true
+                    for i = 1, 4 do
+                        for j = 1, #boyfriendNotes[i] do
+                            Timer.tween(beatHandler.stepCrochet/1000 * 8, boyfriendNotes[i][j], {rotation = 360}, "in-out-cubic")
+                        end
+                        Timer.tween(beatHandler.stepCrochet/1000 * 8, boyfriendArrows[i], {rotation = 360}, "in-out-cubic")
+
+                        for j = 1, #enemyNotes[i] do
+                            Timer.tween(beatHandler.stepCrochet/1000 * 8, enemyNotes[i][j], {rotation = 360}, "in-out-cubic")
+                        end
+                        Timer.tween(beatHandler.stepCrochet/1000 * 8, enemyArrows[i], {rotation = 360}, "in-out-cubic")
+                    end
+                end
+            end
+        end
     end,
 
     draw = function()
         love.graphics.push()
 			love.graphics.translate(camera.x * 0.2, camera.y * 0.2)
             love.graphics.translate(camera.ex * 0.2, camera.ey * 0.2)
+            love.graphics.setShader(pincushionShader)
             if green then
                 stageImages["backgroundGreen"]:draw()
             else
                 stageImages["backgroundPurple"]:draw()
             end
+            love.graphics.setShader()
 		love.graphics.pop()
 		love.graphics.push()
 			love.graphics.translate(camera.x, camera.y)

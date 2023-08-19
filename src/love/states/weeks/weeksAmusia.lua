@@ -35,6 +35,52 @@ local noteList = {
 	"up",
 	"right"
 }
+local camHudEnemy = {
+	ballsTimer = nil,
+	_fxShakeIntensity = 0,
+	_fxShakeDuration = 0,
+	_fxShakeComplete = nil,
+	_fxShakeAxes = "xy",
+
+	width = 640,
+	height = 360,
+
+	x = 0,
+	y = 0,
+
+	shake = function(self, intensity, duration, onComplete, axes)
+		local intensity = intensity or 0.05
+		local duration = duration or 0.5
+		local onComplete = onComplete or function() end
+		local axes = axes or "xy"
+
+		self._fxShakeIntensity = intensity
+		self._fxShakeDuration = duration
+		self._fxShakeComplete = onComplete
+		self._fxShakeAxes = axes
+	end,
+	updateShake = function(self, dt)
+		if self._fxShakeDuration > 0 then
+			self._fxShakeDuration = self._fxShakeDuration - dt
+			if self._fxShakeDuration <= 0 then
+				self._fxShakeDuration = 0
+				if self._fxShakeComplete then
+					self._fxShakeComplete()
+					self._fxShakeComplete = nil
+				end
+			else
+				if self._fxShakeAxes:find("x") then
+					local shakePixels = love.math.random(-1,1) * self._fxShakeIntensity * self.width
+					self.x = self.x + shakePixels
+				end
+				if self._fxShakeAxes:find("y") then
+					local shakePixels = love.math.random(-1,1) * self._fxShakeIntensity * self.height
+					self.y = self.y + shakePixels
+				end
+			end
+		end
+	end,
+}
 local arrowAngles = {math.rad(180), math.rad(90), math.rad(270), math.rad(0)}
 if settings.downscroll then
 	-- ezezezezezezezezezezezezez workaround lol
@@ -233,11 +279,13 @@ return {
 				for j, note in ipairs(boyfriendNotes[i]) do
 					local strumlineY = boyfriendArrows[i].y
 					note.y = (strumlineY - (musicTime - note.time) * (0.45 * math.roundDecimal(speed,2)))
+					note.x = boyfriendArrows[i].x
 				end
 
 				for _, note in ipairs(enemyNotes[i]) do
 					local strumlineY = enemyArrows[i].y
 					note.y = (strumlineY - (musicTime - note.time) * (0.45 * math.roundDecimal(speed,2)))
+					note.x = enemyArrows[i].x
 				end
 			end
 		end
@@ -1116,6 +1164,8 @@ return {
 		if inCutscene then return end
 		if paused then return end
 
+		camHudEnemy:updateShake(dt)
+
 		NoteSplash:update(dt)
 		updateNotePos()
 
@@ -1145,14 +1195,21 @@ return {
 			end
 
 			if #enemyNote > 0 then
-				if (enemyNote[1].time - musicTime <= 0) then
+				if (enemyNote[1].time - musicTime <= 0 and enemyNote[1].time - musicTime >= -100) then
 					if voices then voices:setVolume(1) end
 
-					enemyArrow:animate(noteList[enemyNote[1].col] .. " confirm", false)
 					if enemyNote[1]:getAnimName() ~= "hold" and enemyNote[1]:getAnimName() ~= "end" then
 						enemyArrow.orientation = enemyArrow.orientation - arrowAngles[enemyNote[1].col]
 						enemyArrow.orientation = enemyArrow.orientation + arrowAngles[i]
 					end
+
+					camHudEnemy:shake(0.00625, 0.05, 
+					function() -- tween x and y to 0, 0
+						if camHudEnemy.ballsTimer then
+							Timer.cancel(camHudEnemy.ballsTimer)
+						end
+						ballsTimer = Timer.tween(0.01, camHudEnemy, {x = 0, y = 0}, "linear")
+					end)
 
 					if enemyNote[1].ver ~= "GF Sing" then
 						if enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end" then
@@ -1203,7 +1260,7 @@ return {
 					if not mustHitSection then 
 						noteCamTweens[i]()
 					end
-
+				elseif (enemyNote[1].time - musicTime < -200) then
 					table.remove(enemyNote, 1)
 				end
 			end
@@ -1558,6 +1615,7 @@ return {
 			for i = 1, 4 do
 				love.graphics.push()				
 					love.graphics.push()
+						love.graphics.translate(camHudEnemy.x, camHudEnemy.y)
 						for j = #enemyNotes[i], 1, -1 do
 							if enemyNotes[i][j].y <= 560 then
 								local animName = enemyNotes[i][j]:getAnimName()
@@ -1613,24 +1671,27 @@ return {
 			graphics.setColor(1, 1, 1)
 
 			for i = 1, 4 do
-				if enemyArrows[i]:getAnimName() == "off" then
-					if not settings.middleScroll then
-						graphics.setColor(0.6, 0.6, 0.6, enemyArrows[i].alpha)
+				love.graphics.push()
+					love.graphics.translate(camHudEnemy.x, camHudEnemy.y)
+					if enemyArrows[i]:getAnimName() == "off" then
+						if not settings.middleScroll then
+							graphics.setColor(0.6, 0.6, 0.6, enemyArrows[i].alpha)
+						else
+							graphics.setColor(0.6, 0.6, 0.6, 0.6 * enemyArrows[i].alpha)
+						end
 					else
-						graphics.setColor(0.6, 0.6, 0.6, 0.6 * enemyArrows[i].alpha)
+						graphics.setColor(1, 1, 1, enemyArrows[i].alpha)
 					end
-				else
-					graphics.setColor(1, 1, 1, enemyArrows[i].alpha)
-				end
-				if not pixel then
-					enemyArrows[i]:draw()
-				else
-					if not settings.downscroll then
-						enemyArrows[i]:udraw(8, 8)
+					if not pixel then
+						enemyArrows[i]:draw()
 					else
-						enemyArrows[i]:udraw(8, -8)
+						if not settings.downscroll then
+							enemyArrows[i]:udraw(8, 8)
+						else
+							enemyArrows[i]:udraw(8, -8)
+						end
 					end
-				end
+				love.graphics.pop()
 				graphics.setColor(1, 1, 1)
 				if not pixel then 
 					boyfriendArrows[i]:draw()
@@ -1648,6 +1709,7 @@ return {
 
 				love.graphics.push()
 					love.graphics.push()
+						love.graphics.translate(camHudEnemy.x, camHudEnemy.y)
 						for j = #enemyNotes[i], 1, -1 do
 							if enemyNotes[i][j].y <= 560 then
 								local animName = enemyNotes[i][j]:getAnimName()

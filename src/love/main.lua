@@ -213,6 +213,42 @@ function love.load() -- Todo, add custom framerate support
 end
 ]]
 
+canRise = true
+camEffectDistortion = 0
+riserTimer = nil
+
+function onCompleteRiser()
+	canRise = false
+end
+
+function ChromaticRiser(v1, v2)
+	local newZoom = v1 or 0
+	local timestep = v2 or 0
+
+	if riserTimer then
+		Timer.cancel(riserTimer)
+	end
+	
+	canRise = true
+	if newZoom > camEffectDistortion then
+		riserTimer = Timer.tween(
+			(timestep * beatHandler.stepCrochet)/1000, 
+			_G, 
+			{camEffectDistortion = newZoom}, 
+			"in-cubic", 
+			onCompleteRiser
+		)
+	else
+		riserTimer = Timer.tween(
+			(timestep * beatHandler.stepCrochet)/1000, 
+			_G, 
+			{camEffectDistortion = newZoom}, 
+			"out-cubic", 
+			onCompleteRiser
+		)
+	end
+end
+
 function love.load()
 	paused = false
 	settings = {}
@@ -249,6 +285,9 @@ function love.load()
 	xmlcamera = require "modules.xml.camera"
 
 	playMenuMusic = true
+
+	-- Global Shaders
+	camEffect = love.graphics.newShader("shaders/camEffects.frag")
 
 	if love.filesystem.getInfo("settings") then 
 		settingsdata = lume.deserialize(love.filesystem.read("settings"))
@@ -633,6 +672,8 @@ function love.update(dt)
 	end
 
 	input:update()
+
+	camEffect:send("distort", camEffectDistortion)
 
 	if status.getNoResize() then
 		Gamestate.update(dt)

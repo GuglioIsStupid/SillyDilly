@@ -30,6 +30,8 @@ return {
 
 		enemyIcon:animate("daddy dearest", false)
 
+		gameCanvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
+
 		self:load()
 	end,
 
@@ -77,14 +79,23 @@ return {
 	end,
 
 	draw = function(self)
+		love.graphics.setCanvas(gameCanvas)
+			love.graphics.push()
+				love.graphics.translate(1280 / 2, 720 / 2)
+				love.graphics.scale(camera.zoom, camera.zoom)
+
+				stages["amusia"]:draw()
+			love.graphics.pop()
+		love.graphics.setCanvas()
+
+		love.graphics.setShader(camEffect)
+		love.graphics.draw(gameCanvas, 0, 0, 0, love.graphics.getWidth() / 1280, love.graphics.getHeight() / 720)
+		love.graphics.setShader()
+
 		love.graphics.push()
-			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
-			love.graphics.scale(camera.zoom, camera.zoom)
-
-			stages["amusia"]:draw()
+			love.graphics.scale(love.graphics.getWidth() / 1280, love.graphics.getHeight() / 720)
+			weeksAmusia:drawUI()
 		love.graphics.pop()
-
-		weeksAmusia:drawUI()
 	end,
 
 	leave = function(self)

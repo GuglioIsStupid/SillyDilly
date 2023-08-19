@@ -194,6 +194,7 @@ return {
 			x = 0,
 			y = 0,
 			orientation = 0,
+			rotation = 0,
 			sizeX = 1,
 			sizeY = 1,
 			offsetX = 0,
@@ -225,6 +226,10 @@ return {
 			visible = true,
 
 			danced = false,
+			_fxShakeIntensity = 0,
+			_fxShakeDuration = 0,
+			_fxShakeComplete = nil,
+			_fxShakeAxes = "xy",
 
 			setSheet = function(self, imageData)
 				sheet = imageData
@@ -274,6 +279,39 @@ return {
 
 				isAnimated = true
 			end,
+			shake = function(self, intensity, duration, onComplete, axes)
+				local intensity = intensity or 0.05
+				local duration = duration or 0.5
+				local onComplete = onComplete or function() end
+				local axes = axes or "xy"
+
+				self._fxShakeIntensity = intensity
+				self._fxShakeDuration = duration
+				self._fxShakeComplete = onComplete
+				self._fxShakeAxes = axes
+			end,
+			updateShake = function(self, dt)
+				if self._fxShakeDuration > 0 then
+					self._fxShakeDuration = self._fxShakeDuration - dt
+					if self._fxShakeDuration <= 0 then
+						self._fxShakeDuration = 0
+						if self._fxShakeComplete then
+							self._fxShakeComplete()
+							self._fxShakeComplete = nil
+						end
+					else
+						if self._fxShakeAxes:find("x") then
+							local shakePixels = love.math.random(-1,1) * self._fxShakeIntensity * self:getFrameWidth()
+							self.x = self.x + shakePixels
+						end
+						if self._fxShakeAxes:find("y") then
+							local shakePixels = love.math.random(-1,1) * self._fxShakeIntensity * self:getFrameHeight()
+							self.y = self.y + shakePixels
+						end
+					end
+				end
+			end,
+				
 			getAnims = function(self)
 				return anims
 			end,
@@ -301,6 +339,7 @@ return {
 				if isAnimated then
 					frame = frame + anim.speed * dt
 				end
+				self:updateShake(dt)
 
 				if isAnimated and frame > anim.stop then
 					if self.func then
@@ -437,7 +476,7 @@ return {
 							frames[self.curFrame],
 							x,
 							y,
-							self.orientation,
+							self.orientation + math.rad(self.rotation),
 							self.sizeX * (self.flipX and -1 or 1),
 							self.sizeY,
 							width + anim.offsetX + self.offsetX,
