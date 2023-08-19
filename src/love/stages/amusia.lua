@@ -24,12 +24,15 @@ return {
             ["platform"] = graphics.newImage(graphics.imagePath("amusia/Purple_place")),
             ["platform2"] = graphics.newImage(graphics.imagePath("amusia/Purple_place")),
             ["half platform"] = graphics.newImage(graphics.imagePath("amusia/Purple_place_half_part")),
-            ["questionare"] = graphics.newImage(graphics.imagePath("amusia/questionare"))
+            ["questionare"] = graphics.newImage(graphics.imagePath("amusia/questionare")),
+            ["wiggles questionare"] = love.filesystem.load("sprites/amusia/wiggles_questionare.lua")(),
         }
 
 
         enemy = love.filesystem.load("sprites/amusia/WigglesTerrorUneashed.lua")()
         boyfriend = love.filesystem.load("sprites/amusia/ponyta_perspective.lua")()
+
+        stageImages["wiggles questionare"]:animate("idle", false)
 
 
 
@@ -58,6 +61,11 @@ return {
         boyfriend3.x, boyfriend3.y = -166, 181
         boyfriend3.sizeX, boyfriend3.sizeY = 1.2,1.2
         enemy2.sizeX, enemy2.sizeY = 0.6, 0.6
+
+
+        stageImages["questionare"].sizeX, stageImages["questionare"].sizeY = 0.2, 0.2
+        stageImages["wiggles questionare"].sizeX, stageImages["wiggles questionare"].sizeY = 0.8, 0.8
+        stageImages["wiggles questionare"].x, stageImages["wiggles questionare"].y = -4, -11
 
 
         camera:addPoint("enemy", 0, 0, 1, 1)
@@ -126,6 +134,7 @@ return {
         flashes = 4
         doneFlash = false
 
+        questionare = false
         doneIntro = false
         amusiaAlphaValues = {1,1,0,0,0,0,0,0,0}
         camera:addPoint("enemy", -66, -1, 1, 1)
@@ -141,6 +150,8 @@ return {
     end,
 
     update = function(self, dt) 
+
+
 
 
         if musicTime >= 2666 and musicTime < 2666+50 then
@@ -171,9 +182,9 @@ return {
             doneIntro = true
             introFlash()
         end
+            
 
-
-       -- if doingFlash then
+       -- if doingFlash then   
         --    print(amusiaAlphaValues[6])
         --end
         pincushionShader:send("prob", pincushionShaderIntensity)
@@ -307,7 +318,7 @@ return {
         if musicTime >= 13333 and musicTime < 13333+50 then
             WigglesChange(0)
         end
-        if musicTime >= 20000  and musicTime < 20000+50 then
+        if musicTime >= 20000 and musicTime < 20000+50 then
             WigglesChange(1)
         end
         if musicTime >= 21833 and musicTime < 21833+50 then
@@ -558,12 +569,27 @@ return {
             end
 
             --]]
-            love.graphics.setColor(1,1,1,1)
 
+            if musicTime >= 170000 then
+                questionare = true
+                camera:addPoint("enemy", 0, 0, 1, 1)
+                camera:moveToPoint(0, "enemy")
+                camera.defaultZoom = 1
+                camera.zoom = 1
+            
+                love.graphics.setColor(0,0,0,1)
+                love.graphics.rectangle("fill", -1000, -1000, 10000, 10000)
+                love.graphics.setColor(1,1,1,1)
+
+                stageImages["questionare"]:draw()
+                stageImages["wiggles questionare"]:draw()
+            end
         
 
            -- boyfriend:draw()
           -- enemy:draw()
+
+
 
  
 
