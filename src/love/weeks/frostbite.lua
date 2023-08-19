@@ -48,8 +48,7 @@ return {
 
 		coldnessDisplay = {coldness}
 
-
-		
+		snowfall = love.graphics.newShader("shaders/snowfall.frag")
 		
 		function useTyphlosion()
 			if typhlosionUses > 0 then
@@ -107,7 +106,10 @@ return {
 
 		coldnessReadout()
 
-		
+		gameCanvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
+		gameCanvas:renderTo(function()
+			
+		end)
 	end,
 
 	load = function(self)
@@ -143,6 +145,10 @@ return {
 		stages["frostbite"]:update(dt)
 
 		health = health - (coldness/850) * dt
+
+		snowfall:send("intensity", snowIntensity[1])
+		snowfall:send("amount", snowAmount[1])
+		snowfall:send("time", musicTime / (beatHandler.stepCrochet*8))
 
 		if coldness < 323 then
 
@@ -195,11 +201,13 @@ return {
 		love.graphics.setColor(1,1,1,1)
 
 		stageImages["thermometer"]:draw()
-			
-
 
 		stageImages["thermometer typhlosion"]:draw()
 
+		-- SNOW
+		love.graphics.setShader(snowfall)
+		love.graphics.draw(gameCanvas, 0, 0, 0, love.graphics.getWidth() / 1280, love.graphics.getHeight() / 720)
+		love.graphics.setShader()
 	end,
 
 	leave = function(self)
