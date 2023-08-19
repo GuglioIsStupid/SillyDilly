@@ -3,6 +3,7 @@ local staticOverlayAlpha = {0}
 hoverFactor = 0
 horizontalFactor = 0
 finishedRotating = false
+rotating = false
 
 local function flipStrum(startX, strum)
     local xpos = {}
@@ -135,13 +136,13 @@ return {
             end
             for i = 1, 4 do
                 for j = 1, #boyfriendNotes[i] do
-                    boyfriendNotes[i][j].offsetY = (hoverFactor/2) + math.sin((musicTime / ((beatHandler.stepCrochet*8) - i)) * math.pi) * hoverFactor
+                    boyfriendNotes[i][j].offsetY2 = (hoverFactor/2) + math.sin((musicTime / ((beatHandler.stepCrochet*8) - i)) * math.pi) * hoverFactor
                 end
-                boyfriendArrows[i].offsetY = (hoverFactor/2) + math.sin((musicTime / ((beatHandler.stepCrochet*8) - i)) * math.pi) * hoverFactor
+                boyfriendArrows[i].offsetY2 = (hoverFactor/2) + math.sin((musicTime / ((beatHandler.stepCrochet*8) - i)) * math.pi) * hoverFactor
                 for j = 1, #enemyNotes[i] do
-                    enemyNotes[i][j].offsetY = (hoverFactor/2) + math.sin((musicTime / ((beatHandler.stepCrochet*8) - i)) * math.pi) * hoverFactor
+                    enemyNotes[i][j].offsetY2 = (hoverFactor/2) + math.sin((musicTime / ((beatHandler.stepCrochet*8) - i)) * math.pi) * hoverFactor
                 end
-                enemyArrows[i].offsetY = (hoverFactor/2) + math.sin((musicTime / ((beatHandler.stepCrochet*8) - i)) * math.pi) * hoverFactor
+                enemyArrows[i].offsetY2 = (hoverFactor/2) + math.sin((musicTime / ((beatHandler.stepCrochet*8) - i)) * math.pi) * hoverFactor
             end 
 
             if finishedRotating then
@@ -150,13 +151,13 @@ return {
                 end
                 for i = 1, 4 do
                     for j = 1, #boyfriendNotes[i] do
-                        boyfriendNotes[i][j].offsetX = -math.cos((musicTime/ ((beatHandler.stepCrochet*16))) * math.pi) * horizontalFactor
+                        boyfriendNotes[i][j].offsetX2 = -math.cos((musicTime/ ((beatHandler.stepCrochet*16))) * math.pi) * horizontalFactor
                     end
-                    boyfriendArrows[i].offsetX = -math.cos((musicTime/ ((beatHandler.stepCrochet*16))) * math.pi) * horizontalFactor
+                    boyfriendArrows[i].offsetX2 = -math.cos((musicTime/ ((beatHandler.stepCrochet*16))) * math.pi) * horizontalFactor
                     for j = 1, #enemyNotes[i] do
-                        enemyNotes[i][j].offsetX = -math.cos((musicTime/ ((beatHandler.stepCrochet*16))) * math.pi) * horizontalFactor
+                        enemyNotes[i][j].offsetX2 = -math.cos((musicTime/ ((beatHandler.stepCrochet*16))) * math.pi) * horizontalFactor
                     end
-                    enemyArrows[i].offsetX = -math.cos((musicTime/ ((beatHandler.stepCrochet*16))) * math.pi) * horizontalFactor
+                    enemyArrows[i].offsetX2 = -math.cos((musicTime/ ((beatHandler.stepCrochet*16))) * math.pi) * horizontalFactor
                 end
             end
         end
@@ -204,22 +205,22 @@ return {
             camera:addPoint("boyfriend", -51, 53, 1, 1)
             camera:addPoint("enemy", -242, 45, 1.2, 1.2)
 
-            Timer.tween(0.8, platformPositions, {[1] = platformPositions[1]+1200, [4] = platformPositions[4]-1200}, "in-quad", function()
+            Timer.tween((beatHandler.stepCrochet / 1000) * 8, platformPositions, {[1] = platformPositions[1]+1200, [4] = platformPositions[4]-1200}, "in-quad", function()
                 enemy2.x = enemy2.x - 1200
                 boyfriend3.x = boyfriend3.x + 1200
-                Timer.after(0.3, function()
-                    Timer.tween(0.8, platformPositions, {[1] = platformPositions[1]-1200, [4] = platformPositions[4]+1200}, "out-quad")
+                Timer.after((beatHandler.stepCrochet / 1000) * 8, function()
+                    Timer.tween((beatHandler.stepCrochet / 1000) * 8, platformPositions, {[1] = platformPositions[1]-1200, [4] = platformPositions[4]+1200}, "out-quad")
                     amusiaAlphaValues[4] = 1
                     amusiaAlphaValues[3] = 1
-                    Timer.tween(0.8, enemy2, {x = enemy2.x + 1200}, "out-quad")
-                    Timer.tween(0.8, boyfriend3, {x = boyfriend3.x - 1200}, "out-quad")
+                    Timer.tween((beatHandler.stepCrochet / 1000) * 8, enemy2, {x = enemy2.x + 1200}, "out-quad")
+                    Timer.tween((beatHandler.stepCrochet / 1000) * 8, boyfriend3, {x = boyfriend3.x - 1200}, "out-quad")
                 end)
             end)
-            Timer.tween(0.8, enemy1, {x = enemy1.x + 1200}, "in-quad", function()
+            Timer.tween((beatHandler.stepCrochet / 1000) * 8, enemy1, {x = enemy1.x + 1200}, "in-quad", function()
                 amusiaAlphaValues[2] = 0
                 print(dump(amusiaAlphaValues))
             end)
-            Timer.tween(0.8, boyfriend1, {x = boyfriend1.x - 1200}, "in-quad", function()
+            Timer.tween((beatHandler.stepCrochet / 1000) * 8, boyfriend1, {x = boyfriend1.x - 1200}, "in-quad", function()
                 amusiaAlphaValues[1] = 0
                 print(dump(amusiaAlphaValues))
             end)
@@ -358,7 +359,18 @@ return {
                     for j = 1, #enemyNotes[i] do
                         Timer.tween(beatHandler.stepCrochet/1000 * 16, enemyNotes[i][j], {rotation = 360}, "in-out-cubic")
                     end
-                    Timer.tween(beatHandler.stepCrochet/1000 * 16, enemyArrows[i], {rotation = 360}, "in-out-cubic")
+                    Timer.tween(beatHandler.stepCrochet/1000 * 16, enemyArrows[i], {rotation = 360}, "in-out-cubic", function()
+                        for i = 1, 4 do
+                            for j = 1, #boyfriendNotes[i] do
+                                boyfriendNotes[i][j].rotation = 0
+                            end
+                            boyfriendArrows[i].rotation = 0
+                            for j = 1, #enemyNotes[i] do
+                                enemyNotes[i][j].rotation = 0
+                            end
+                            enemyArrows[i].rotation = 0
+                        end
+                    end)
                 end
 
                 hoverNotes = true
@@ -384,7 +396,8 @@ return {
         -- STEP STUFF
         if beatHandler.onStep then
             if not runningAway then 
-                if amusiaAlphaValues[5] == 1 and beatHandler.curStep % 32 == 0 then
+                if beatHandler.curStep % 32 == 0 and not rotating and musicTime >= 109333 then
+                    rotating = true
                     finishedRotating = true
                     for i = 1, 4 do
                         for j = 1, #boyfriendNotes[i] do
@@ -395,7 +408,19 @@ return {
                         for j = 1, #enemyNotes[i] do
                             Timer.tween(beatHandler.stepCrochet/1000 * 8, enemyNotes[i][j], {rotation = 360}, "in-out-cubic")
                         end
-                        Timer.tween(beatHandler.stepCrochet/1000 * 8, enemyArrows[i], {rotation = 360}, "in-out-cubic")
+                        Timer.tween(beatHandler.stepCrochet/1000 * 8, enemyArrows[i], {rotation = 360}, "in-out-cubic", function() 
+                            rotating = false 
+                            for i = 1, 4 do
+                                for j = 1, #boyfriendNotes[i] do
+                                    boyfriendNotes[i][j].rotation = 0
+                                end
+                                boyfriendArrows[i].rotation = 0
+                                for j = 1, #enemyNotes[i] do
+                                    enemyNotes[i][j].rotation = 0
+                                end
+                                enemyArrows[i].rotation = 0
+                            end
+                        end)
                     end
                 end
             end

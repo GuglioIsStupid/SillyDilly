@@ -199,6 +199,8 @@ return {
 			sizeY = 1,
 			offsetX = 0,
 			offsetY = 0,
+			offsetX2 = 0,
+			offsetY2 = 0,
 			shearX = 0,
 			shearY = 0,
 
@@ -474,8 +476,8 @@ return {
 						love.graphics.draw(
 							sheet,
 							frames[self.curFrame],
-							x,
-							y,
+							x + self.offsetX2,
+							y + self.offsetY2,
 							self.orientation + math.rad(self.rotation),
 							self.sizeX * (self.flipX and -1 or 1),
 							self.sizeY,

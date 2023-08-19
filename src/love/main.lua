@@ -20,12 +20,23 @@ __VERSION__ = love.filesystem.read("version.txt")
 --if love.filesystem.isFused() then function print() end end -- print functions tend the make the game lag when in update functions, so we do this to prevent that
 consoleTable = {"Press ALT+C to clear console."}
 local oprint = print
-function print(text) -- Fuck you ch, here I am, trying to figure out why it's not printing, and its because of this.         whoopsies sorry 
-table.insert(consoleTable, 1, text.."\n")
-if #consoleTable > 70 then
-	table.remove(consoleTable,#consoleTable)
-end
-oprint(text)
+function print(...)
+    local text = ""
+    local args = {...}
+
+    for i = 1, #args do
+        text = text .. tostring(args[i]) .. " | "
+    end
+
+    text = text:sub(1, #text - 3)
+
+    table.insert(consoleTable, 1, text .. "\n")
+
+    if #consoleTable > 70 then
+        table.remove(consoleTable, #consoleTable)
+    end
+
+    oprint(...)
 end
 function dump(o)
    if type(o) == 'table' then
