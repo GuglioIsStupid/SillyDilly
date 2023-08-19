@@ -1,3 +1,54 @@
+snowIntensTween = nil
+snowAmountTween = nil
+speedTween = nil
+
+snowIntensity = {0}
+snowAmount = {0}
+
+function changeSnowRiser()
+	canChangeIntensity = true
+end
+local function ChangeSnowIntensity(v1, v2)
+	local newIntensity = v1 or 0
+	local timestep = v2 <= 0 and 1 or v2
+
+	if snowIntensTween then
+		Timer.cancel(snowIntensTween)
+	end
+
+	canChangeIntensity = true
+	
+	snowIntensTween = Timer.tween(timestep * beatHandler.stepCrochet/1000, snowIntensity, {newIntensity}, "linear", changeSnowRiser)
+end
+
+local function ChangeSnowAmount(v1, v2)
+	local newAmount = v1 or 0
+	local timestep = v2 <= 0 and 1 or v2
+
+	if snowAmountTween then
+		Timer.cancel(snowAmountTween)
+	end
+
+	snowAmountTween = Timer.tween(timestep * beatHandler.stepCrochet/1000, snowAmount, {newAmount}, "linear")
+end
+
+local function changeScrollSpeed(v1, v2)
+    local v1 = v1 or 1
+    local v2 = v2 or 0
+
+    local newValue = speed * v1
+
+    if speedTween then
+        Timer.cancel(speedTween)
+    end
+    if v2 <= 0 then
+        speed = newValue
+    else
+        -- omg it tweens!!!
+        speedTween = Timer.tween(v2 * beatHandler.stepCrochet/1000, _G, {speed = newValue}, "linear")
+    end
+end
+
 return {
     enter = function()
         stageImages = {
@@ -15,7 +66,7 @@ return {
 
         debug = false
 
-
+        
 
         enemy = love.filesystem.load("sprites/red/mt_silver_red_norm.lua")()
         deadRed = love.filesystem.load("sprites/red/mt_silver_red_dead.lua")()
@@ -64,6 +115,9 @@ return {
         if debug then
             stageImages["pikachu entrance"]:animate("anim", true)
         end
+
+        ChangeSnowAmount(75, 0.125)
+        ChangeSnowIntensity(0.25, 0.125)
 
     end,
 
@@ -149,20 +203,37 @@ return {
 
         if musicTime >= 90652 and musicTime < 90652+50 then
             --i love how the game doesnt say what the scroll speed changes to so i have to just guess
+            -- ermm akthually in the event file it says newValue = PlayState.SONG.speed * val1 🤓🤓🤓
 
-            if customScrollSpeed == 1 then
-                speed = 3
-            else
-                if not changedScrollSpeed then
-                    changedScrollSpeed = true
-                    speed = speed + 1.2
-                end
-            end
+            ChangeScrollSpeed(1.06125, 16)
 
             print("scroll speed change")
             print("scroll speed: " .. speed)
             camera.camBopIntensity = 3
             camera.camBopInterval = 1
+        end
+
+        if musicTime >= 157434.782608696 and musicTime <= 157434.782608696+50 then
+            ChangeScrollSpeed(1, 16)
+        end
+
+        if musicTime >= 41739.1304347826 and musicTime <=41739.1304347826+50 then
+            ChangeSnowIntensity(0.3, 96)
+        end
+        if musicTime >= 73043.4782608696 and musicTime <= 73043.4782608696+50 then
+            ChangeSnowIntensity(0.4, 128)
+        end
+        if musicTime >= 90782.6086956522 and musicTime <= 90782.6086956522+50 then
+            ChangeSnowAmount(150, 1)
+        end
+        if musicTime >= 90913.0434782609 and musicTime <=90913.0434782609+50 then
+            ChangeSnowIntensity(0.45, 1)
+        end
+        if musicTime >= 179086.956521739 and musicTime <= 179086.956521739+50 then
+            ChangeSnowAmount(0, 1)
+        end
+        if musicTime >= 179217.391304348 and musicTime <= 179217.391304348+50 then
+            ChangeSnowIntensity(0, 1)
         end
 
     --]]
@@ -217,8 +288,6 @@ return {
             love.graphics.setColor(1,1,1,introFade[1])
             love.graphics.rectangle("fill", -1000, -1000, 10000, 10000)
             love.graphics.setColor(1,1,1,1)
-
-
 
 		love.graphics.pop()
     end,
