@@ -1158,22 +1158,22 @@ return {
 						if enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end" then
 							if useAltAnims then
 								for i = 1,3 do 
-								if _G["enemy" .. i].holdTimer > _G["enemy" .. i].maxHoldTimer then _G["enemy" .. i]:animate(curAnim .. " alt", _psychmod and true or false) end
+								if _G["enemy" .. i].holdTimer > _G["enemy" .. i].maxHoldTimer then _G["enemy" .. i]:animate(currentWigglyState .. curAnim .. " alt", _psychmod and true or false) end
 								end
 							else
 								for i = 1,3 do
-								if _G["enemy" .. i].holdTimer > _G["enemy" .. i].maxHoldTimer then _G["enemy" .. i]:animate(curAnim, (_psychmod and true or false)) end
+								if _G["enemy" .. i].holdTimer > _G["enemy" .. i].maxHoldTimer then _G["enemy" .. i]:animate(currentWigglyState .. curAnim, (_psychmod and true or false)) end
 								end
 							end
 						else
 							if useAltAnims then
 								for i = 1,3 do
-								_G["enemy" .. i]:animate(curAnim .. " alt", false)
+								_G["enemy" .. i]:animate(currentWigglyState .. curAnim .. " alt", false)
 								end
 							else
 								for i = 1,3 do
 
-								_G["enemy" .. i]:animate(curAnim, false)
+								_G["enemy" .. i]:animate(currentWigglyState .. curAnim, false)
 								end
 							end
 						end

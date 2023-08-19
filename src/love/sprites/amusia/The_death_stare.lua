@@ -102,13 +102,31 @@ return graphics.newSprite(
 		{x = 280, y = 1452, width = 274, height = 305, offsetX = -7, offsetY = 0, offsetWidth = 297, offsetHeight = 305} -- 75: down0014
 	},
 	{
-		["singDOWN"] = {start = 61, stop = 75, speed = 24, offsetX = 0, offsetY = 0},
-		["singLEFT"] = {start = 16, stop = 30, speed = 24, offsetX = 0, offsetY = 0},
-		["singRIGHT"] = {start = 31, stop = 45, speed = 24, offsetX = 0, offsetY = 0},
-		["singUP"] = {start = 46, stop = 60, speed = 24, offsetX = 0, offsetY = 0},
-		["idle"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},
+		["0singDOWN"] = {start = 61, stop = 75, speed = 24, offsetX = -23, offsetY = -27},
+		["0singLEFT"] = {start = 16, stop = 30, speed = 24, offsetX = 50, offsetY = 1},
+		["0singRIGHT"] = {start = 31, stop = 45, speed = 24, offsetX = -50, offsetY = 2},
+		["0singUP"] = {start = 46, stop = 60, speed = 24, offsetX = -21, offsetY = 5},
+		["0idle"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},
+
+		["1singDOWN"] = {start = 61, stop = 75, speed = 24, offsetX = -23, offsetY = -27},
+		["1singLEFT"] = {start = 16, stop = 30, speed = 24, offsetX = 50, offsetY = 1},
+		["1singRIGHT"] = {start = 31, stop = 45, speed = 24, offsetX = -50, offsetY = 2},
+		["1singUP"] = {start = 46, stop = 60, speed = 24, offsetX = -21, offsetY = 5},
+		["1idle"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},
+
+		["2singDOWN"] = {start = 61, stop = 75, speed = 24, offsetX = -23, offsetY = -27},
+		["2singLEFT"] = {start = 16, stop = 30, speed = 24, offsetX = 50, offsetY = 1},
+		["2singRIGHT"] = {start = 31, stop = 45, speed = 24, offsetX = -50, offsetY = 2},
+		["2singUP"] = {start = 46, stop = 60, speed = 24, offsetX = -21, offsetY = 5},
+		["2idle"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},
+
+		["3singDOWN"] = {start = 61, stop = 75, speed = 24, offsetX = -23, offsetY = -27},
+		["3singLEFT"] = {start = 16, stop = 30, speed = 24, offsetX = 50, offsetY = 1},
+		["3singRIGHT"] = {start = 31, stop = 45, speed = 24, offsetX = -50, offsetY = 2},
+		["3singUP"] = {start = 46, stop = 60, speed = 24, offsetX = -21, offsetY = 5},
+		["3idle"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},
 	},
-	"idle",
+	"1idle",
 	false,
 	{
 		sing_duration = 6.1,   -- wtf do i put here

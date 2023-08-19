@@ -297,7 +297,7 @@ return {
 			if musicTime >= 117446.808510638 and musicTime < 117471.808510638 then 
 				ContractAdvance("BOYF")
 			end
-			if musicTime >= 121276.595744681 and musicTime < 121301.595744681 then 
+			if musicTime >= 121276.595744681 and musicTime < 121301.595744681 then    --these are very specific lol
 				ContractAdvance("BOYFR")
 			end
 			if musicTime >= 124148 and musicTime < 124173 then 

@@ -97,11 +97,34 @@ return graphics.newSprite(
 		{x = 1329, y = 1770, width = 314, height = 342, offsetX = -325, offsetY = -152, offsetWidth = 1045, offsetHeight = 497} -- 74: WigglesTerror0073
 	},
 	{
-		["singDOWN"] = {start = 61, stop = 74, speed = 24, offsetX = 0, offsetY = 0},
-        ["singLEFT"] = {start = 16, stop = 30, speed = 24, offsetX = 0, offsetY = 0},
-        ["singRIGHT"] = {start = 46, stop = 60, speed = 24, offsetX = 0, offsetY = 0},
-        ["singUP"] = {start = 31, stop = 45, speed = 24, offsetX = 0, offsetY = 0},
-        ["idle"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},	},
-	"anim",
-	false
-)
+		["0singDOWN"] = {start = 61, stop = 74, speed = 24, offsetX = 0, offsetY = 0},
+        ["0singLEFT"] = {start = 16, stop = 30, speed = 24, offsetX = 0, offsetY = 0},
+        ["0singRIGHT"] = {start = 46, stop = 60, speed = 24, offsetX = 0, offsetY = 0},
+        ["0singUP"] = {start = 31, stop = 45, speed = 24, offsetX = 0, offsetY = 0},
+        ["0idle"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},
+
+		["1singDOWN"] = {start = 61, stop = 74, speed = 24, offsetX = 0, offsetY = 0},
+        ["1singLEFT"] = {start = 16, stop = 30, speed = 24, offsetX = 0, offsetY = 0},
+        ["1singRIGHT"] = {start = 46, stop = 60, speed = 24, offsetX = 0, offsetY = 0},
+        ["1singUP"] = {start = 31, stop = 45, speed = 24, offsetX = 0, offsetY = 0},
+        ["1idle"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},	
+
+		["2singDOWN"] = {start = 61, stop = 74, speed = 24, offsetX = 0, offsetY = 0},
+        ["2singLEFT"] = {start = 16, stop = 30, speed = 24, offsetX = 0, offsetY = 0},
+        ["2singRIGHT"] = {start = 46, stop = 60, speed = 24, offsetX = 0, offsetY = 0},
+        ["2singUP"] = {start = 31, stop = 45, speed = 24, offsetX = 0, offsetY = 0},
+        ["2idle"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},	
+
+		["3singDOWN"] = {start = 61, stop = 74, speed = 24, offsetX = 0, offsetY = 0},
+        ["3singLEFT"] = {start = 16, stop = 30, speed = 24, offsetX = 0, offsetY = 0},
+        ["3singRIGHT"] = {start = 46, stop = 60, speed = 24, offsetX = 0, offsetY = 0},
+        ["3singUP"] = {start = 31, stop = 45, speed = 24, offsetX = 0, offsetY = 0},
+        ["3idle"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},	
+	},
+		"1idle",
+		false,
+		{
+			sing_duration = 6.1,   -- wtf do i put here
+			isCharacter = true,
+		}
+	)

@@ -43,6 +43,11 @@ return {
 		self:initUI()
 
 		weeksAmusia:setupCountdown()
+
+
+
+	--inst:seek(60)
+	--	voices:seek(60)
 	end,
 
 	initUI = function(self)
