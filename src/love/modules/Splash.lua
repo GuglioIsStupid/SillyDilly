@@ -39,7 +39,6 @@ function splash:update(dt)
 
         if not v.sprite:isAnimated() then
             table.remove(self.cache, i)
-            print("removed splash: " .. i .. "\n" .. "splash count: " .. #self.cache)
         end
     end
 end
