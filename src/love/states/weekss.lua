@@ -340,7 +340,7 @@ return {
 			sprites.receptors = love.filesystem.load("sprites/pixel/receptor.lua")
 		end
 
-		NoteSplash:setup()
+		 
 
 		enemyArrows = {
 			sprites.receptors(),
@@ -1108,7 +1108,7 @@ return {
 		if inCutscene then return end
 		if paused then return end
 
-		NoteSplash:update(dt)
+		 
 		updateNotePos()
 
 		for i = 1, 4 do
@@ -1267,13 +1267,7 @@ return {
 							health = health + 0.095
 							score = score + 350
 
-							NoteSplash:new(
-								{
-									anim = noteList[boyfriendNote[1].col] .. love.math.random(1,2),
-									posX = boyfriendArrow.x,
-								},
-								noteNum
-							)
+							 
 							self:calculateRating()
 						else
 							health = health + 0.0125
@@ -1315,10 +1309,7 @@ return {
 									score = score + 350
 									ratingAnim = "sick"
 
-									NoteSplash:new({
-										anim = noteList[boyfriendNote[j].col] .. love.math.random(1,2),
-										posX = boyfriendArrow.x,
-									}, noteNum)
+									 
 								elseif notePos <= 90 then -- "Good"
 									score = score + 200
 									ratingAnim = "good"
@@ -1601,10 +1592,10 @@ return {
 				else
 					if not settings.downscroll then
 						boyfriendArrows[i]:udraw(8, 8)
-						NoteSplash:udraw(8, 8)
+						 
 					else
 						boyfriendArrows[i]:udraw(8, -8)
-						NoteSplash:udraw(8, -8)
+						 
 					end
 				end
 				graphics.setColor(1, 1, 1)
