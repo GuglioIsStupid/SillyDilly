@@ -68,7 +68,7 @@ return {
 	enter = function(self, option)
 		playMenuMusic = false
 		beatHandler.reset()
-		option = option or "normal"
+		option = option or "pixel"
 
 		arrowAngles = {math.rad(180), math.rad(90), math.rad(270), math.rad(0)}
 		if settings.downscroll then
@@ -132,7 +132,7 @@ return {
 
 			images = {
 				icons = love.graphics.newImage(graphics.imagePath("icons")),
-				notes = love.graphics.newImage(graphics.imagePath("pixel/notes")),
+				notesp = love.graphics.newImage(graphics.imagePath("pixel-ui/buried-notes")),
 				numbers = love.graphics.newImage(graphics.imagePath("pixel/numbers")),
 			}
 
@@ -332,15 +332,15 @@ return {
 
 			sprites.receptors = love.filesystem.load("sprites/receptor.lua")
 		else
-			sprites.leftArrow = love.filesystem.load("sprites/pixel/left-arrow.lua")
-			sprites.downArrow = love.filesystem.load("sprites/pixel/down-arrow.lua")
-			sprites.upArrow = love.filesystem.load("sprites/pixel/up-arrow.lua")
-			sprites.rightArrow = love.filesystem.load("sprites/pixel/right-arrow.lua")
+			sprites.leftArrow = love.filesystem.load("sprites/pixel/buried/left-arrow.lua")
+			sprites.downArrow = love.filesystem.load("sprites/pixel/buried/down-arrow.lua")
+			sprites.upArrow = love.filesystem.load("sprites/pixel/buried/up-arrow.lua")
+			sprites.rightArrow = love.filesystem.load("sprites/pixel/buried/right-arrow.lua")
 
-			sprites.receptors = love.filesystem.load("sprites/pixel/receptor.lua")
+			sprites.receptors = love.filesystem.load("sprites/pixel/buried/receptor.lua")
 		end
 
-		 
+		noteSide = settings.downscroll and -1 or 1
 
 		enemyArrows = {
 			sprites.receptors(),
@@ -356,16 +356,13 @@ return {
 		}
 
 		for i = 1, 4 do
-			if settings.middleScroll then 
-				boyfriendArrows[i].x = -410 + 165 * i
-				-- ew stuff
-				enemyArrows[1].x = -925 + 165 * 1 
-				enemyArrows[2].x = -925 + 165 * 2
-				enemyArrows[3].x = 100 + 165 * 3
-				enemyArrows[4].x = 100 + 165 * 4
-			else
+			-- -1 is left, 1 is right
+			if noteSide == 1 then
 				enemyArrows[i].x = -925 + 165 * i
 				boyfriendArrows[i].x = 100 + 165 * i
+			else
+				enemyArrows[i].x = 100 + 165 * i
+				boyfriendArrows[i].x = -925 + 165 * i
 			end
 
 			enemyArrows[i].y = -400
@@ -1503,11 +1500,7 @@ return {
 		self:drawHealthbar()
 		love.graphics.push()
 			love.graphics.translate(push:getWidth() / 2, push:getHeight() / 2)
-			if not settings.downscroll then
-				love.graphics.scale(0.7, 0.7)
-			else
-				love.graphics.scale(0.7, -0.7)
-			end
+			love.graphics.scale(0.7, 0.7)
 			love.graphics.scale(uiScale.zoom, uiScale.zoom)
 			for i = 1, 4 do
 				love.graphics.push()				
@@ -1525,15 +1518,7 @@ return {
 									if not pixel then
 										enemyNotes[i][j]:draw()
 									else
-										if not settings.downscroll then
-											enemyNotes[i][j]:udraw(8, 8)
-										else
-											if enemyNotes[i][j]:getAnimName() == "end" then
-												enemyNotes[i][j]:udraw(8, 8)
-											else
-												enemyNotes[i][j]:udraw(8, -8)
-											end
-										end
+										enemyNotes[i][j]:udraw(5, 5)
 									end
 								end
 							end
@@ -1548,15 +1533,7 @@ return {
 									if not pixel then
 										boyfriendNotes[i][j]:draw()
 									else
-										if not settings.downscroll then
-											boyfriendNotes[i][j]:udraw(8, 8)
-										else
-											if boyfriendNotes[i][j]:getAnimName() == "end" then
-												boyfriendNotes[i][j]:udraw(8, 8)
-											else
-												boyfriendNotes[i][j]:udraw(8, -8)
-											end
-										end
+										boyfriendNotes[i][j]:udraw(5, 5)
 									end
 								end
 							end
@@ -1579,24 +1556,14 @@ return {
 				if not pixel then
 					enemyArrows[i]:draw()
 				else
-					if not settings.downscroll then
-						enemyArrows[i]:udraw(8, 8)
-					else
-						enemyArrows[i]:udraw(8, -8)
-					end
+					enemyArrows[i]:udraw(5, 5)
 				end
 				graphics.setColor(1, 1, 1)
 				if not pixel then 
 					boyfriendArrows[i]:draw()
 					 
 				else
-					if not settings.downscroll then
-						boyfriendArrows[i]:udraw(8, 8)
-						 
-					else
-						boyfriendArrows[i]:udraw(8, -8)
-						 
-					end
+					boyfriendArrows[i]:udraw(5, 5)
 				end
 				graphics.setColor(1, 1, 1)
 
@@ -1615,11 +1582,7 @@ return {
 									if not pixel then
 										enemyNotes[i][j]:draw()
 									else
-										if not settings.downscroll then
-											enemyNotes[i][j]:udraw(8, 8)
-										else
-											enemyNotes[i][j]:udraw(8, -8)
-										end
+										enemyNotes[i][j]:udraw(5, 5)
 									end
 									graphics.setColor(1, 1, 1)
 								end
@@ -1636,11 +1599,7 @@ return {
 									if not pixel then 
 										boyfriendNotes[i][j]:draw()
 									else
-										if not settings.downscroll then
-											boyfriendNotes[i][j]:udraw(8, 8)
-										else
-											boyfriendNotes[i][j]:udraw(8, -8)
-										end
+										boyfriendNotes[i][j]:udraw(5, 5)
 									end
 								end
 							end
@@ -1651,18 +1610,10 @@ return {
 			end
 
 			graphics.setColor(1, 1, 1, countdownFade[1])
-			if not settings.downscroll then
-				if not pixel or pixel then 
-					countdown:draw()
-				else
-					countdown:udraw(6.75, 6.75)
-				end
+			if not pixel or pixel then 
+				countdown:draw()
 			else
-				if not pixel or pixel then 
-					countdown:udraw(1, -1)
-				else
-					countdown:udraw(6.75, -6.75)
-				end
+				countdown:udraw(6.75, 6.75)
 			end
 			graphics.setColor(1, 1, 1)
 		love.graphics.pop()
