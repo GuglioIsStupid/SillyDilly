@@ -44,6 +44,10 @@ return {
 		self:initUI()
 
 		weeks:setupCountdown()
+
+
+		inst:seek(90)
+		voices:seek(90)
 	end,
 
 	initUI = function(self)

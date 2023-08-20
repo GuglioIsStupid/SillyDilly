@@ -167,7 +167,7 @@ return graphics.newSprite(
 		["singLEFT"] = {start = 43, stop = 57, speed = 24, offsetX = 0, offsetY = 0},
 		["singRIGHT"] = {start = 73, stop = 87, speed = 24, offsetX = 0, offsetY = 0},
 		["singUP"] = {start = 103, stop = 117, speed = 24, offsetX = 0, offsetY = 0},
-		["idle"] = {start = 31, stop = 42, speed = 24, offsetX = 0, offsetY = 0},
+		["idle"] = {start = 31, stop = 42, speed = 12, offsetX = 0, offsetY = 0},
 		["singDOWN miss"] = {start = 16, stop = 30, speed = 24, offsetX = 0, offsetY = 0},
 		["singLEFT miss"] = {start = 58, stop = 72, speed = 24, offsetX = 0, offsetY = 0},
 		["singRIGHT miss"] = {start = 88, stop = 102, speed = 24, offsetX = 0, offsetY = 0},

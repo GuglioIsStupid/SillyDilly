@@ -50,7 +50,7 @@ return graphics.newSprite(
 		{x = 1413, y = 648, width = 0, height = 0, offsetX = 1056, offsetY = -128, offsetWidth = 312, offsetHeight = 593} -- 27: GGirl Passing0026
 	},
 	{
-		["anim"] = {start = 1, stop = 27, speed = 24, offsetX = 0, offsetY = 0},
+		["anim"] = {start = 1, stop = 27, speed = 12, offsetX = 0, offsetY = 0},
 	},
 	"anim",
 	false

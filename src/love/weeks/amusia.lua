@@ -48,8 +48,8 @@ return {
 
 
 
-	inst:seek(150)
-		voices:seek(150)
+--inst:seek(150)
+--		voices:seek(150)
 	end,
 
 	initUI = function(self)
