@@ -58,7 +58,8 @@ settingsDescriptions2 = {
     "Show Debug Info" ..
     "\n       \"Show Debug\" Shows debug info on the screen" ..
     "\n\n       \"fps\" only displays FPS count" ..
-    "\n\n       \"detailed\" shows things for debugging. (E.g. Music time,\n       Health, etc)",
+    "\n\n       \"detailed\" shows things for debugging. (E.g. Music time,\n       Health, etc)" ..
+    "\n\b       \"console\" shows the console, which is useful for debugging\n       and testing things.",
 }
 settingsDescriptions3 = { 
 
@@ -140,6 +141,8 @@ return {
                             elseif settings.showDebug == "fps" then
                                 settings.showDebug = "detailed" 
                             elseif settings.showDebug == "detailed" then
+                                settings.showDebug = "console"
+                            elseif settings.showDebug == "console" then
                                 settings.showDebug = false
                             end
                         end

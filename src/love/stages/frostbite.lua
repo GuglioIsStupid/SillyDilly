@@ -32,7 +32,7 @@ local function ChangeSnowAmount(v1, v2)
 	snowAmountTween = Timer.tween(timestep * beatHandler.stepCrochet/1000, snowAmount, {newAmount}, "linear")
 end
 
-local function changeScrollSpeed(v1, v2)
+local function ChangeScrollSpeed(v1, v2)
     local v1 = v1 or 1
     local v2 = v2 or 0
 
