@@ -31,7 +31,7 @@ return {
            ["shine"]  = graphics.newImage(graphics.imagePath("pasta/shine")),
            ["sky"]  = graphics.newImage(graphics.imagePath("pasta/SKY")),
            ["table"]  = graphics.newImage(graphics.imagePath("pasta/TABLE")),
-           ["table misc"]  = graphics.newImage(graphics.imagePath("pasta/tableMisc")),
+           ["table misc"]  = graphics.newImage(graphics.imagePath("pasta/TableMisc")),
 
 
            ["temp mario back"] = love.filesystem.load("sprites/pasta/mxback.lua")(),           --these are temporary, you can remove them from the stageimages table when you make the actual song (unless you wanna leave them in the table)
@@ -112,6 +112,9 @@ return {
         stageImages["table"].x, stageImages["table"].y = 53, 496
         stageImages["block"].sizeX, stageImages["block"].sizeY = 0.8, 0.8
         stageImages["block"].x, stageImages["block"].y = -650, 253
+        stageImages["shine"].sizeX, stageImages["shine"].sizeY = 0.9, 0.9
+        stageImages["shine"].x, stageImages["shine"].y = 86, -237
+
 
 
 
@@ -176,6 +179,7 @@ return {
 
             stageImages["sky"]:draw()
             stageImages["background"]:draw()
+            stageImages["shine"]:draw()
             stageImages["holder"]:draw()
             stageImages["machine"]:draw()
             stageImages["salad fingers"]:draw()

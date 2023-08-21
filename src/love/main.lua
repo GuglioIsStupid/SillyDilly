@@ -288,7 +288,7 @@ function love.load()
 	settings = require "settings"
 	NoteSplash = require "modules.Splash"
 	require "modules.savedata"
-	require "modules.lyrics"
+	require "modules.Lyrics"
 	loadSavedata()
 	
 	-- XML Modules
