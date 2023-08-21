@@ -35,7 +35,7 @@ return {
 		song = songNum
 		difficulty = songAppend
 
-		enemyIcon:animate("daddy dearest", false)
+		enemyIcon:animate("red", false)
 
 		self:load()
 
@@ -163,12 +163,12 @@ return {
 		end
 
 		if health >= 1.595 then
-			if enemyIcon:getAnimName() == "daddy dearest" then
-				enemyIcon:animate("daddy dearest losing", false)
+			if enemyIcon:getAnimName() == "red" then
+				enemyIcon:animate("red losing", false)
 			end
 		else
-			if enemyIcon:getAnimName() == "daddy dearest losing" then
-				enemyIcon:animate("daddy dearest", false)
+			if enemyIcon:getAnimName() == "red losing" then
+				enemyIcon:animate("red", false)
 			end
 		end
 

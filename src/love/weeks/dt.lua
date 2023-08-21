@@ -30,7 +30,7 @@ return {
         CONTRACTTEXT = "BOYFRIEND"
 		curText = ""
 
-		enemyIcon:animate("daddy dearest", false)
+		enemyIcon:animate("beezle", false)
 
         function bong()
 			stageImages[8]:animate("bongLmao", false)
@@ -77,12 +77,12 @@ return {
         contract:update(dt)
 
 		if health >= 1.595 then
-			if enemyIcon:getAnimName() == "daddy dearest" then
-				enemyIcon:animate("daddy dearest losing", false)
+			if enemyIcon:getAnimName() == "beezle" then
+				enemyIcon:animate("beezle losing", false)
 			end
 		else
-			if enemyIcon:getAnimName() == "daddy dearest losing" then
-				enemyIcon:animate("daddy dearest", false)
+			if enemyIcon:getAnimName() == "beezle losing" then
+				enemyIcon:animate("beezle", false)
 			end
 		end
 

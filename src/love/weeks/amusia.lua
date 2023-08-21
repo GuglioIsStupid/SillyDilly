@@ -28,7 +28,7 @@ return {
 		song = songNum
 		difficulty = songAppend
 
-		enemyIcon:animate("daddy dearest", false)
+		enemyIcon:animate("wigglytuff", false)
 
 		gameCanvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
 
@@ -64,12 +64,12 @@ return {
 		stages["amusia"]:update(dt)
 
 		if health >= 1.595 then
-			if enemyIcon:getAnimName() == "daddy dearest" then
-				enemyIcon:animate("daddy dearest losing", false)
+			if enemyIcon:getAnimName() == "wigglytuff" .. currentWigglyState then
+				enemyIcon:animate("wigglytuff" .. currentWigglyState .. " losing", false)
 			end
 		else
-			if enemyIcon:getAnimName() == "daddy dearest losing" then
-				enemyIcon:animate("daddy dearest", false)
+			if enemyIcon:getAnimName() == "wigglytuff" .. currentWigglyState .. " losing" then
+				enemyIcon:animate("wigglytuff" .. currentWigglyState, false)
 			end
 		end
 

@@ -28,7 +28,7 @@ return {
 		song = songNum
 		difficulty = songAppend
 
-		enemyIcon:animate("daddy dearest", false)
+		enemyIcon:animate("glitchyred", false)
 
 
 
@@ -78,12 +78,12 @@ return {
 		Lyrics.update(dt)
 
 		if health >= 1.595 then
-			if enemyIcon:getAnimName() == "daddy dearest" then
-				enemyIcon:animate("daddy dearest losing", false)
+			if enemyIcon:getAnimName() == "glitchyred" then
+				enemyIcon:animate("glitchyred losing", false)
 			end
 		else
-			if enemyIcon:getAnimName() == "daddy dearest losing" then
-				enemyIcon:animate("daddy dearest", false)
+			if enemyIcon:getAnimName() == "glitchyred losing" then
+				enemyIcon:animate("glitchyred", false)
 			end
 		end
 

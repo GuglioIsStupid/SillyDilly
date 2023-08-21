@@ -98,6 +98,8 @@ return {
             end
 
             print("WiggleChange(" ..currentWigglyState .. ")")
+
+            enemyIcon:animate("wigglytuff" .. currentWigglyState, false)
         end
         flashes = 4
 
