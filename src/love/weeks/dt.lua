@@ -94,7 +94,7 @@ return {
 		contract.y = math.sin(newTime) * 0.15
 
         -- hell bell bong
-		if musicTime >= 10212.7659574468 and musicTime < 10237.7659574468 then  -- its indented a bit so i can just hide it         thats actually genius i never thought of doing that
+		if musicTime >= 10212.7659574468 and musicTime < 10237.7659574468 then  -- its indented a bit so i can just hide it         thats actually genius i never thought of doing that         loser
                 bong()
             end
             if musicTime >= 11489.3617021277 and musicTime < 11514.3617021277 then 
@@ -297,7 +297,7 @@ return {
 			if musicTime >= 117446.808510638 and musicTime < 117471.808510638 then 
 				ContractAdvance("BOYF")
 			end
-			if musicTime >= 121276.595744681 and musicTime < 121301.595744681 then    --these are very specific lol
+			if musicTime >= 121276.595744681 and musicTime < 121301.595744681 then    --these are very specific lol         and? i simply just copied it
 				ContractAdvance("BOYFR")
 			end
 			if musicTime >= 124148 and musicTime < 124173 then 

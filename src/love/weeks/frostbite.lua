@@ -107,9 +107,6 @@ return {
 		coldnessReadout()
 
 		gameCanvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
-		gameCanvas:renderTo(function()
-			
-		end)
 	end,
 
 	load = function(self)

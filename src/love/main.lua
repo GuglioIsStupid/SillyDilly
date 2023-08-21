@@ -446,11 +446,14 @@ function love.load()
 	weeksMono = require "states.weeks.weeksMono"
 	weeksShitno = require "states.weeks.weeksShitno"
 	weeksAmusia = require "states.weeks.weeksAmusia"
+	weeksBrimstone = require "states.weeks.brimstone"
 
 	-- Load substates
 	gameOver = require "substates.game-over"
 	gameOverFeralisleep = require "substates.game-over-feralisleep"
 	settingsKeybinds = require "substates.settings-keybinds"
+
+	require "states.overworld"
 
 	-- Load week data
 	weekData = {
@@ -466,6 +469,7 @@ function love.load()
 		require "weeks.shitno",
 		require "weeks.amusia",
 		require "weeks.bygone",
+		require "weeks.brimstone"
 	}
 	testData = require "weeks.test"
 
@@ -558,6 +562,12 @@ function love.load()
 			"Bygone Purpose",
 			{
 				"Bygone Purpose"
+			}
+		},
+		{
+			"Brimstone",
+			{
+				"Brimstone"
 			}
 		}
 	}
