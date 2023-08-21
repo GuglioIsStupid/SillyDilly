@@ -28,7 +28,7 @@ return {
 		song = songNum
 		difficulty = songAppend
 
-		enemyIcon:animate("empty", false)
+		enemyIcon:animate("daddy dearest", false)
 
 		self:load()
 	end,
@@ -46,8 +46,8 @@ return {
 		weeks:setupCountdown()
 
 
-		inst:seek(90)
-		voices:seek(90)
+	--	inst:seek(90)
+		--voices:seek(90)
 	end,
 
 	initUI = function(self)
@@ -66,12 +66,12 @@ return {
 		end
 
 		if health >= 1.595 then
-			if enemyIcon:getAnimName() == "empty" then
-				enemyIcon:animate("empty losing", false)
+			if enemyIcon:getAnimName() == "daddy dearest" then
+				enemyIcon:animate("daddy dearest losing", false)
 			end
 		else
-			if enemyIcon:getAnimName() == "empty losing" then
-				enemyIcon:animate("empty", false)
+			if enemyIcon:getAnimName() == "daddy dearest losing" then
+				enemyIcon:animate("daddy dearest", false)
 			end
 		end
 

@@ -424,6 +424,7 @@ function love.load()
 		["shitno"] = require "stages.shitno",
 		["amusia"] = require "stages.amusia",
 		["bygone"] = require "stages.bygone",
+		["pasta"] = require "stages.pasta",
 	}
 
 	-- Load Menus
@@ -469,7 +470,8 @@ function love.load()
 		require "weeks.shitno",
 		require "weeks.amusia",
 		require "weeks.bygone",
-		require "weeks.brimstone"
+		require "weeks.brimstone",
+		require "weeks.pasta"
 	}
 	testData = require "weeks.test"
 
@@ -485,7 +487,8 @@ function love.load()
 		"MONOCHROME",
 		"SHITNO",
 		"AMUSIA",
-		"BYGONE PURPOSE"
+		"BYGONE PURPOSE",
+		"PASTA NIGHT"
 	} 
 
 
@@ -568,6 +571,12 @@ function love.load()
 			"Brimstone",
 			{
 				"Brimstone"
+			}
+		},
+		{
+			"Pasta Night",
+			{
+				"Pasta Night"
 			}
 		}
 	}
