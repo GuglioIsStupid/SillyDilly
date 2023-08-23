@@ -23,6 +23,9 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		weeksMono:enter()
 
+		enemyHealthColor = {83.9,83.9,83.9}
+		playerHealthColor = {45.1,75.3,82.7}
+
 		stages["mono"]:enter()
 
 		song = songNum
@@ -41,8 +44,8 @@ return {
 		inst = love.audio.newSource("songs/monochrome/Inst.ogg", "stream")
 		voices = love.audio.newSource("songs/monochrome/Voices.ogg", "stream")
 
-		inst:seek(135)
-        voices:seek(135)
+		--inst:seek(135)
+        -- nvoices:seek(135)
 
 
 		self:initUI()

@@ -22,6 +22,8 @@ local stageBack, stageFront, curtains
 return {
 	enter = function(self, from, songNum, songAppend)
 		weeks:enter()
+		enemyHealthColor = {66.3,23.9,23.9}
+		playerHealthColor = {86.7,45.5,26.3}
 
 		stages["dissension"]:enter()
 

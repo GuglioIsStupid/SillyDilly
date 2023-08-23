@@ -1705,9 +1705,9 @@ return {
 			love.graphics.scale(uiScale.zoom, uiScale.zoom)
 
 			graphics.setColor(1, 1, 1, visibility)
-			graphics.setColor(1, 0, 0)
+			graphics.setColor(enemyHealthColor[1]/255,enemyHealthColor[2]/255,enemyHealthColor[3]/255)
 			love.graphics.rectangle("fill", -500, 350+downscrollOffset, 1000, 25)
-			graphics.setColor(0, 1, 0)
+			graphics.setColor(playerHealthColor[1]/255,playerHealthColor[2]/255,playerHealthColor[3]/255)
 			love.graphics.rectangle("fill", 500, 350+downscrollOffset, -health * 500, 25)
 			love.graphics.setColor(1,1,1)
 			love.graphics.rectangle("fill", 500, 350+downscrollOffset, -minHealth[1] * 500, 25)

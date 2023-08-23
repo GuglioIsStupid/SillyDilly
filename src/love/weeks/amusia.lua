@@ -23,6 +23,9 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		weeksAmusia:enter()
 
+		enemyHealthColor = {85.5,67.8,23.5}
+		playerHealthColor = {72.9,58.8,64.3}
+
 		stages["amusia"]:enter()
 
 		song = songNum

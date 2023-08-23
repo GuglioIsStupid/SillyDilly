@@ -23,6 +23,10 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		weeks:enter()
 
+		marioHealthColor = {26.3,4.3,2.4}
+		sonicHealthColor = {23.9,24.3,36.5}
+		hypnoHealthColor = {93.7,83.9,25.5}
+
 		stages["pasta"]:enter()
 
 		song = songNum
@@ -37,8 +41,8 @@ return {
 		weeks:load()
 		stages["pasta"]:load()
 
-		inst = love.audio.newSource("songs/week1/dadbattle/Inst.ogg", "stream")
-		voices = love.audio.newSource("songs/week1/dadbattle/Voices.ogg", "stream")
+		inst = love.audio.newSource("songs/pasta-night/Inst.ogg", "stream")
+		voices = love.audio.newSource("songs/pasta-night/Voices.ogg", "stream")
 	
 		self:initUI()
 
