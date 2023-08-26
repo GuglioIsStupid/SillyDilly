@@ -405,6 +405,7 @@ function love.load()
 	debugMenu = require "states.debug.debugMenu"
 	spriteDebug = require "states.debug.sprite-debug"
 	stageDebug = require "states.debug.stage-debug"
+	shaderDebug = require "states.debug.shaderDebug"
 
 	-- Sounds
 	selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
