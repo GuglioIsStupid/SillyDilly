@@ -23,6 +23,9 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		weeksFrostbite:enter()
 
+		enemyHealthColor = {98,49.8,53.3}
+		playerHealthColor = {94.9,91,100}
+
 		typlosionSound = love.audio.newSource("sounds/frostbite/TyphlosionUse.ogg", "static")
 		typlosionDeath = love.audio.newSource("sounds/frostbite/TyphlosionDeath.ogg", "static")
 

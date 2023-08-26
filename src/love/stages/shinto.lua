@@ -35,12 +35,38 @@ return {
         camera:addPoint("enemy", 0, 618, 0.7, 0.7)
         camera:moveToPoint(0, "boyfriend")
 
-        --voices:seek(150)
-        --inst:seek(150)
+
+        camera.camBopInterval = 4
+        camera.camBopIntensity = 1
+
+        --voices:seek(90)
+       -- inst:seek(90)
+
     end,
 
     update = function(self, dt)
         stageImages["pokeball"]:update(dt)
+
+        if musicTime >= 96000 and musicTime < 96000+50 then
+            camera.camBopInterval = 1
+            camera.camBopIntensity = 3
+        end
+
+
+        if musicTime >= 120000 and musicTime < 120000+50 then
+            camera.camBopInterval = 4
+            camera.camBopIntensity = 1
+        end
+
+        if musicTime >= 144000 and musicTime < 144000+50 then
+            camera.camBopInterval = 1
+            camera.camBopIntensity = 3
+        end
+
+        if musicTime >= 168000 and musicTime < 168000+50 then
+            camera.camBopInterval = 4
+            camera.camBopIntensity = 1
+        end
 
         if musicTime >= 194250 and musicTime < 194250+50 then
             if not didEnding then

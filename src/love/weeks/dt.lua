@@ -22,6 +22,9 @@ local stageBack, stageFront, curtains
 return {
 	enter = function(self, from, songNum, songAppend)
 		dtWeek:enter()
+
+        enemyHealthColor = {49.4,36.5,56.9}
+        playerHealthColor = {78.4,78.4,78.4}
         stages["dt"]:enter()
 		song = songNum
 		difficulty = songAppend
@@ -100,7 +103,7 @@ return {
             if musicTime >= 11489.3617021277 and musicTime < 11514.3617021277 then 
                 bong()
             end
-            if musicTime >= 13244.6808510638 and musicTime < 13269.6808510638 then 
+            if musicTime >= 13244.6808510638 and musicTime < 13269.6808510638 then -- did you manually type these?
                 bong()
             end
             if musicTime >= 14042.5531914894 and musicTime < 14067.5531914894 then 

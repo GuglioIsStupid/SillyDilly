@@ -288,7 +288,7 @@ function love.load()
 	settings = require "settings"
 	NoteSplash = require "modules.Splash"
 	require "modules.savedata"
-	require "modules.lyrics"
+	require "modules.Lyrics"
 	loadSavedata()
 	
 	-- XML Modules
@@ -409,7 +409,7 @@ function love.load()
 
 	-- Sounds
 	selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
-	confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
+	confirmSound = love.audio.newSource("sounds/menu/confirmMenu.ogg", "static")
 
 	-- Load stages
 	stages = {
@@ -425,6 +425,7 @@ function love.load()
 		["shitno"] = require "stages.shitno",
 		["amusia"] = require "stages.amusia",
 		["bygone"] = require "stages.bygone",
+		["pasta"] = require "stages.pasta",
 	}
 
 	-- Load Menus
@@ -470,7 +471,8 @@ function love.load()
 		require "weeks.shitno",
 		require "weeks.amusia",
 		require "weeks.bygone",
-		require "weeks.brimstone"
+		require "weeks.brimstone",
+		require "weeks.pasta"
 	}
 	testData = require "weeks.test"
 
@@ -486,7 +488,8 @@ function love.load()
 		"MONOCHROME",
 		"SHITNO",
 		"AMUSIA",
-		"BYGONE PURPOSE"
+		"BYGONE PURPOSE",
+		"PASTA NIGHT"
 	} 
 
 
@@ -570,6 +573,12 @@ function love.load()
 			{
 				"Brimstone"
 			}
+		},
+		{
+			"Pasta Night",
+			{
+				"Pasta Night"
+			}
 		}
 	}
 
@@ -617,6 +626,11 @@ function love.load()
 	health = 0
 
 	music = love.audio.newSource("music/menu/menu.ogg", "stream")
+	hypnoMenuTheme = love.audio.newSource("music/menu/HYPNO_MENU.ogg", "stream")
+	CreditsMenuTheme = love.audio.newSource("music/menu/creditsTheme.ogg", "stream")
+	FreeplayMenuTheme = love.audio.newSource("music/menu/FreeplayMenu.ogg", "stream")
+	pokedexTheme = love.audio.newSource("music/PokedexTheme.ogg", "stream")
+
 	music:setLooping(true)
 
 	fixVol = tonumber(string.format(

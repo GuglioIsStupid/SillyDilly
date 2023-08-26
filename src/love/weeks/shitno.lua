@@ -23,6 +23,9 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		weeksShitno:enter()
 
+		enemyHealthColor = {72.5,61.2,23.9}
+		playerHealthColor = {77.6,63.5,50.6}
+
 		stages["shitno"]:enter()
 
 		song = songNum

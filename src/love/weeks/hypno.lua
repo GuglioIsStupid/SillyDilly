@@ -127,6 +127,9 @@ Lyrics = {
 }
 return {
 	enter = function(self, from, songNum, songAppend)
+
+		enemyHealthColor = {97.6,87.5,26.7}
+		playerHealthColor = {64.7,0,30.2}
 		hypnoWeek:enter()
 
         enemy = Sprite()

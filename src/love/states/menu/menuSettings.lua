@@ -1,8 +1,9 @@
--- This file doesn't need to be messed with unless you are adding a new setting
+-- This file doesn't need to be messed with unless you are adding a new setting    oe unless you are spelling the word sus with unowns
 
 -- TODO: clean this menu up
 
-local menuBG = graphics.newImage(graphics.imagePath("menu/title-bg"))
+
+
 
 newlinesMoment = {
     "",
@@ -13,7 +14,7 @@ newlinesMoment = {
     "\n\n\n\n\n\n\n\n\n\n",
     "\n\n\n\n\n\n\n\n\n\n\n\n",
     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",  --bruh -- shhhhhhhh  -- no -- yes
+    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",  --bruh -- shhhhhhhh  -- no -- yes   --no
     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
@@ -75,6 +76,19 @@ local function switchMenu(menu)end
 return {
 	enter = function(self, previous)
 
+        SUS_S = love.filesystem.load("sprites/menu/settings/S Unown.lua")()
+        SUS_U = love.filesystem.load("sprites/menu/settings/U Unown.lua")()
+        SUS_S2 = love.filesystem.load("sprites/menu/settings/S Unown.lua")()
+
+        SUS_S:animate("anim", true)
+        SUS_U:animate("anim", true)
+        SUS_S2:animate("anim", true)
+
+        SUS_S.x, SUS_S.y = 285, 300
+        SUS_U.x, SUS_U.y = 970, 185
+        SUS_S2.x, SUS_S2.y = 1000, 525
+
+
 		songNum = 0
         settingSelect = 1
         settingsMenuState = 0
@@ -87,6 +101,10 @@ return {
 	end,
 
 	update = function(self, dt)
+        SUS_S:update(dt)
+        SUS_U:update(dt)
+        SUS_S2:update(dt)
+
 		if not graphics.isFading() then
 			if input:pressed("confirm") then
                 function confirmFunc()
@@ -155,6 +173,8 @@ return {
 				audio.playSound(selectSound)
 
                 if settingsMenuState == 0 then
+                    settingSelect = 1
+                    saveSettings()
                 else
                     settingsMenuState = 0
                     settingSelect = 1
@@ -223,11 +243,14 @@ return {
 	end,
 
 	draw = function(self)
+        SUS_S:draw()
+        SUS_U:draw()
+        SUS_S2:draw()
+
 		love.graphics.push()
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 
 			love.graphics.push()
-                menuBG:draw()
 
                 graphics.setColor(1,1,0)
                 if settingsMenuState == 0 then
@@ -281,6 +304,9 @@ return {
 
 	leave = function(self)
         saveSettings()
+        SUS_S = nil
+        SUS_U = nil
+        SUS_S2 = nil
 
 		Timer.clear()
 	end
