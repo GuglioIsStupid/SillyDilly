@@ -408,7 +408,7 @@ function love.load()
 
 	-- Sounds
 	selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
-	confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
+	confirmSound = love.audio.newSource("sounds/menu/confirmMenu.ogg", "static")
 
 	-- Load stages
 	stages = {
@@ -625,6 +625,11 @@ function love.load()
 	health = 0
 
 	music = love.audio.newSource("music/menu/menu.ogg", "stream")
+	hypnoMenuTheme = love.audio.newSource("music/menu/HYPNO_MENU.ogg", "stream")
+	CreditsMenuTheme = love.audio.newSource("music/menu/creditsTheme.ogg", "stream")
+	FreeplayMenuTheme = love.audio.newSource("music/menu/FreeplayMenu.ogg", "stream")
+	pokedexTheme = love.audio.newSource("music/PokedexTheme.ogg", "stream")
+
 	music:setLooping(true)
 
 	fixVol = tonumber(string.format(

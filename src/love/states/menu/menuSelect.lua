@@ -13,65 +13,35 @@ return {
         
 		menuButton = 1
 		songNum = 0
+        curSelection = "STORY"
         selectBGRandom = love.math.random(0, 100)
 
         if selectBGRandom < 1 then
-            selectBG = graphics.newImage(graphics.imagePath("menu/quagmire_car"))
+            selectBG = graphics.newImage(graphics.imagePath("menu/quagmire_car"))   -- we are not removing quagmire car
             selectBG.x = 430
             selectBG.y = 300
+            selectBGwidth = 1080
         else
-            selectBG = graphics.newImage(graphics.imagePath("menu/selectBG"))
+            selectBG = graphics.newImage(graphics.imagePath("menu/select/pokemon_yellow_noise"))
+            selectBGwidth = 768
+
         end
 
-        selectBGOverlay = graphics.newImage(graphics.imagePath("menu/selectBGOverlay"))
+        selectBG.translation = 0
 
-        options = love.filesystem.load("sprites/menu/menuButtons.lua")()
-        story = love.filesystem.load("sprites/menu/menuButtons.lua")()
-        freeplay = love.filesystem.load("sprites/menu/menuButtons.lua")()
-        credits = love.filesystem.load("sprites/menu/credits.lua")()
-        story:animate("story hover", true)
-        freeplay:animate("freeplay", true)
-        options:animate("options", true)
-        credits:animate("credits", true)
-        story.y,freeplay.y,options.y,credits.y = -200, -50, 100, 250
-        story.sizeX, story.sizeY = 0.75, 0.75
-        freeplay.sizeX, freeplay.sizeY = 0.75, 0.75
-        options.sizeX, options.sizeY = 0.75, 0.75
-        credits.sizeX, credits.sizeY = 0.75, 0.75
+        
+		--for i = 1,23 do
+		--	_G["characters" .. i] = love.filesystem.load("sprites/menu/characters/" .. i .. ".lua")()
+		--	_G["characters" .. i]:animate("anim", true)
+		--end
 
-        story.x, freeplay.x, options.x, credits.x = -500, -500, -500, -500
-        Timer.tween(1, story, {x = -295}, "out-expo")
-        Timer.tween(1, freeplay, {x = -320}, "out-expo")
-        Timer.tween(1, options, {x = -345}, "out-expo")
-        Timer.tween(1, credits, {x = -370}, "out-expo")
-        --Timer.tween(0.88, cam, {y = 35, sizeX = 1.1, sizeY = 1.1}, "out-quad")
+		menuCharacter = love.filesystem.load("sprites/menu/characters/" .. love.math.random(1,23) .. ".lua")()
 
-        function changeSelect()
-            if menuButton == 1 then
-                story:animate("story hover", true)
-                freeplay:animate("freeplay", true)
-                options:animate("options", true)
-                credits:animate("credits", true)
+		menuCharacter:animate("anim", true)
+        menuCharacter.sizeX, menuCharacter.sizeY = 0.75, 0.75
+        menuCharacter.x, menuCharacter.y = 1000, 480
 
-            elseif menuButton == 2 then
-                story:animate("story", true)
-                freeplay:animate("freeplay hover", true)
-                options:animate("options", true)
-                credits:animate("credits", true)
 
-            elseif menuButton == 3 then
-                story:animate("story", true)
-                freeplay:animate("freeplay", true)
-                options:animate("options hover", true)
-                credits:animate("credits", true)
-
-            elseif menuButton == 4 then
-                story:animate("story", true)
-                freeplay:animate("freeplay", true)
-                options:animate("options", true)
-                credits:animate("credits hover", true)
-            end
-        end
 
         function confirmFunc()
             if menuButton == 1 then
@@ -83,10 +53,7 @@ return {
                         status.setLoading(false)
                     end
                 )
-                Timer.tween(0.9, story, {x = 0}, "out-expo")
-                Timer.tween(0.9, freeplay, {y = 700}, "out-expo")
-                Timer.tween(0.9, options, {y = 700}, "out-expo")
-                Timer.tween(0.9, credits, {y = 700}, "out-expo")
+
             elseif menuButton == 2 then
                 status.setLoading(true)
                 graphics:fadeOutWipe(
@@ -96,23 +63,17 @@ return {
                         status.setLoading(false)
                     end
                 )
-                Timer.tween(0.9, freeplay, {y = 0}, "out-expo")
-                Timer.tween(0.9, story, {y = -700}, "out-expo")
-                Timer.tween(0.9, options, {y = 700}, "out-expo")
-                Timer.tween(0.9, credits, {y = 700}, "out-expo")
+
             elseif menuButton == 3 then
                 status.setLoading(true)
                 graphics:fadeOutWipe(
                     0.7,
                     function()
-                        Gamestate.push(menuSettings)
+                        Gamestate.push(menuCredits)
                         status.setLoading(false)
                     end
                 )
-                Timer.tween(0.9, freeplay, {y = -700}, "out-expo")
-                Timer.tween(0.9, options, {y = 0}, "out-expo")
-                Timer.tween(0.9, story, {y = -700}, "out-expo")
-                Timer.tween(0.9, credits, {y = 700}, "out-expo")
+
             elseif menuButton == 4 then
                 status.setLoading(true)
                 graphics:fadeOutWipe(
@@ -122,12 +83,32 @@ return {
                         status.setLoading(false)
                     end
                 )
-                Timer.tween(0.9, credits, {y = 0}, "out-expo")
-                Timer.tween(0.9, options, {y = -700}, "out-expo")
-                Timer.tween(0.9, freeplay, {y = -700}, "out-expo")
-                Timer.tween(0.9, story, {y = -700}, "out-expo")
+            elseif menuButton == 5 then
+                status.setLoading(true)
+                graphics:fadeOutWipe(
+                    0.7,
+                    function()
+                        Gamestate.switch(menuSettings)
+                        status.setLoading(false)
+                    end
+                )
+
             end
         end
+
+        function bgTween()
+            Timer.tween(2.5, selectBG, {y = selectBG.y - 75}, "out-sine", function()
+                Timer.tween(2.5, selectBG, {y = selectBG.y + 75}, "in-sine", function()
+                    Timer.tween(2.5, selectBG, {y = selectBG.y + 75}, "out-sine", function()
+                        Timer.tween(2.5, selectBG, {y = selectBG.y - 75}, "in-sine", function()
+                            bgTween()
+                        end)
+                    end)
+                end)
+            end)
+        end
+        bgTween()
+
 
 		switchMenu(1)
 
@@ -136,27 +117,25 @@ return {
 	end,
 
 	update = function(self, dt)
-        options:update(dt)
-        story:update(dt)
-        freeplay:update(dt)
-        credits:update(dt)
+        menuCharacter:update(dt)
 
-        selectBG.y = math.sin(love.timer.getTime() * 1.5) * 0.9
+        
+
+        selectBG.translation = selectBG.translation + 40 * dt
+        if selectBG.translation > selectBGwidth then
+            selectBG.translation = 0
+        end
 
 		if not graphics.isFading() then
 			if input:pressed("up") then
 				audio.playSound(selectSound)
 
-                menuButton = menuButton ~= 1 and menuButton - 1 or 4
-
-                changeSelect()
+                menuButton = menuButton ~= 1 and menuButton - 1 or 5
 
 			elseif input:pressed("down") then
 				audio.playSound(selectSound)
 
-                menuButton = menuButton ~= 4 and menuButton + 1 or 1
-
-                changeSelect()
+                menuButton = menuButton ~= 5 and menuButton + 1 or 1
 
 			elseif input:pressed("confirm") then
 				audio.playSound(confirmSound)
@@ -168,26 +147,40 @@ return {
 				Gamestate.switch(menu)
 			end
 		end
+
+        if menuButton == 1 then
+            curSelection = "STORY"
+        elseif menuButton == 2 then
+            curSelection = "FREEPLAY"
+        elseif menuButton == 3 then
+            curSelection = "CREDITS"
+        elseif menuButton == 4 then
+            curSelection = "POKEDEX"
+        elseif menuButton == 5 then
+            curSelection = "OPTIONS"
+        end
 	end,
 
 	draw = function(self)
-		love.graphics.push()
+        love.graphics.push()
+		    love.graphics.push()
             love.graphics.setFont(uiFont)
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
-            love.graphics.push()
-                selectBG:draw()
+            love.graphics.setColor(0,0,0)
+            love.graphics.rectangle("fill", -1000, -1000, 10000, 10000)
+            love.graphics.setColor(1,1,1)
             love.graphics.pop()
             love.graphics.push()
-                selectBGOverlay:draw()
+            love.graphics.translate(selectBG.translation - 768, 0)
+                for i = 1,5 do
+                    selectBG.x = (i-1) * 768
+                    selectBG:draw()
+                end
             love.graphics.pop()
             love.graphics.push()
-                graphics.setColor(0,0,0)
-                love.graphics.print("Vanilla Engine " .. (__VERSION__ or "???") .. "\nBuilt on: Funkin Rewritten v1.1.0 Beta 2", -635, -360)
-                graphics.setColor(1,1,1)
-                story:draw()
-                freeplay:draw()
-                options:draw()
-                credits:draw()
+            graphics.setColor(1,1,1)
+            love.graphics.print("Vanilla Engine " .. (__VERSION__ or "???") .. "\nBuilt on: Funkin Rewritten v1.1.0 Beta 2            " .. curSelection, 0, 0)
+            menuCharacter:draw()
             love.graphics.pop()
             love.graphics.setFont(font)
 		love.graphics.pop()
@@ -196,10 +189,7 @@ return {
 
 	leave = function(self)
         titleBG = nil
-        story = nil
-        freeplay = nil
-        options = nil
-        credits = nil
+
 		Timer.clear()
 	end
 }

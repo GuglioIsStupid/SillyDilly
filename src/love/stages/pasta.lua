@@ -23,7 +23,7 @@ return {
            ["chair"]  = graphics.newImage(graphics.imagePath("pasta/chair")),
            ["chair2"]  = graphics.newImage(graphics.imagePath("pasta/chair")),
            ["CHAIRS"]  = graphics.newImage(graphics.imagePath("pasta/CHAIRS")),
-           ["glow"]  = graphics.newImage(graphics.imagePath("pasta/golw_ADD")),
+           ["glow"]  = graphics.newImage(graphics.imagePath("pasta/golw_ADD")), 
            ["holder"]  = graphics.newImage(graphics.imagePath("pasta/holder")),
            ["lamp"]  = graphics.newImage(graphics.imagePath("pasta/lamp")),
            ["lamp light"]  = graphics.newImage(graphics.imagePath("pasta/lamp_light_ADD")),

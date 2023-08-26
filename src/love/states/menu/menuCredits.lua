@@ -1,5 +1,5 @@
 local creditText
--- i literally said we should use a big string and you said no - CH
+-- i literally said we should use a big string and you said no - CH             damn you still havent responded
 creditText = [[
 CREDITS
 
@@ -69,7 +69,7 @@ RiverOaken - Psych Engine credits button
 
 
 
-Claus - requested furry BF to be added to VE (press UP 10 times)
+Claus - requested furry BF to be added to VE (press UP 10 times)     we still havent done this and I really want- i mean uhh claus really wants this added (pls add this)
 ]]
 
 return {
@@ -79,6 +79,19 @@ return {
         }
         graphics:fadeInWipe(0.6)
         bg = graphics.newImage(graphics.imagePath("menu/menuBG"))
+        if not CreditsMenuTheme:isPlaying() then
+            if hypnoMenuTheme:isPlaying() then
+                hypnoMenuTheme:stop()
+            end
+            if FreeplayMenuTheme:isPlaying() then
+                FreeplayMenuTheme:stop()
+            end
+            if pokedexTheme:isPlaying() then
+                pokedexTheme:stop()
+            end
+        end
+        CreditsMenuTheme:play()
+        CreditsMenuTheme:setLooping(true)
     end,
     update = function(self, dt)
         if input:pressed("down") or input:pressed("up") then 

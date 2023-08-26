@@ -61,17 +61,23 @@ return {
 		boxes = graphics.newImage(graphics.imagePath("pokedex/boxes"))
 		descBox = graphics.newImage(graphics.imagePath("pokedex/altBG"))
 
-		pokedexTheme = love.audio.newSource("music/PokedexTheme.ogg", "stream")
 
 		graphics.setFade(0)
 		graphics.fadeIn(0.5)
 
-		if music:isPlaying() then
-			music:stop()
-		end
- 
-		pokedexTheme:play()
+        if not pokedexTheme:isPlaying() then
+            if hypnoMenuTheme:isPlaying() then
+                hypnoMenuTheme:stop()
+            end
+            if CreditsMenuTheme:isPlaying() then
+                CreditsMenuTheme:stop()
+            end
+			if FreeplayMenuTheme:isPlaying() then
+				FreeplayMenuTheme:stop()
+			end
+        end
 
+		pokedexTheme:play()
 		pokedexTheme:setLooping(true)
 
 
@@ -272,6 +278,12 @@ return {
 			elseif dexSelection == 1 then
 				amongTranslate = 0
 			end
+		elseif input:pressed("back") then
+                graphics:fadeOutWipe(0.7, function()
+                    Gamestate.switch(menuSelect)
+                end)
+            
+            audio.playSound(selectSound)
 		elseif input:pressed("confirm") and not descClosing and not descOpening and unlockedCharacters[dexSelection] then
 			if descOpen then
 				descClosing = true
@@ -371,6 +383,5 @@ return {
 	leave = function(self)
 		love.graphics.setDefaultFilter("linear")
 		love.graphics.setFont(font)
-		pokedexTheme:stop()
 	end
 }
