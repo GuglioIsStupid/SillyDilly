@@ -2,6 +2,7 @@ local choice
 return {
     enter = function()
         choice = 1
+        settings.showDebug = false
     end,
 
     update = function(self, dt)

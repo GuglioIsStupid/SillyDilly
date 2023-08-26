@@ -13,6 +13,12 @@ return {
 		end
 		selection = 1
 		dirTable = love.filesystem.getDirectoryItems(curDir)
+        -- remove all .default files from dirTable
+        for i = #dirTable, 1, -1 do
+            if dirTable[i]:match(".default") then
+                table.remove(dirTable, i)
+            end
+        end
 	end,
 
 	enter = function(self, previous)
@@ -64,7 +70,21 @@ return {
 		local spriteData = love.filesystem.load("sprites/boyfriend.lua")
         debugShader = love.graphics.newShader(shaderViewer)
         debugShaderCanvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
-        print(debugShader)
+        -- check if shadername.default exists
+        shadername = shaderViewer:match("([^/]+)$"):gsub(".frag", "")
+        -- strip of all extra spaces
+        if love.filesystem.getInfo("shaders/"..shadername .. ".default") then
+            local shaderDefaults = love.filesystem.read("shaders/"..shadername .. ".default")
+            shaderDefaultsTable = {}
+            for line in shaderDefaults:gmatch("[^\r\n]+") do
+                local key, value = line:match("([^=]+)=([^=]+)")
+                shaderDefaultsTable[key] = value
+            end
+            for key, value in pairs(shaderDefaultsTable) do
+                debugShader:send(key, tonumber(value) or value)
+            end
+        end
+            
 		svMode = 2
 
 		sprite = spriteData()
@@ -73,7 +93,12 @@ return {
 	end,
 
 	update = function(self, dt)
-		-- I wasn't kidding when I said this was a really bad debug menu
+        -- if time exists in shaderDefaultsTable, update it
+        if shaderDefaultsTable and shaderDefaultsTable["time"] then
+            shaderDefaultsTable["time"] = shaderDefaultsTable["time"] + 1000 * dt
+
+            debugShader:send("time", shaderDefaultsTable["time"]/(60/120)*1000/4)
+        end
 		if menus[menuID][1] == 2 then -- Sprite viewer
 			if svMode == 2 then
 				sprite:update(dt)
