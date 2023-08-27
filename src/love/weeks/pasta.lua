@@ -21,11 +21,12 @@ local stageBack, stageFront, curtains
 
 return {
 	enter = function(self, from, songNum, songAppend)
-		weeks:enter()
+		weeksPasta:enter()
 
 		marioHealthColor = {26.3,4.3,2.4}
 		sonicHealthColor = {23.9,24.3,36.5}
 		hypnoHealthColor = {93.7,83.9,25.5}
+
 
 		stages["pasta"]:enter()
 
@@ -38,7 +39,7 @@ return {
 	end,
 
 	load = function(self)
-		weeks:load()
+		weeksPasta:load()
 		stages["pasta"]:load()
 
 		inst = love.audio.newSource("songs/pasta-night/Inst.ogg", "stream")
@@ -46,17 +47,17 @@ return {
 	
 		self:initUI()
 
-		weeks:setupCountdown()
+		weeksPasta:setupCountdown()
 	end,
 
 	initUI = function(self)
-		weeks:initUI()
+		weeksPasta:initUI()
 
-		weeks:generateNotes("data/week1/dadbattle/dadbattle" .. difficulty .. ".json")
+		weeksPasta:generateNotes("data/week1/dadbattle/dadbattle" .. difficulty .. ".json")
 	end,
 
 	update = function(self, dt)
-		weeks:update(dt)
+		weeksPasta:update(dt)
 		stages["pasta"]:update(dt)
 
 
@@ -70,9 +71,9 @@ return {
 			end
 		end
 
-		weeks:checkSongOver()
+		weeksPasta:checkSongOver()
 
-		weeks:updateUI(dt)
+		weeksPasta:updateUI(dt)
 	end,
 
 	draw = function(self)
@@ -83,7 +84,7 @@ return {
 			stages["pasta"]:draw()
 		love.graphics.pop()
 
-		weeks:drawUI()
+		weeksPasta:drawUI()
 	end,
 
 	leave = function(self)
@@ -95,6 +96,6 @@ return {
 
 		graphics.clearCache()
 
-		weeks:leave()
+		weeksPasta:leave()
 	end
 }
