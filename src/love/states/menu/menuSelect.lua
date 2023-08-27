@@ -176,9 +176,9 @@ return {
             love.graphics.setColor(1,1,1)
             love.graphics.pop()
             love.graphics.push()
-            love.graphics.translate(selectBG.translation - 768, 0)
+            love.graphics.translate(selectBG.translation - selectBGwidth, 0)
                 for i = 1,5 do
-                    selectBG.x = (i-1) * 768
+                    selectBG.x = (i-1) * selectBGwidth
                     selectBG:draw()
                 end
             love.graphics.pop()
