@@ -455,6 +455,7 @@ function love.load()
 	weeksShitno = require "states.weeks.weeksShitno"
 	weeksAmusia = require "states.weeks.weeksAmusia"
 	weeksBrimstone = require "states.weeks.brimstone"
+	
 
 	-- Load substates
 	gameOver = require "substates.game-over"
