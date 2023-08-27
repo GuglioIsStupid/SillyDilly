@@ -21,6 +21,22 @@ return {
         weekStats = graphics.newImage(graphics.imagePath("menu/fp_weekStats"))
         backButton = graphics.newImage(graphics.imagePath("menu/backBtn"))
 
+        if not FreeplayMenuTheme:isPlaying() then
+            if hypnoMenuTheme:isPlaying() then
+                hypnoMenuTheme:stop()
+            end
+            if CreditsMenuTheme:isPlaying() then
+                CreditsMenuTheme:stop()
+            end
+            if pokedexTheme:isPlaying() then
+                pokedexTheme:stop()
+            end
+        end
+
+        FreeplayMenuTheme:play()
+        FreeplayMenuTheme:setLooping(true)
+
+
         graphics:fadeInWipe(0.6)
 
         difficultyStrs = {
@@ -324,7 +340,7 @@ return {
     
                         storyMode = false
     
-                        music:stop()
+                        FreeplayMenuTheme:stop()
     
                         Gamestate.switch(weekData[weekNum], songNum, songAppend, weekNum)
     

@@ -94,6 +94,14 @@ return {
 
 			visible = true,
 
+			getWidth = function(self)
+				return width
+			end,
+
+			getHeight = function(self)
+				return height
+			end,
+
 			setImage = function(self, image)
 				image = image
 				width = image:getWidth()
@@ -102,6 +110,11 @@ return {
 
 			getImage = function(self)
 				return image
+			end,
+
+			setGraphicSize = function(self, w, h)
+				self.sizeX = w / width
+				self.sizeY = ((h or w) or width) / height
 			end,
 
 			draw = function(self)

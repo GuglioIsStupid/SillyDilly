@@ -1,4 +1,5 @@
 local util = {}
+util.lerpSnap = false
 
 function util.lerp(a, b, t)
     return a + (b - a) * t
@@ -6,6 +7,13 @@ end
 
 function util.coolLerp(a, b, t)
     return util.lerp(a, b, t * 60 * love.timer.getDelta())
+end
+
+function util.fakeLerp(a,b,t)
+    if util.lerpSnap then
+        return util.lerp(a, b, 1)
+    end
+    return util.lerp(a, b, t)
 end
 
 function util.clamp(x, min, max)

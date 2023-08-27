@@ -137,7 +137,19 @@ return {
 		graphics:fadeInWipe(0.6)
 
 		function confirmFunc()
-			music:stop()
+			if hypnoMenuTheme:isPlaying() then
+				hypnoMenuTheme:stop()
+			end
+			if CreditsMenuTheme:isPlaying() then
+				CreditsMenuTheme:stop()
+			end
+			if pokedexTheme:isPlaying() then
+				pokedexTheme:stop()
+			end
+			if FreeplayMenuTheme:isPlaying() then
+				FreeplayMenuTheme:stop()
+			end
+			
 			songNum = 1
 
 			status.setLoading(true)

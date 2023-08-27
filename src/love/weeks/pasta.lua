@@ -60,6 +60,71 @@ return {
 		weeksPasta:update(dt)
 		stages["pasta"]:update(dt)
 
+		if musicTime >= 19230 and musicTime < 19230+50 then
+			print("pow block")
+		end
+
+		if musicTime >= 41923 and musicTime < 41923+50 then
+			print("pow block")
+		end
+
+		if musicTime >= 50256 and musicTime < 50256+50 then
+			print("pow block")
+		end
+
+		if musicTime >= 56282 and musicTime < 56282+50 then
+			print("pow block")
+		end
+
+		if musicTime >= 68076 and musicTime < 68076+50 then
+			print("pow block")
+		end
+
+		if musicTime >= 74230 and musicTime < 74230+50 then
+			print("pow block")
+		end
+
+		if musicTime >= 86153 and musicTime < 86153+50 then
+			print("pow block")
+		end
+
+		if musicTime >= 90769 and musicTime < 90769+50 then
+			print("pow block")
+		end
+
+		if musicTime >= 94871 and musicTime < 94871+50 then
+			print("pow block")
+		end
+
+		if musicTime >= 98461 and musicTime < 98461+50 then
+			print("pow block")
+		end
+
+		if musicTime >= 128205 and musicTime < 128205+50 then
+			print("pow block")
+		end
+
+		if musicTime >= 134102 and musicTime < 134102+50 then
+			print("pow block")
+		end
+
+		if musicTime >= 140512 and musicTime < 140512+50 then
+			print("pow block")
+		end
+
+		if musicTime >= 145641 and musicTime < 145641+50 then
+			print("pow block")
+		end
+
+		if musicTime >= 150128 and musicTime < 150128+50 then
+			print("pow block")
+		end
+
+		if musicTime >= 154358 and musicTime < 154358+50 then
+			print("pow block")
+		end
+
+
 
 		if health >= 1.595 then
 			if enemyIcon:getAnimName() == "daddy dearest" then

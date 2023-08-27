@@ -164,6 +164,8 @@ function saveSettings()
             customBindUp = customBindUp,
             customBindLeft = customBindLeft,
             customBindRight = customBindRight,
+
+			didshopcutscene = settings.didshopcutscene,
             settingsVer = settingsVer
         }
         serialized = lume.serialize(settingdata)
@@ -199,6 +201,7 @@ function saveSettings()
             noteSkins = settings.noteSkins,
             flashinglights = settings.flashinglights,
 			colourByQuantization = settings.colourByQuantization,
+			didshopcutscene = settings.didshopcutscene,
 
             customBindDown = customBindDown,
             customBindUp = customBindUp,
@@ -331,6 +334,7 @@ function love.load()
 			customBindLeft = customBindLeft,
 			customBindRight = customBindRight,
 			colourByQuantization = settings.colourByQuantization,
+			didshopcutscene = settings.didshopcutscene,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(settingdata)
@@ -356,6 +360,7 @@ function love.load()
 		settings.keystrokes = false
 		settings.scrollUnderlayTrans = 0
 		settings.colourByQuantization = false
+		settings.didshopcutscene = false
 		--settings.noteSkins = 1
 		customBindLeft = "a"
 		customBindRight = "d"
@@ -380,6 +385,7 @@ function love.load()
 			keystrokes = settings.keystrokes,
 			scrollUnderlayTrans = settings.scrollUnderlayTrans,
 			colourByQuantization = settings.colourByQuantization,
+			didshopcutscene = settings.didshopcutscene,
 
 			customBindLeft = "a",
 			customBindRight = "d",
@@ -405,10 +411,11 @@ function love.load()
 	debugMenu = require "states.debug.debugMenu"
 	spriteDebug = require "states.debug.sprite-debug"
 	stageDebug = require "states.debug.stage-debug"
+	shaderDebug = require "states.debug.shaderDebug"
 
 	-- Sounds
 	selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
-	confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
+	confirmSound = love.audio.newSource("sounds/menu/confirmMenu.ogg", "static")
 
 	-- Load stages
 	stages = {
@@ -431,7 +438,7 @@ function love.load()
 	clickStart = require "states.click-start"
 	menu = require "states.menu.menu"
 	menuWeek = require "states.menu.menuWeek"
-	menuFreeplay = require "states.menu.menuFreeplay"
+	menuFreeplay = require "states.menu.menuShop"
 	menuSettings = require "states.menu.menuSettings"
 	menuCredits = require "states.menu.menuCredits"
 	menuSelect = require "states.menu.menuSelect"
@@ -626,6 +633,11 @@ function love.load()
 	health = 0
 
 	music = love.audio.newSource("music/menu/menu.ogg", "stream")
+	hypnoMenuTheme = love.audio.newSource("music/menu/HYPNO_MENU.ogg", "stream")
+	CreditsMenuTheme = love.audio.newSource("music/menu/creditsTheme.ogg", "stream")
+	FreeplayMenuTheme = love.audio.newSource("music/menu/FreeplayMenu.ogg", "stream")
+	pokedexTheme = love.audio.newSource("music/PokedexTheme.ogg", "stream")
+
 	music:setLooping(true)
 
 	fixVol = tonumber(string.format(
