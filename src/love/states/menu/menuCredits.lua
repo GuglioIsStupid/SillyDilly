@@ -91,13 +91,13 @@ creditsQuotes = {
         "Garbo",
         "I farded and a poopy almost slipped out",
         "Artist, Animator",
-        "I’m Garbo, aka the Chaos Nightmare Phantasm Sink guy thanks for playing our mod it’s been a crazy adventure and one of the best experiences I’ve had working with people online. My favorite thing that I got the chance to work on would have to be the Frostbite Sprites with the help from Scorch. Stay Hungry, Devour."
+        "I'm Garbo, aka the Chaos Nightmare Phantasm Sink guy thanks for playing our mod it's been a crazy adventure and one of the best experiences I've had working with people online. My favorite thing that I got the chance to work on would have to be the Frostbite Sprites with the help from Scorch. Stay Hungry, Devour."
     },
     {
         "Adam McHummus",
         "I put my whole Adam McHummussy into my shit",
         "Composer",
-        "ayo, I’m Adam, but you can call me Adam McHummus, I’ve done a fair bit of music for some very popular fnf mods, nothing too special, although hypno will always be an epic mod to work on, with all the people I’ve met and befriended here, it was worth it in some ways, I looked up to banbuds when i first heard about him and getting the chance to work on a mod with him was huge for me, and hey, look at me now, we’re already on v2 and I’ve made so much cool shit, I really hope y’all enjoyed it as much as I did working on it,,"
+        "ayo, I'm Adam, but you can call me Adam McHummus, I've done a fair bit of music for some very popular fnf mods, nothing too special, although hypno will always be an epic mod to work on, with all the people I've met and befriended here, it was worth it in some ways, I looked up to banbuds when i first heard about him and getting the chance to work on a mod with him was huge for me, and hey, look at me now, we're already on v2 and I've made so much cool shit, I really hope y'all enjoyed it as much as I did working on it,,"
     },
     {
         "Punkett",
@@ -109,7 +109,7 @@ creditsQuotes = {
         "Saster",
         "Musician",
         "Follow me for more quality content!",
-        "Hey! I did the music for the Freeplay menu and Amusia! Working on this mod with all these amazing and talented people was really fun and I’m glad I was able to be a part of it. I hope you find enjoyment from our mod and hope to see you in another! <3"
+        "Hey! I did the music for the Freeplay menu and Amusia! Working on this mod with all these amazing and talented people was really fun and I'm glad I was able to be a part of it. I hope you find enjoyment from our mod and hope to see you in another! <3"
     },
     {
         "SimplyCrispy",
@@ -133,19 +133,19 @@ creditsQuotes = {
         "BAnims",
         "I hate my phone",
         "Artist, Animator, Pixel Artist",
-        "It’s me BAnims, yknow, the guy on Twitter that made snoopy sprites. Anyways, like the majority of the team probably have already said, even though it’s had some ups and downs, it was still a pretty fun project for me to work on, and I’d like to thank my friends that got me to where I am today. Another thing, this mod made me love Gengar as I was working on the sprites for him, because ‘GOO GOO GOO GAAAAAH."
+        "It's me BAnims, yknow, the guy on Twitter that made snoopy sprites. Anyways, like the majority of the team probably have already said, even though it's had some ups and downs, it was still a pretty fun project for me to work on, and I'd like to thank my friends that got me to where I am today. Another thing, this mod made me love Gengar as I was working on the sprites for him, because ‘GOO GOO GOO GAAAAAH."
     },
     {
         "Gibz679",
         "#ASHVCSWEEP",
         "Charter",
-        "Hi IM GIBZ, My name can be pronounced gibz or Gibz679,idrc. hypno's lullaby is one of my favorite mods and getting too work on it still feels like a dream,Some of the songs i charted were\n\nfrostbite,shitno,monochrome,stranged red and isotope,missingno and a few other songs .This has been one crazy ass experience working on this mod but still the most fun i have had working on a mod, anyways this mod is cool because scary pokémon, Thank you for playing/supporting this mod. \n\nshubs fix the random huge ass space in the middle, i’m on my phone so i can’t"
+        "Hi IM GIBZ, My name can be pronounced gibz or Gibz679,idrc. hypno's lullaby is one of my favorite mods and getting too work on it still feels like a dream,Some of the songs i charted were\n\nfrostbite,shitno,monochrome,stranged red and isotope,missingno and a few other songs .This has been one crazy ass experience working on this mod but still the most fun i have had working on a mod, anyways this mod is cool because scary pokémon, Thank you for playing/supporting this mod. \n\nshubs fix the random huge ass space in the middle, i'm on my phone so i can't"
     },
     {
         "Mr Nol",
-        "you don’t have to tell me twice, but during the stone age…",
+        "you don't have to tell me twice, but during the stone age…",
         "Musician, Sound Design, Chromatics",
-        "Sup, it’s NoL the nobody here, honestly Hypno’s lullaby has actually changed my life and I couldn’t be anymore greatful to be on the team! (Even if what I do is close to nothing.) I know this is gonna be said like a thousand times but this team really does feel like a friend group, rather than ya know, ONE OF THE BIGGEST MODS EVER!!! Anyways this mod made me buy this funny gengar plushie that’s how much I love this mod"
+        "Sup, it's NoL the nobody here, honestly Hypno's lullaby has actually changed my life and I couldn't be anymore greatful to be on the team! (Even if what I do is close to nothing.) I know this is gonna be said like a thousand times but this team really does feel like a friend group, rather than ya know, ONE OF THE BIGGEST MODS EVER!!! Anyways this mod made me buy this funny gengar plushie that's how much I love this mod"
     },
     {
         "Kyoto",
@@ -181,19 +181,19 @@ creditsQuotes = {
         "Xooplord",
         "Unauthorized fucking thing… shoot it down!!",
         "Artist",
-        "hi I’m xoop, I’m on a couple of mods not many notable ones because I am notorious for working slow LMAO I did one of the promo arts and helped with the barebones of gold’s death animation that has been remade one too many times T_T I’m eternally grateful I was able to work on this project, Hypno was one of my all time favorite mods when I was just a teeny baby mod artist and the fact that I’ve come this far to work on it for V2, even if it was barely anything, is so crazy to me. I hope you guys enjoy this as much as I do!!!!"
+        "hi I'm xoop, I'm on a couple of mods not many notable ones because I am notorious for working slow LMAO I did one of the promo arts and helped with the barebones of gold's death animation that has been remade one too many times T_T I'm eternally grateful I was able to work on this project, Hypno was one of my all time favorite mods when I was just a teeny baby mod artist and the fact that I've come this far to work on it for V2, even if it was barely anything, is so crazy to me. I hope you guys enjoy this as much as I do!!!!"
     },
     {
         "niffirg",
         "#HESGOTTHEsweep",
         "Charter",
-        "niffirg here, yes it’s niffIRG and not niffRIG please stop saying niffrig (imagine crying emojis here) It’s also just my name backwards. Anyways, now that those 2 things are cleared up hello!!! I’m a charter and content creator you may or may not have seen on the Tube… In all seriousness tho, even through all the more difficult times, this mod was still extremely fun to work and I still feel very lucky to have the opportunity to contribute to this :) Big thank you to everyone in the dev team and to YOU!!! FOR PLAYING!!"
+        "niffirg here, yes it's niffIRG and not niffRIG please stop saying niffrig (imagine crying emojis here) It's also just my name backwards. Anyways, now that those 2 things are cleared up hello!!! I'm a charter and content creator you may or may not have seen on the Tube… In all seriousness tho, even through all the more difficult times, this mod was still extremely fun to work and I still feel very lucky to have the opportunity to contribute to this :) Big thank you to everyone in the dev team and to YOU!!! FOR PLAYING!!"
     },
     {
         "Razencro",
         "help me i'm stuck in a fnf mod credit screen ahhhh get me out!!!!",
         "Video Editor",
-        "I’m Razencro and I'm a video editor. I did like 2 things total for this awesome ass mod and a trailer. Super lucky and grateful to be able to have helped out. Props to everyone involved for being so talented and creating a legendary mod."
+        "I'm Razencro and I'm a video editor. I did like 2 things total for this awesome ass mod and a trailer. Super lucky and grateful to be able to have helped out. Props to everyone involved for being so talented and creating a legendary mod."
     },
     {
         "JoeDoughBoi",
@@ -247,42 +247,157 @@ return {
         end
         CreditsMenuTheme:play()
         CreditsMenuTheme:setLooping(true)
+
+        background = {
+            members = {},
+            add = function(self, member)
+                table.insert(self.members, member)
+            end,
+            remove = function(self, member)
+                for i = #self.members, 1, -1 do
+                    if self.members[i] == member then
+                        table.remove(self.members, i)
+                    end
+                end
+            end,
+            update = function(self, dt)
+                for i = 1, #self.members do
+                    if self.members[i].update then self.members[i]:update(dt) end
+                end
+            end,
+            draw = function(self)
+                for i = 1, #self.members do
+                    self.members[i]:draw()
+                end
+            end
+        }
+
+        moverCooldown = 0
+        verticalSelection = 0
+
+        iconList = {}
+        personList = {}
+        local list = {}
+        -- load data/credits/iconorder.txt -- every newline is a new value
+        for line in love.filesystem.lines("data/credits/iconorder.txt") do
+            table.insert(list, line)
+        end
+
+        -- for person in list
+        for i = 1, #list do
+            local person = list[i]
+            local name = person:gsub(" ", "_")
+            local icon = Sprite()
+            -- check if "data/menu/credits/"..name.json exists
+            if love.filesystem.getInfo("data/credits/" .. name .. ".json") then
+                -- check if name is nothing
+                if name ~= "" then
+                    -- check if graphics.imagePath("menu/icons/" .. name ) exists
+                    if love.filesystem.getInfo(graphics.imagePath("menu/icons/" .. name)) then
+                        --icon = graphics.newImage(graphics.imagePath("menu/icons/" .. name))
+                        icon:load(graphics.imagePath("menu/icons/" .. name))
+                    else
+                        -- load placeholder
+                        --icon = graphics.newImage(graphics.imagePath("menu/icons/placeholder"))
+                        icon:load(graphics.imagePath("menu/icons/placeholder"))
+                    end
+                    icon:setGraphicSize(math.floor(icon.width * (3/5)))
+
+                    table.insert(iconList, icon)
+                    background:add(icon)
+                    print(person)
+                    local credits = json.decode(love.filesystem.read("data/credits/" .. name .. ".json"))
+                    credits.name = person
+                    table.insert(personList, credits)
+                end
+            end
+        end
+
+        -- change all alpha to 0.6
+        for i = 1, #iconList do
+            iconList[i].alpha = 0.6
+        end
+        iconList[1].alpha = 1
     end,
     update = function(self, dt)
-        if input:pressed("down") or input:pressed("up") then 
-            audio.playSound(selectSound)
-        end
-        if credTween then 
-            Timer.cancel(credTween)
-        end
-        if input:pressed("gameBack") then
-            graphics:fadeOutWipe(0.5,
-            function()
-                Gamestate.switch(menuSelect)
-            end)
-        end
-        if input:down("down") then
-            if credY[1] > -2000 then  
-                credTween = Timer.tween(0.1, credY, {[1] = credY[1] - 25}, "out-quad")
-                
+        background:update(dt)
+        local newSelection = verticalSelection
+        local up = input:pressed("up")
+        local down = input:pressed("down")
+        local left = input:pressed("left")
+        local right = input:pressed("right")
+        local directionVertial = (up and -2 or 0) + (down and 2 or 0)
+        local directionHorizontal = (left and -1 or 0) + (right and 1 or 0)
+
+        if math.abs(directionVertial) > 0 then
+            if moverCooldown <= 0 then
+                newSelection = newSelection + directionVertial
+                local even = ((newSelection % 2) == 0) and 1 or 0
+
+                if newSelection < 0 then
+                    newSelection = #iconList-1 - even
+                elseif newSelection > #iconList-1 then
+                    newSelection = newSelection % 2
+                end
+
+                moverCooldown = moverCooldown + ((1/dt) / 4)
+            else
+                moverCooldown = moverCooldown - 1
             end
-        elseif input:down("up") then
-            if credY[1] < 250 then
-                credTween = Timer.tween(0.1, credY, {[1] = credY[1] + 25}, "out-quad")
+
+        elseif math.abs(directionHorizontal) > 0 then
+            if moverCooldown <= 0 then
+                newSelection = newSelection + directionHorizontal
+
+                if newSelection < 0 then
+                    newSelection = #iconList-1
+                elseif newSelection > #iconList-1 then
+                    newSelection = 0
+                end
+
+                moverCooldown = moverCooldown + ((1/dt) / 4)
+            else
+                moverCooldown = moverCooldown - 1
+            end
+        else
+            moverCooldown = 0
+        end
+
+        if verticalSelection ~= newSelection then
+            verticalSelection = newSelection
+            audio.playSound(selectSound)
+
+            for i = 1, #iconList do
+                iconList[i].alpha = 0.6
+            end
+            iconList[verticalSelection+1].alpha = 1
+        end
+
+        local step = 0
+        local j = 0
+        local constant = 150
+        constant = constant * (11/12)
+        local fakeElapsed = util.clamp(dt, 0, 1)
+        for i = 1, #iconList do
+            local iconX = 125 + (step * constant) - (iconList[i].width/2)
+            local iconY = 125 + (constant * (j - math.floor(verticalSelection / 2) + 0.5)) - (iconList[i].height/2) + ((constant/2)*step)
+            iconList[i].x = iconX
+            iconList[i].y = util.fakeLerp(iconList[i].y, iconY, fakeElapsed/(1/15))
+            step = step + 1
+            if step > 1 then
+                step = 0
+                j = j + 1
             end
         end
     end,
     draw = function(self)
-        love.graphics.setFont(credFont)
         love.graphics.push()
-        love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
-        graphics.setColor(0, 0, 0.4, 1)
-        bg:draw()
         graphics.setColor(1, 1, 1, 1)
-        love.graphics.translate(-350,math.abs(graphics.getHeight() / 2)+credY[1]-700)
-        love.graphics.printf(creditText, 0, 0, 750, "center")
+        background:draw()
         love.graphics.pop()
-        love.graphics.setFont(font)
+
+        -- print creditsQuotes[verticalSelection+1][1]
+        love.graphics.printf(personList[verticalSelection+1].name, 0, 0, graphics.getWidth(), "center")
     end,
     leave = function(self)
 

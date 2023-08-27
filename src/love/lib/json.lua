@@ -224,6 +224,8 @@ local function parse_string(str, i)
     local x = str:byte(j)
 
     if x < 32 then
+      -- print the characters we can
+      print(res)
       decode_error(str, j, "control character in string")
 
     elseif x == 92 then -- `\`: Escape
