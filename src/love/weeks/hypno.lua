@@ -547,8 +547,28 @@ return {
 			camera.defaultZoom = enemy.cameraZoom or camera.defaultZoom
         end
 
-		hypnoWeek:checkSongOver()
+		if not (countingDown or graphics.isFading()) and not (inst:isPlaying()) and not paused and not inCutscene then
+			if storyMode and song < #weekMeta[weekNum][2] then
+				hypnoWeek:saveData()
+				song = song + 1
+				print(song)
 
+				self:load()
+			else
+				hypnoWeek:saveData()
+
+				status.setLoading(true)
+
+				graphics:fadeOutWipe(
+					0.7,
+					function()
+						Gamestate.switch(menu)
+
+						status.setLoading(false)
+					end
+				)
+			end
+		end
 		hypnoWeek:updateUI(dt)
 
 		if trance > 1 then

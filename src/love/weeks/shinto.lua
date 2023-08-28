@@ -67,8 +67,28 @@ return {
 			end
 		end
 
-		weeks:checkSongOver()
+		if not (countingDown or graphics.isFading()) and not (inst:isPlaying()) and not paused and not inCutscene then
+			if storyMode then
+				weeks:saveData()
+				song = song + 1
+				print(song)
 
+				Gamestate.switch(weekData[12],1)
+			else
+				weeks:saveData()
+
+				status.setLoading(true)
+
+				graphics:fadeOutWipe(
+					0.7,
+					function()
+						Gamestate.switch(menu)
+
+						status.setLoading(false)
+					end
+				)
+			end
+		end
 		weeks:updateUI(dt)
 	end,
 

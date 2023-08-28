@@ -33,6 +33,10 @@ return {
 
 		enemyIcon:animate("gold", false)
 
+		function nextSong()
+			Gamestate.switch(menuWeek)
+		end
+
 		self:load()
 	end,
 
@@ -74,8 +78,28 @@ return {
 			end
 		end
 
-		weeksMono:checkSongOver()
+		if not (countingDown or graphics.isFading()) and not (inst:isPlaying()) and not paused and not inCutscene then
+			if storyMode then
+				weeksMono:saveData()
+				song = song + 1
+				print(song)
 
+				Gamestate.switch(menuWeek)
+			else
+				weeksMono:saveData()
+
+				status.setLoading(true)
+
+				graphics:fadeOutWipe(
+					0.7,
+					function()
+						Gamestate.switch(menu)
+
+						status.setLoading(false)
+					end
+				)
+			end
+		end
 		weeksMono:updateUI(dt)
 	end,
 

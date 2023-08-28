@@ -38,6 +38,7 @@ return graphics.newSprite(
 		{x = 1018, y = 5, width = 333, height = 367, offsetX = -1, offsetY = 0, offsetWidth = 334, offsetHeight = 367}, -- 14: HypnoWeek0013
 		{x = 1018, y = 5, width = 333, height = 367, offsetX = -1, offsetY = 0, offsetWidth = 334, offsetHeight = 367}, -- 15: HypnoWeek0014
 		{x = 1018, y = 5, width = 333, height = 367, offsetX = -1, offsetY = 0, offsetWidth = 334, offsetHeight = 367}, -- 16: HypnoWeek0015
+
 		{x = 5, y = 5, width = 333, height = 367, offsetX = -1, offsetY = -11, offsetWidth = 334, offsetHeight = 367}, -- 17: HypnoWeekConfirm0000
 		{x = 5, y = 5, width = 333, height = 367, offsetX = -1, offsetY = -3, offsetWidth = 334, offsetHeight = 367}, -- 18: HypnoWeekConfirm0001
 		{x = 5, y = 5, width = 333, height = 367, offsetX = -1, offsetY = -3, offsetWidth = 334, offsetHeight = 367}, -- 19: HypnoWeekConfirm0002
@@ -55,7 +56,8 @@ return graphics.newSprite(
 		{x = 155, y = 480, width = 0, height = 0, offsetX = 210, offsetY = 12, offsetWidth = 335, offsetHeight = 876}, -- 31: HypnoWeekConfirm0014
 		{x = 155, y = 480, width = 0, height = 0, offsetX = 210, offsetY = 12, offsetWidth = 335, offsetHeight = 876} -- 32: HypnoWeekConfirm0015
 	},	{
-		["anim"] = {start = 1, stop = 32, speed = 24, offsetX = 0, offsetY = 0},
+		["anim"] = {start = 1, stop = 16, speed = 24, offsetX = 0, offsetY = 0},
+		["confirm"] = {start = 17, stop = 32, speed = 24, offsetX = 0, offsetY = 0},
 	},
 	"anim",
 	false

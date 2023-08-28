@@ -35,6 +35,7 @@ return {
 
 		gameCanvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
 
+
 		self:load()
 	end,
 
@@ -76,8 +77,28 @@ return {
 			end
 		end
 
-		weeksAmusia:checkSongOver()
+		if not (countingDown or graphics.isFading()) and not (inst:isPlaying()) and not paused and not inCutscene then
+			if storyMode then
+				weeksAmusia:saveData()
+				song = song + 1
+				print(song)
 
+				self:load()
+			else
+				weeksAmusia:saveData()
+
+				status.setLoading(true)
+
+				graphics:fadeOutWipe(
+					0.7,
+					function()
+						Gamestate.switch(menu)
+
+						status.setLoading(false)
+					end
+				)
+			end
+		end
 		weeksAmusia:updateUI(dt)
 	end,
 

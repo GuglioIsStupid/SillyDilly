@@ -382,7 +382,7 @@ return {
 
 	checkSongOver = function(self)
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying()) and not paused and not inCutscene then
-			if storyMode and song < #weekMeta[weekNum][2] then
+			if storyMode then
 				self:saveData()
 				song = song + 1
 				print(song)
@@ -1985,7 +1985,7 @@ return {
 			graphics.setColor(playerHealthColor[1]/255,playerHealthColor[2]/255,playerHealthColor[3]/255)
 			love.graphics.rectangle("fill", 500, 350+downscrollOffset, -health * 500, 25)
 			graphics.setColor(0, 0, 0)
-			love.graphics.setLineWidth(10)
+			love.graphics.setLineWidth(5)
 			love.graphics.rectangle("line", -500, 350+downscrollOffset, 1000, 25)
 			love.graphics.setLineWidth(1)
 			graphics.setColor(1, 1, 1)

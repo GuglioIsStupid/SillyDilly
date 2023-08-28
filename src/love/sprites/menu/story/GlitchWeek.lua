@@ -46,6 +46,7 @@ return graphics.newSprite(
 		{x = 549, y = 522, width = 269, height = 227, offsetX = 0, offsetY = -496, offsetWidth = 694, offsetHeight = 723}, -- 22: GlitchWeekConfirm0021
 		{x = 823, y = 522, width = 0, height = 0, offsetX = 132, offsetY = 17, offsetWidth = 694, offsetHeight = 723}, -- 23: GlitchWeekConfirm0022
 		{x = 823, y = 522, width = 0, height = 0, offsetX = 132, offsetY = 17, offsetWidth = 694, offsetHeight = 723}, -- 24: GlitchWeekConfirm0023
+
 		{x = 828, y = 522, width = 377, height = 367, offsetX = -138, offsetY = -26, offsetWidth = 685, offsetHeight = 518}, -- 25: GlitchWeek0000
 		{x = 1210, y = 522, width = 552, height = 373, offsetX = -51, offsetY = -23, offsetWidth = 685, offsetHeight = 518}, -- 26: GlitchWeek0001
 		{x = 5, y = 971, width = 563, height = 364, offsetX = 0, offsetY = 0, offsetWidth = 685, offsetHeight = 518}, -- 27: GlitchWeek0002
@@ -63,7 +64,9 @@ return graphics.newSprite(
 		{x = 1280, y = 1456, width = 333, height = 367, offsetX = -170, offsetY = -26, offsetWidth = 685, offsetHeight = 518}, -- 39: GlitchWeek0014
 		{x = 1280, y = 1456, width = 333, height = 367, offsetX = -170, offsetY = -26, offsetWidth = 685, offsetHeight = 518} -- 40: GlitchWeek0015
 	},	{
-		["anim"] = {start = 1, stop = 40, speed = 24, offsetX = 0, offsetY = 0},
+		["anim"] = {start = 25, stop = 40, speed = 24, offsetX = 0, offsetY = 0},
+		["confirm"] = {start = 1, stop = 24, speed = 24, offsetX = 0, offsetY = 0},
+
 	},
 	"anim",
 	false

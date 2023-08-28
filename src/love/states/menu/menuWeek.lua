@@ -4,16 +4,20 @@ return {
 	enter = function(self, previous)
 		curWeek = 1
 
-
-		testpoint = {0,0}
-
-
 		cartridge1 = love.filesystem.load("sprites/menu/story/HypnoWeek.lua")()
-		cartridge2 = love.filesystem.load("sprites/menu/story/HypnoWeek.lua")()
-		cartridge3 = love.filesystem.load("sprites/menu/story/HypnoWeek.lua")()
+		cartridge2 = love.filesystem.load("sprites/menu/story/LostSilverWeek.lua")()
+		cartridge3 = love.filesystem.load("sprites/menu/story/GlitchWeek.lua")()
+
+		gameboy = love.filesystem.load("sprites/menu/story/CampaignBoy.lua")()
+
+		gameboy.sizeX, gameboy.sizeY = 0.7, 0.7
+		gameboy.y = 263
 
 		displacementX = 0
 		displacementY = 0
+
+
+		testpoint = {0,0}
 
 
 
@@ -22,15 +26,32 @@ return {
 
 		for i = 1,3 do
 			_G["cartridge" .. i].angle = 0
+			_G["cartridge" .. i]:animate("anim", true)
 		end
+
+		gameboy:animate("anim", true)
+
+	
 
 
 	end,
 
 	update = function(self, dt)
-		--cartridge1:update(dt)
-		--cartridge2:update(dt)
-		--cartridge3:update(dt)
+		cartridge1:update(dt)
+		cartridge2:update(dt)
+		cartridge3:update(dt)
+		gameboy:update(dt)
+
+		if curWeek == 1 then
+			curWeekString = "Hypno's Lullaby"
+		elseif curWeek == 2 then
+			curWeekString = "Lost Silver"
+		elseif curWeek == 3 then
+			curWeekString = "Missingno"
+		end
+
+		testpoint[1] = testpoint[1] + math.cos(love.timer.getTime())
+		testpoint[2] = testpoint[2] + math.sin(love.timer.getTime())
 
 --[
 		for i = 1,3 do
@@ -108,16 +129,26 @@ return {
 	draw = function(self)
 		love.graphics.push()
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
-			love.graphics.print(curWeek)
-			love.graphics.circle("fill", testpoint[1], testpoint[2], 10)
+			--love.graphics.scale(0.01, 0.01)
 			cartridge1:draw()
 			cartridge2:draw()
 			cartridge3:draw()
+			gameboy:draw()
+			love.graphics.rectangle("fill", 0 - graphics.getWidth() / 2, 0 - graphics.getHeight() / 2, 2000, 100)
+			love.graphics.setColor(0,0,0)
+			love.graphics.setFont(pokeFont)
+			love.graphics.printf(curWeekString, -graphics.getWidth() / 2, -330, graphics.getWidth(), "center")
+			love.graphics.setColor(1,1,1)
+			love.graphics.circle("fill", testpoint[1], testpoint[2], 10)
+
 		love.graphics.pop()
 	end,
 
 	leave = function(self)
-
+		for i = 1,3 do
+			_G["cartridge" .. i] = nil
+		end
+		gameboy = nil
 	end
 }
 -- BALLS

@@ -16,10 +16,19 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
+
+
 __VERSION__ = love.filesystem.read("version.txt")
 --if love.filesystem.isFused() then function print() end end -- print functions tend the make the game lag when in update functions, so we do this to prevent that
 consoleTable = {"Press ALT+C to clear console."}
 local oprint = print
+--[[
+love.graphics.clear = function() end
+love.graphics.rectangle = function() end
+love.graphics.print = function() end
+love.graphics.printf = function() end
+love.graphics.setColor = function() end
+--]]
 function print(...)
     local text = ""
     local args = {...}
@@ -477,7 +486,9 @@ function love.load()
 		require "weeks.bygone",
 		require "weeks.pasta",
 		require "weeks.shinto",
-		require "weeks.shitno"
+		require "weeks.shitno",
+		require "weeks.insomnia",
+		require "weeks.mono"
 	}
 
 
@@ -529,6 +540,14 @@ function love.load()
 		{
 			"Shitno",
 			{"Shitno"}
+		},
+		{
+			"Insomnia",
+			{"Insomnia"}
+		},
+		{
+			"Monochrome",
+			{"Monochrome"}
 		}
 	}
 	testData = require "weeks.test"
@@ -647,6 +666,10 @@ function love.keypressed(key)
 		end
     elseif key == "c" and love.keyboard.isDown("lalt") then
 		consoleTable = {}
+	elseif key == "8" then
+		duration = inst:getDuration()
+		inst:seek(duration - 1)
+		voices:seek(duration - 1)
 	else
 		Gamestate.keypressed(key)
 	end

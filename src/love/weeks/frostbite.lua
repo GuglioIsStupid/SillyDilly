@@ -106,8 +106,12 @@ return {
 			end)
 		end
 
+		function nextSong()
+			Gamestate.switch(weekData[13],1)
+		end
 
-		coldnessReadout()
+
+		--coldnessReadout()
 
 		gameCanvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
 	end,
@@ -129,6 +133,8 @@ return {
 		coldness = 0
 		doingColdnessTween = false
 	end,
+
+
 
 	initUI = function(self)
 		weeksFrostbite:initUI()
@@ -181,8 +187,28 @@ return {
 		end
 
 
-		weeksFrostbite:checkSongOver()
+		if not (countingDown or graphics.isFading()) and not (inst:isPlaying()) and not paused and not inCutscene then
+			if storyMode then
+				weeksFrostbite:saveData()
+				song = song + 1
+				print(song)
 
+				Gamestate.switch(weekData[13],1)
+			else
+				weeksFrostbite:saveData()
+
+				status.setLoading(true)
+
+				graphics:fadeOutWipe(
+					0.7,
+					function()
+						Gamestate.switch(menu)
+
+						status.setLoading(false)
+					end
+				)
+			end
+		end
 		weeksFrostbite:updateUI(dt)
 	end,
 
@@ -212,6 +238,8 @@ return {
 
 	leave = function(self)
 		stages["frostbite"]:leave()
+		camera.camBopIntensity = 1
+		camera.camBopInterval = 4
 
 		enemy = nil
 		boyfriend = nil

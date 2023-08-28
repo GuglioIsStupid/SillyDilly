@@ -22,28 +22,13 @@ local stageBack, stageFront, curtains
 return {
 	enter = function(self, from, songNum, songAppend)
 		weeksPasta:enter()
-		curPlayer = "mario"
 
+		marioHealthColor = {26.3,4.3,2.4}
+		sonicHealthColor = {23.9,24.3,36.5}
+		hypnoHealthColor = {93.7,83.9,25.5}
 
-
-		healthBarColors = {
-			["mario"] = {26.3/255,4.3/255,2.4/255},
-			["sonic"] = {23.9/255,24.3/255,36.5/255},
-			["hypno"] = {93.7/255,83.9/255,25.5/255}
-		}
-
-		healthBarGradient = {}
-
-		for i, v in pairs(healthBarColors) do
-			if i ~= curPlayer then
-				table.insert(healthBarGradient, v)
-			end
-		end
-
-		playerHealthColor = healthBarColors[curPlayer]
-
-		pastaHealthBar = graphics.newGradient(healthBarGradient[1], healthBarGradient[2])
-
+		enemyHealthColor = marioHealthColor
+		playerHealthColor = sonicHealthColor
 
 
 		stages["pasta"]:enter()
@@ -75,12 +60,8 @@ return {
 	end,
 
 	update = function(self, dt)
-
 		weeksPasta:update(dt)
 		stages["pasta"]:update(dt)
-
-
-	--me when
 
 		if musicTime >= 19230 and musicTime < 19230+50 then
 			print("pow block")
@@ -156,28 +137,8 @@ return {
 			end
 		end
 
-		if not (countingDown or graphics.isFading()) and not (inst:isPlaying()) and not paused and not inCutscene then
-			if storyMode then
-				weeksPasta:saveData()
-				song = song + 1
-				print(song)
+		weeksPasta:checkSongOver()
 
-				self:load()
-			else
-				weeksPasta:saveData()
-
-				status.setLoading(true)
-
-				graphics:fadeOutWipe(
-					0.7,
-					function()
-						Gamestate.switch(menu)
-
-						status.setLoading(false)
-					end
-				)
-			end
-		end
 		weeksPasta:updateUI(dt)
 	end,
 

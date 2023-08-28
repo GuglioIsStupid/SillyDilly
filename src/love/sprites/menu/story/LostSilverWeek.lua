@@ -55,7 +55,9 @@ return graphics.newSprite(
 		{x = 730, y = 377, width = 0, height = 0, offsetX = 210, offsetY = 12, offsetWidth = 333, offsetHeight = 1011}, -- 31: LostSilverWeekConfirm0014
 		{x = 730, y = 377, width = 0, height = 0, offsetX = 210, offsetY = 12, offsetWidth = 333, offsetHeight = 1011} -- 32: LostSilverWeekConfirm0015
 	},	{
-		["anim"] = {start = 1, stop = 32, speed = 24, offsetX = 0, offsetY = 0},
+		["anim"] = {start = 1, stop = 16, speed = 24, offsetX = 0, offsetY = 0},
+		["confirm"] = {start = 17, stop = 32, speed = 24, offsetX = 0, offsetY = 0},
+
 	},
 	"anim",
 	false

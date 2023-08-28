@@ -183,7 +183,8 @@ return graphics.newSprite(
 		{x = 580, y = 1537, width = 572, height = 277, offsetX = -56, offsetY = -209, offsetWidth = 697, offsetHeight = 486}, -- 159: allcombined0158
 		{x = 580, y = 1537, width = 572, height = 277, offsetX = -56, offsetY = -209, offsetWidth = 697, offsetHeight = 486} -- 160: allcombined0159
 	},	{
-		["anim"] = {start = 1, stop = 160, speed = 24, offsetX = 0, offsetY = 0},
+		["anim"] = {start = 1, stop = 24, speed = 24, offsetX = 0, offsetY = 0},
+		["confirm"] = {start = 25, stop = 160, speed = 24, offsetX = 0, offsetY = 0},
 	},
 	"anim",
 	false

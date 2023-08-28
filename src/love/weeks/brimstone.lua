@@ -39,6 +39,10 @@ return {
             end)
         end
 
+		function nextSong()
+			Gamestate.switch(menuWeek)
+		end
+
 		self:load()
 	end,
 
@@ -112,8 +116,28 @@ return {
             shakeCam()
         end
 
-		weeksBrimstone:checkSongOver()
+		if not (countingDown or graphics.isFading()) and not (inst:isPlaying()) and not paused and not inCutscene then
+			if storyMode then
+				weeksBrimstone:saveData()
+				song = song + 1
+				print(song)
 
+				Gamestate.switch(menuWeek)
+			else
+				weeksBrimstone:saveData()
+
+				status.setLoading(true)
+
+				graphics:fadeOutWipe(
+					0.7,
+					function()
+						Gamestate.switch(menu)
+
+						status.setLoading(false)
+					end
+				)
+			end
+		end
 		weeksBrimstone:updateUI(dt)
 	end,
 
