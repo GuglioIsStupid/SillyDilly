@@ -438,7 +438,7 @@ function love.load()
 	clickStart = require "states.click-start"
 	menu = require "states.menu.menu"
 	menuWeek = require "states.menu.menuWeek"
-	menuFreeplay = require "states.menu.menuShop"
+	menuFreeplay = require "states.menu.menuFreeplay"
 	menuSettings = require "states.menu.menuSettings"
 	menuCredits = require "states.menu.menuCredits"
 	menuSelect = require "states.menu.menuSelect"
@@ -467,127 +467,71 @@ function love.load()
 	-- Load week data
 	weekData = {
 		require "weeks.hypno",
-		require "weeks.dt",
 		require "weeks.frostbite",
-		require "weeks.shinto",
-		require "weeks.isotope",
-		require "weeks.insomnia",
+		require "weeks.brimstone",   -- CHANGE TO MISSINGNO
+		require "weeks.amusia",
 		require "weeks.dissension",
 		require "weeks.purin",
-		require "weeks.mono",
-		require "weeks.shitno",
-		require "weeks.amusia",
+		require "weeks.dt",
+		require "weeks.isotope",
 		require "weeks.bygone",
-		require "weeks.brimstone",
-		require "weeks.pasta"
+		require "weeks.pasta",
+		require "weeks.shinto",
+		require "weeks.shitno"
 	}
-	testData = require "weeks.test"
-
-	weekDesc = { -- Add your week description here
-		"LEARN TO FUNK",
-		"DADDY DEAREST",
-		"SPOOKY MONTH",
-		"PICO",
-		"MOMMY MUST MURDER",
-		"RED SNOW",
-		"HATING SIMULATOR FT. MOAWLING",
-		"TANKMAN",
-		"MONOCHROME",
-		"SHITNO",
-		"AMUSIA",
-		"BYGONE PURPOSE",
-		"PASTA NIGHT"
-	} 
 
 
-	weekMeta = { -- Add/remove weeks here
+	weekMeta = {
 		{
 			"Hypno",
-			{
-				"Safety Lullaby",
-				"Left Unchecked",
-				"Lost Cause"
-			}
-		},
-		{
-			"Death Toll",
-			{
-				"Death Toll"
-			}
+			{"Safety Lullaby","Left Unchecked","Lost Cause"}
 		},
 		{
 			"Frostbite",
-			{
-				"Frostbite"
-			}
-		},
-		{
-			"Shinto",
-			{
-				"Shinto"
-			}
-		},
-		{
-			"Isotope",
-			{
-				"Isotope"
-			}
-		},
-		{
-			"Insomnia",
-			{
-				"Insomnia"
-			}
-		},
-		{
-			"Dissension",
-			{
-				"Dissension"
-			}
-		},
-		{
-			"Purin",
-			{
-				"Purin"
-			}
-		},
-		{
-			"Monochrome",
-			{
-				"Monochrome"
-			}
-		},
-		{
-			"Shitno",
-			{
-				"Shitno"
-			}
-		},
-		{
-			"Amusia",
-			{
-				"Amusia"
-			}
-		},
-		{
-			"Bygone Purpose",
-			{
-				"Bygone Purpose"
-			}
+			{"Frostbite"}
 		},
 		{
 			"Brimstone",
-			{
-				"Brimstone"
-			}
+			{"Brimstone"}
+		},
+		{
+			"Amusia",
+			{"Amusia"}
+		},
+		{
+			"Dissension",
+			{"Dissension"}
+		},
+		{
+			"Purin",
+			{"Purin"}
+		},
+		{
+			"Death Toll",
+			{"Death Toll"}
+		},
+		{
+			"Isotope",
+			{"Isotope"}
+		},
+		{
+			"Bygone Purpose",
+			{"Bygone Purpose"}
 		},
 		{
 			"Pasta Night",
-			{
-				"Pasta Night"
-			}
+			{"Pasta Night"}
+		},
+		{
+			"Shinto",
+			{"Shinto"}
+		},
+		{
+			"Shitno",
+			{"Shitno"}
 		}
 	}
+	testData = require "weeks.test"
 
 	-- LÖVE init
 	if curOS == "OS X" then

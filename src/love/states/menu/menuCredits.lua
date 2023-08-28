@@ -41,7 +41,7 @@ return {
             end,
             draw = function(self)
                 love.graphics.push()
-                love.graphics.translate(-1000,0)
+                love.graphics.setColor(1,1,1)
                 for i = 1, #self.members do
                     self.members[i]:draw()
                 end
@@ -196,6 +196,7 @@ return {
             bg:draw()
         end
         love.graphics.pop()
+        background:draw()
 
         -- print creditsQuotes[verticalSelection+1][1]
         love.graphics.printf(personList[verticalSelection+1].name, 0, 0, graphics.getWidth(), "center")

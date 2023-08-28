@@ -69,7 +69,7 @@ return {
         FreeplayMenuTheme:play()
         FreeplayMenuTheme:setLooping(true)
 
-        -- Look ch, im sorry, but i am using XML's for this
+        -- Look ch, im sorry, but i am using XML's for this       😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭
         cartridgeGuy = Sprite()
         cartridgeGuy:setFrames(getSparrow("shop/CGShop_assets"))
         for i = 0, 3 do
