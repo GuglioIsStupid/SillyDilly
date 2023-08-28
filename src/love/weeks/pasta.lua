@@ -27,6 +27,9 @@ return {
 		sonicHealthColor = {23.9,24.3,36.5}
 		hypnoHealthColor = {93.7,83.9,25.5}
 
+		enemyHealthColor = marioHealthColor
+		playerHealthColor = sonicHealthColor
+
 
 		stages["pasta"]:enter()
 
@@ -53,7 +56,7 @@ return {
 	initUI = function(self)
 		weeksPasta:initUI()
 
-		weeksPasta:generateNotes("data/week1/dadbattle/dadbattle" .. difficulty .. ".json")
+		weeksPasta:generateNotes("songs/pasta-night/pasta-night-hard.json")
 	end,
 
 	update = function(self, dt)
@@ -123,8 +126,6 @@ return {
 		if musicTime >= 154358 and musicTime < 154358+50 then
 			print("pow block")
 		end
-
-
 
 		if health >= 1.595 then
 			if enemyIcon:getAnimName() == "daddy dearest" then

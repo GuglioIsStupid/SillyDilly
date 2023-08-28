@@ -315,6 +315,7 @@ return {
 		bpmChangeEvents = {}
 		enemyNotes = {}
 		boyfriendNotes = {}
+		player3Notes = {}
 		gfNotes = {}
 		health = 1
 		score = 0
@@ -354,36 +355,38 @@ return {
 			sprites.receptors(),
 			sprites.receptors()
 		}
+		player3Arrows = {
+			sprites.receptors(),
+			sprites.receptors(),
+			sprites.receptors(),
+			sprites.receptors()
+		}
 
 		for i = 1, 4 do
-			if settings.middleScroll then 
-				boyfriendArrows[i].x = -410 + 165 * i
-				-- ew stuff
-				enemyArrows[1].x = -925 + 165 * 1 
-				enemyArrows[2].x = -925 + 165 * 2
-				enemyArrows[3].x = 100 + 165 * 3
-				enemyArrows[4].x = 100 + 165 * 4
-			else
-				enemyArrows[i].x = -925 + 165 * i
-				boyfriendArrows[i].x = 100 + 165 * i
-			end
+			boyfriendArrows[i].x = -975 + 150 * 4 + 150 * i
+			enemyArrows[i].x = -975 + 150 * i
+			player3Arrows[i].x = 225 + 150 * i
 
 			enemyArrows[i].y = -400
 			boyfriendArrows[i].y = -400
+			player3Arrows[i].y = -400
 
 			boyfriendArrows[i].orientation = 0
 			enemyArrows[i].orientation = 0
 
 			boyfriendArrows[i]:animate(noteList[i])
 			enemyArrows[i]:animate(noteList[i])
+			player3Arrows[i]:animate(noteList[i])
 
 			if settings.downscroll then 
 				enemyArrows[i].sizeY = -1
 				boyfriendArrows[i].sizeY = -1
+				player3Arrows[i].sizeY = -1
 			end
 
 			enemyNotes[i] = {}
 			boyfriendNotes[i] = {}
+			player3Notes[i] = {}
 			gfNotes[i] = {}
 		end
 	end,
@@ -501,304 +504,211 @@ return {
 					table.insert(events, {eventTime = sectionNotes[1][1], mustHitSection = mustHitSection, bpm = bpm, altAnim = altAnim})
 				end
 
-				if noteType == 0 or noteType == 4 then
+				if noteType == 0 or noteType == 4 or noteType == 8 then
 					sprite = sprites.leftArrow
-				elseif noteType == 1 or noteType == 5 then
+				elseif noteType == 1 or noteType == 5 or noteType == 9 then
 					sprite = sprites.downArrow
-				elseif noteType == 2 or noteType == 6 then
+				elseif noteType == 2 or noteType == 6 or noteType == 10 then
 					sprite = sprites.upArrow
-				elseif noteType == 3 or noteType == 7 then
+				elseif noteType == 3 or noteType == 7 or noteType == 11 then
 					sprite = sprites.rightArrow
 				end
 
-				if mustHitSection and noteVer ~= "Hurt Note" then
-					if noteType >= 4 then
-					   	local id = noteType - 3
-					   	local c = #enemyNotes[id] + 1
-					   	local x = enemyArrows[id].x
+				if noteType >= 8 then
+					local id = noteType - 7
+					local c = #player3Notes[id] + 1
+					local x = player3Arrows[id].x
 
-						local beatRow = util.round(((noteTime / 1000) * (bpm / 60)) * 48)
+					local beatRow = util.round(((noteTime / 1000) * (bpm / 60)) * 48)
 				 
-						if settings.colourByQuantization then
-							if (beatRow % (192 / 4) == 0) then 
-								col = 1
-								sprite = sprites.leftArrow
-							elseif (beatRow % (192 / 8) == 0) then
-								col = 2
-								sprite = sprites.downArrow
-							elseif (beatRow % (192 / 12) ==  0) then 
-								col = 3
-								sprite = sprites.upArrow
-							elseif (beatRow % (192 / 16) == 0) then
-								col = 4
-								sprite = sprites.rightArrow
-							elseif (beatRow % (192 / 24) == 0) then
-								col = 3
-								sprite = sprites.upArrow
-							elseif (beatRow % (192 / 32) == 0) then
-								col = 3
-								sprite = sprites.upArrow
-							else
-								col = id
-							end
+					if settings.colourByQuantization then
+						if (beatRow % (192 / 4) == 0) then 
+							col = 1
+							sprite = sprites.leftArrow
+						elseif (beatRow % (192 / 8) == 0) then
+							col = 2
+							sprite = sprites.downArrow
+						elseif (beatRow % (192 / 12) ==  0) then 
+							col = 3
+							sprite = sprites.upArrow
+						elseif (beatRow % (192 / 16) == 0) then
+							col = 4
+							sprite = sprites.rightArrow
+						elseif (beatRow % (192 / 24) == 0) then
+							col = 3
+							sprite = sprites.upArrow
+						elseif (beatRow % (192 / 32) == 0) then
+							col = 3
+							sprite = sprites.upArrow
 						else
 							col = id
 						end
-
-					   	table.insert(enemyNotes[id], sprite())
-						enemyNotes[id][c].col = col
-					   	enemyNotes[id][c].x = x
-					   	enemyNotes[id][c].y = -400 + noteTime * 0.6 * speed
-						enemyNotes[id][c].orientation = enemyNotes[id][c].orientation - arrowAngles[enemyNotes[id][c].col]
-						enemyNotes[id][c].orientation = enemyNotes[id][c].orientation + arrowAngles[id]
-						enemyNotes[id][c].ver = noteVer
-						enemyNotes[id][c].time = noteTime
-
-						if settings.downscroll then
-							enemyNotes[id][c].sizeY = -1
-						end
-				 
-					   	enemyNotes[id][c]:animate("on", false)
-				 
-					    if sectionNotes[j][3] > 0 then
-						  	local c
-				 
-						  	for k = 71 / speed, sectionNotes[j][3], 71 / speed do
-							 	local c = #enemyNotes[id] + 1
-				 
-							 	table.insert(enemyNotes[id], sprite())
-							 	enemyNotes[id][c].x = x
-							 	enemyNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
-								enemyNotes[id][c].col = col
-								enemyNotes[id][c].ver = noteVer
-								enemyNotes[id][c].time = noteTime + k
-				 
-								enemyNotes[id][c]:animate("hold", false)
-							end
-				 
-							c = #enemyNotes[id]
-				 
-							enemyNotes[id][c].offsetY = not pixel and 10 or 2
-				 
-						  	enemyNotes[id][c]:animate("end", false)
-					    end
-					elseif noteType < 4 and noteType >= 0 then
-					   	local id = noteType + 1
-					   	local c = #boyfriendNotes[id] + 1
-					   	local x = boyfriendArrows[id].x
-
-						local beatRow = util.round(((noteTime / 1000) * (bpm / 60)) * 48)
-				 
-						if settings.colourByQuantization then
-							if (beatRow % (192 / 4) == 0) then 
-								col = 1
-								sprite = sprites.leftArrow
-							elseif (beatRow % (192 / 8) == 0) then
-								col = 2
-								sprite = sprites.downArrow
-							elseif (beatRow % (192 / 12) ==  0) then 
-								col = 3
-								sprite = sprites.upArrow
-							elseif (beatRow % (192 / 16) == 0) then
-								col = 4
-								sprite = sprites.rightArrow
-							elseif (beatRow % (192 / 24) == 0) then
-								col = 3
-								sprite = sprites.upArrow
-							elseif (beatRow % (192 / 32) == 0) then
-								col = 3
-								sprite = sprites.upArrow
-							else
-								col = id
-							end
-						else
-							col = id
-						end
-
-					   	table.insert(boyfriendNotes[id], sprite())
-						boyfriendNotes[id][c].col = col
-					   	boyfriendNotes[id][c].x = x
-					   	boyfriendNotes[id][c].y = -400 + noteTime * 0.6 * speed
-						boyfriendNotes[id][c].time = noteTime
-						boyfriendNotes[id][c].orientation = boyfriendNotes[id][c].orientation - arrowAngles[boyfriendNotes[id][c].col]
-						boyfriendNotes[id][c].orientation = boyfriendNotes[id][c].orientation + arrowAngles[id]
-						boyfriendNotes[id][c].ver = noteVer
-						
-						if settings.downscroll then
-							boyfriendNotes[id][c].sizeY = -1
-						end
-				 
-					   	boyfriendNotes[id][c]:animate("on", false)
-				 
-					   	if sectionNotes[j][3] > 0 then
-						  	local c
-				 
-						  	for k = 71 / speed, sectionNotes[j][3], 71 / speed do
-							 	local c = #boyfriendNotes[id] + 1
-				 
-							 	table.insert(boyfriendNotes[id], sprite())
-							 	boyfriendNotes[id][c].x = x
-							 	boyfriendNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
-								boyfriendNotes[id][c].col = col
-								boyfriendNotes[id][c].ver = noteVer
-								boyfriendNotes[id][c].time = noteTime + k
-				 
-							 	boyfriendNotes[id][c]:animate("hold", false)
-						  	end
-				 
-						  	c = #boyfriendNotes[id]
-				 
-						  	boyfriendNotes[id][c].offsetY = not pixel and 10 or 2
-				 
-						  	boyfriendNotes[id][c]:animate("end", false)
-					   	end
+					else
+						col = id
 					end
-				elseif not mustHitSection and noteVer ~= "Hurt Note" then
-					if noteType >= 4 then
-					   	local id = noteType - 3
-					   	local c = #boyfriendNotes[id] + 1
-					   	local x = boyfriendArrows[id].x
 
-						local beatRow = util.round(((noteTime / 1000) * (bpm / 60)) * 48)
-				 
-						if settings.colourByQuantization then
-							if (beatRow % (192 / 4) == 0) then 
-								col = 1
-								sprite = sprites.leftArrow
-							elseif (beatRow % (192 / 8) == 0) then
-								col = 2
-								sprite = sprites.downArrow
-							elseif (beatRow % (192 / 12) ==  0) then 
-								col = 3
-								sprite = sprites.upArrow
-							elseif (beatRow % (192 / 16) == 0) then
-								col = 4
-								sprite = sprites.rightArrow
-							elseif (beatRow % (192 / 24) == 0) then
-								col = 3
-								sprite = sprites.upArrow
-							elseif (beatRow % (192 / 32) == 0) then
-								col = 3
-								sprite = sprites.upArrow
-							else
-								col = id
-							end
-						else
-							col = id
-						end
-				 
-					   	table.insert(boyfriendNotes[id], sprite())
-						boyfriendNotes[id][c].col = col
-					   	boyfriendNotes[id][c].x = x
-					   	boyfriendNotes[id][c].y = -400 + noteTime * 0.6 * speed
-						boyfriendNotes[id][c].time = noteTime
-						boyfriendNotes[id][c].orientation = boyfriendNotes[id][c].orientation - arrowAngles[boyfriendNotes[id][c].col]
-						boyfriendNotes[id][c].orientation = boyfriendNotes[id][c].orientation + arrowAngles[id]
-						boyfriendNotes[id][c].ver = noteVer
-						
-						if settings.downscroll then
-							boyfriendNotes[id][c].sizeY = -1
-						end
-				 
-					   	boyfriendNotes[id][c]:animate("on", false)
-				 
-					   	if sectionNotes[j][3] > 0 then
-						  	local c
-				 
-						  	for k = 71 / speed, sectionNotes[j][3], 71 / speed do
-							 	local c = #boyfriendNotes[id] + 1
-				 
-							 	table.insert(boyfriendNotes[id], sprite())
-							 	boyfriendNotes[id][c].x = x
-							 	boyfriendNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
-								boyfriendNotes[id][c].col = col
-								boyfriendNotes[id][c].ver = noteVer
-								boyfriendNotes[id][c].time = noteTime + k
-				 
-							 	boyfriendNotes[id][c]:animate("hold", false)
-						  	end
-				 
-						  	c = #boyfriendNotes[id]
-				 
-						  	boyfriendNotes[id][c].offsetY = not pixel and 10 or 2
-				 
-						  	boyfriendNotes[id][c]:animate("end", false)
-					   	end
-					elseif noteType < 4 and noteType >= 0 then
-					   	local id = noteType + 1
-					   	local c = #enemyNotes[id] + 1
-					   	local x = enemyArrows[id].x
-
-						local beatRow = util.round(((noteTime / 1000) * (bpm / 60)) * 48)
-				 
-						if settings.colourByQuantization then
-							if (beatRow % (192 / 4) == 0) then 
-								col = 1
-								sprite = sprites.leftArrow
-							elseif (beatRow % (192 / 8) == 0) then
-								col = 2
-								sprite = sprites.downArrow
-							elseif (beatRow % (192 / 12) ==  0) then 
-								col = 3
-								sprite = sprites.upArrow
-							elseif (beatRow % (192 / 16) == 0) then
-								col = 4
-								sprite = sprites.rightArrow
-							elseif (beatRow % (192 / 24) == 0) then
-								col = 3
-								sprite = sprites.upArrow
-							elseif (beatRow % (192 / 32) == 0) then
-								col = 3
-								sprite = sprites.upArrow
-							else
-								col = id
-							end
-						else
-							col = id
-						end
-				 
-					   	table.insert(enemyNotes[id], sprite())
-						enemyNotes[id][c].col = col
-					   	enemyNotes[id][c].x = x
-					   	enemyNotes[id][c].y = -400 + noteTime * 0.6 * speed
-						enemyNotes[id][c].orientation = enemyNotes[id][c].orientation - arrowAngles[enemyNotes[id][c].col]
-						enemyNotes[id][c].orientation = enemyNotes[id][c].orientation + arrowAngles[id]
-						enemyNotes[id][c].ver = noteVer
-						enemyNotes[id][c].time = noteTime
-						if settings.downscroll then
-							enemyNotes[id][c].sizeY = -1
-						end
-				 
-					   	enemyNotes[id][c]:animate("on", false)
-				 
-					   	if sectionNotes[j][3] > 0 then
-						  	local c
-				 
-						  	for k = 71 / speed, sectionNotes[j][3], 71 / speed do
-							 	local c = #enemyNotes[id] + 1
-				 
-							 	table.insert(enemyNotes[id], sprite())
-							 	enemyNotes[id][c].x = x
-							 	enemyNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
-								enemyNotes[id][c].col = col
-								enemyNotes[id][c].ver = noteVer
-								enemyNotes[id][c].time = noteTime + k
-							 	if k > sectionNotes[j][3] - 71 / speed then
-									enemyNotes[id][c].offsetY = not pixel and 10 or 2
-				 
-									enemyNotes[id][c]:animate("end", false)
-							 	else
-									enemyNotes[id][c]:animate("hold", false)
-							 	end
-						  	end
-				 
-						  	c = #enemyNotes[id]
-				 
-						  	enemyNotes[id][c].offsetY = not pixel and 10 or 2
-				 
-						  	enemyNotes[id][c]:animate("end", false)
-					   	end
+					table.insert(player3Notes[id], sprite())
+					player3Notes[id][c].col = col
+					player3Notes[id][c].x = x
+					player3Notes[id][c].y = -400 + noteTime * 0.6 * speed
+					player3Notes[id][c].time = noteTime
+					if settings.downscroll then
+						player3Notes[id][c].sizeY = -1
 					end
+
+					player3Notes[id][c]:animate("on", false)
+
+					if sectionNotes[j][3] > 0 then
+						local c
+
+						for k = 71 / speed, sectionNotes[j][3], 71 / speed do
+							local c = #player3Notes[id] + 1
+
+							table.insert(player3Notes[id], sprite())
+							player3Notes[id][c].col = col
+							player3Notes[id][c].x = x
+							player3Notes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
+							player3Notes[id][c].time = noteTime + k
+
+							player3Notes[id][c]:animate("hold", false)
+						end
+
+						c = #player3Notes[id]
+
+						player3Notes[id][c].offsetY = 10
+
+						player3Notes[id][c]:animate("end", false)
+					end
+				elseif noteType >= 4 and noteType <= 7 then
+					local id = noteType - 3
+					local c = #enemyNotes[id] + 1
+					local x = enemyArrows[id].x
+
+					local beatRow = util.round(((noteTime / 1000) * (bpm / 60)) * 48)
+				 
+					if settings.colourByQuantization then
+						if (beatRow % (192 / 4) == 0) then 
+							col = 1
+							sprite = sprites.leftArrow
+						elseif (beatRow % (192 / 8) == 0) then
+							col = 2
+							sprite = sprites.downArrow
+						elseif (beatRow % (192 / 12) ==  0) then 
+							col = 3
+							sprite = sprites.upArrow
+						elseif (beatRow % (192 / 16) == 0) then
+							col = 4
+							sprite = sprites.rightArrow
+						elseif (beatRow % (192 / 24) == 0) then
+							col = 3
+							sprite = sprites.upArrow
+						elseif (beatRow % (192 / 32) == 0) then
+							col = 3
+							sprite = sprites.upArrow
+						else
+							col = id
+						end
+					else
+						col = id
+					end
+
+					table.insert(enemyNotes[id], sprite())
+					enemyNotes[id][c].col = col
+					enemyNotes[id][c].x = x
+					enemyNotes[id][c].y = -400 + noteTime * 0.6 * speed
+					enemyNotes[id][c].time = noteTime
+					if settings.downscroll then
+						enemyNotes[id][c].sizeY = -1
+					end
+
+					enemyNotes[id][c]:animate("on", false)
+
+					if sectionNotes[j][3] > 0 then
+						local c
+
+						for k = 71 / speed, sectionNotes[j][3], 71 / speed do
+							local c = #enemyNotes[id] + 1
+
+							table.insert(enemyNotes[id], sprite())
+							enemyNotes[id][c].col = col
+							enemyNotes[id][c].x = x
+							enemyNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
+							enemyNotes[id][c].time = noteTime + k
+
+							enemyNotes[id][c]:animate("hold", false)
+						end
+
+						c = #enemyNotes[id]
+
+						enemyNotes[id][c].offsetY = 10
+
+						enemyNotes[id][c]:animate("end", false)
+					end
+				elseif noteType >= 0 and noteType < 4 then
+					local id = noteType + 1
+					local c = #boyfriendNotes[id] + 1
+					local x = boyfriendArrows[id].x
+
+					local beatRow = util.round(((noteTime / 1000) * (bpm / 60)) * 48)
+				 
+					if settings.colourByQuantization then
+						if (beatRow % (192 / 4) == 0) then 
+							col = 1
+							sprite = sprites.leftArrow
+						elseif (beatRow % (192 / 8) == 0) then
+							col = 2
+							sprite = sprites.downArrow
+						elseif (beatRow % (192 / 12) ==  0) then 
+							col = 3
+							sprite = sprites.upArrow
+						elseif (beatRow % (192 / 16) == 0) then
+							col = 4
+							sprite = sprites.rightArrow
+						elseif (beatRow % (192 / 24) == 0) then
+							col = 3
+							sprite = sprites.upArrow
+						elseif (beatRow % (192 / 32) == 0) then
+							col = 3
+							sprite = sprites.upArrow
+						else
+							col = id
+						end
+					else
+						col = id
+					end
+
+					table.insert(boyfriendNotes[id], sprite())
+					boyfriendNotes[id][c].x = x
+					boyfriendNotes[id][c].col = col
+					boyfriendNotes[id][c].y = noteTime 
+					boyfriendNotes[id][c].time = noteTime
+					if settings.downscroll then
+						boyfriendNotes[id][c].sizeY = -1
+					end
+
+					boyfriendNotes[id][c]:animate("on", false)
+
+					if sectionNotes[j][3] > 0 then
+						local c
+
+						for k = 71 / speed, sectionNotes[j][3], 71 / speed do
+							local c = #boyfriendNotes[id] + 1
+
+							table.insert(boyfriendNotes[id], sprite())
+							boyfriendNotes[id][c].col = col
+							boyfriendNotes[id][c].x = x
+							boyfriendNotes[id][c].y = (noteTime + k)
+							boyfriendNotes[id][c].time = noteTime + k
+
+							boyfriendNotes[id][c]:animate("hold", false)
+						end
+
+						c = #boyfriendNotes[id]
+
+						boyfriendNotes[id][c].offsetY = 10
+
+						boyfriendNotes[id][c]:animate("end", false)
+					end	
 				end
 			end
 		end
@@ -1114,8 +1024,10 @@ return {
 		for i = 1, 4 do
 			local enemyArrow = enemyArrows[i]
 			local boyfriendArrow = boyfriendArrows[i]
+			local player3Arrow = player3Arrows[i]
 			local enemyNote = enemyNotes[i]
 			local boyfriendNote = boyfriendNotes[i]
+			local player3Note = player3Notes[i]
 			local curAnim = animList[i]
 			local curInput = inputList[i]
 			local gfNote = gfNotes[i]
@@ -1124,10 +1036,15 @@ return {
 
 			enemyArrow:update(dt)
 			boyfriendArrow:update(dt)
+			player3Arrow:update(dt)
 
 			if not enemyArrow:isAnimated() then
 				enemyArrow:animate(noteList[i], false)
 				enemyArrow.orientation = 0
+			end
+			if not player3Arrow:isAnimated() then
+				player3Arrow:animate(noteList[i], false)
+				player3Arrow.orientation = 0
 			end
 			if settings.botPlay then
 				if not boyfriendArrow:isAnimated() then
@@ -1185,6 +1102,58 @@ return {
 					end
 
 					table.remove(enemyNote, 1)
+				end
+			end
+
+			if #player3Note > 0 then
+				if (player3Note[1].time - musicTime <= 0) then
+					if voices then voices:setVolume(1) end
+
+					enemyArrow:animate(noteList[player3Note[1].col] .. " confirm", false)
+					if player3Note[1]:getAnimName() ~= "hold" and player3Note[1]:getAnimName() ~= "end" then
+						enemyArrow.orientation = enemyArrow.orientation - arrowAngles[player3Note[1].col]
+						enemyArrow.orientation = enemyArrow.orientation + arrowAngles[i]
+					end
+
+					if player3Note[1].ver ~= "GF Sing" then
+						if player3Note[1]:getAnimName() == "hold" or player3Note[1]:getAnimName() == "end" then
+							if useAltAnims then
+								if enemy.holdTimer > enemy.maxHoldTimer then enemy:animate(curAnim .. " alt", _psychmod and true or false) end
+							else
+								if enemy.holdTimer > enemy.maxHoldTimer then enemy:animate(curAnim, (_psychmod and true or false)) end
+							end
+						else
+							if useAltAnims then
+								enemy:animate(curAnim .. " alt", false)
+							else
+								enemy:animate(curAnim, false)
+							end
+						end
+
+						enemy.lastHit = musicTime
+					else
+						if player3Note[1]:getAnimName() == "hold" or player3Note[1]:getAnimName() == "end" then
+							if useAltAnims then
+								if girlfriend.holdTimer > enemy.maxHoldTimer then girlfriend:animate(curAnim .. " alt", _psychmod and true or false) end
+							else
+								if girlfriend.holdTimer > enemy.maxHoldTimer then girlfriend:animate(curAnim, (_psychmod and true or false)) end
+							end
+						else
+							if useAltAnims then
+								girlfriend:animate(curAnim .. " alt", false)
+							else
+								girlfriend:animate(curAnim, false)
+							end
+						end
+
+						girlfriend.lastHit = musicTime
+					end
+
+					if not mustHitSection then 
+						noteCamTweens[i]()
+					end
+
+					table.remove(player3Note, 1)
 				end
 			end
 
@@ -1553,6 +1522,29 @@ return {
 							end
 						end
 					love.graphics.pop()
+					love.graphics.push()
+						for j = #player3Notes[i], 1, -1 do
+							if player3Notes[i][j].y <= 560 then
+								local animName = player3Notes[i][j]:getAnimName()
+								if animName ~= "on" then
+									graphics.setColor(1, 1, 1, math.min(0.5, (500 + (player3Notes[i][j].y)) / 150) * player3Notes[i][j].alpha)
+									if not pixel then
+										player3Notes[i][j]:draw()
+									else
+										if not settings.downscroll then
+											player3Notes[i][j]:udraw(8, 8)
+										else
+											if player3Notes[i][j]:getAnimName() == "end" then
+												player3Notes[i][j]:udraw(8, 8)
+											else
+												player3Notes[i][j]:udraw(8, -8)
+											end
+										end
+									end
+								end
+							end
+						end
+					love.graphics.pop()
 				love.graphics.pop()
 			end
 			graphics.setColor(1, 1, 1)
@@ -1585,7 +1577,17 @@ return {
 						 
 					else
 						boyfriendArrows[i]:udraw(8, -8)
+					end
+				end
+				graphics.setColor(1, 1, 1)
+				if not pixel then 
+					player3Arrows[i]:draw()
+				else
+					if not settings.downscroll then
+						player3Arrows[i]:udraw(8, 8)
 						 
+					else
+						player3Arrows[i]:udraw(8, -8)
 					end
 				end
 				graphics.setColor(1, 1, 1)
@@ -1630,6 +1632,27 @@ return {
 											boyfriendNotes[i][j]:udraw(8, 8)
 										else
 											boyfriendNotes[i][j]:udraw(8, -8)
+										end
+									end
+								end
+							end
+						end
+					love.graphics.pop()
+					love.graphics.push()
+						for j = #player3Notes[i], 1, -1 do
+							if player3Notes[i][j].y <= 560 then
+								local animName = player3Notes[i][j]:getAnimName()
+								if animName ~= "hold" and animName ~= "end" then
+									graphics.setColor(1, 1, 1, math.min(1, (500 + (player3Notes[i][j].y)) / 75) * player3Notes[i][j].alpha)
+
+									if not pixel then 
+										player3Notes[i][j]:draw()
+										print("*makes out with you*")
+									else
+										if not settings.downscroll then
+											player3Notes[i][j]:udraw(8, 8)
+										else
+											player3Notes[i][j]:udraw(8, -8)
 										end
 									end
 								end
