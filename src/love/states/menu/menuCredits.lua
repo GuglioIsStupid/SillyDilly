@@ -60,6 +60,13 @@ return {
             table.insert(list, line)
         end
 
+        monitorCanvas = love.graphics.newCanvas(640*1.45, 360*1.45)
+        monitorShader = love.graphics.newShader("shaders/monitor.frag")
+
+        box = graphics.newImage(graphics.imagePath("menu/box"))
+        box.x = 475
+        box.y = 255
+
         -- for person in list
         for i = 1, #list do
             local person = list[i]
@@ -83,7 +90,8 @@ return {
                     table.insert(iconList, icon)
                     background:add(icon)
                     print(person)
-                    local credits = json.decode(love.filesystem.read("data/credits/" .. name .. ".json"))
+                    local credits = json.decode(love.filesystem.read("data/credits/" .. name .. ".json")).info
+                    print(credits.quote)
                     credits.name = person
                     table.insert(personList, credits)
                 end
@@ -103,15 +111,19 @@ return {
         end
         bgTween()
 
+        CREDITS_TV = love.filesystem.load("sprites/menu/CREDITS_TV.lua")()
+        CREDITS_TV.x = graphics.getWidth()/2
+        CREDITS_TV.y = graphics.getHeight()/2
 
         -- change all alpha to 0.6
         for i = 1, #iconList do
-            iconList[i].alpha = 0.6
+            iconList[i].alpha = 0.3
         end
         iconList[1].alpha = 1
     end,
     update = function(self, dt)
         background:update(dt)
+        CREDITS_TV:update(dt)
         local newSelection = verticalSelection
         local up = input:pressed("up")
         local down = input:pressed("down")
@@ -162,7 +174,7 @@ return {
             audio.playSound(selectSound)
 
             for i = 1, #iconList do
-                iconList[i].alpha = 0.6
+                iconList[i].alpha = 0.3
             end
             iconList[verticalSelection+1].alpha = 1
         end
@@ -185,21 +197,54 @@ return {
         end
     end,
     draw = function(self)
-        love.graphics.push()
-        love.graphics.setColor(0,0,0)
-        love.graphics.rectangle("fill", -1000, -1000, 10000, 10000)
-        graphics.setColor(1, 1, 1, 1)
-        love.graphics.translate(bg.translation - 786, 0)
+        CREDITS_TV:draw()
 
-        for i = 1,5 do
-            bg.x = (i-1) * 768
-            bg:draw()
-        end
+        -- draw canvas in the middle of the screen
+        love.graphics.push()
+
+        love.graphics.setCanvas(monitorCanvas)
+        love.graphics.clear()
+        love.graphics.push()
+            love.graphics.setColor(0.25,0.25,0.25)
+            love.graphics.rectangle("fill", -1000, -1000, 10000, 10000)
+            graphics.setColor(1, 1, 1, 1)
+            love.graphics.translate(bg.translation - 786, 0)
+
+            for i = 1,5 do
+                bg.x = (i-1) * 768
+                bg:draw()
+            end
         love.graphics.pop()
         background:draw()
 
+        love.graphics.push()
+            love.graphics.translate(-600, -315)
+            for i = 1, #iconList do
+                iconList[i]:draw()
+            end
+        love.graphics.pop()
+
+        box:draw()
+
+        -- quote stuffs
+        love.graphics.setFont(font)
+        -- print name
+        graphics.setColor(1, 1, 1, 1)
+        love.graphics.printf(personList[verticalSelection+1].name, 425, 35, 300, "center", 0, 1.5, 1.5)
+        -- print profession
+        love.graphics.printf(personList[verticalSelection+1].profession, 400, 75, 475, "center", 0, 1, 1)
+        -- print quote
+        love.graphics.printf("\"" .. personList[verticalSelection+1].quote .. "\"", 485, 135, 475, "center", 0, 0.65, 0.65)
+        -- print description
+        love.graphics.printf(personList[verticalSelection+1].description, 425, 180, 525, "left", 0, 0.85, 0.85)
+        love.graphics.setCanvas()
+
+        love.graphics.setShader(monitorShader)
+        love.graphics.draw(monitorCanvas, graphics.getWidth()/2 - monitorCanvas:getWidth()/2, graphics.getHeight()/2 - monitorCanvas:getHeight()/2-90)
+        love.graphics.setShader()
+
+        love.graphics.pop()
         -- print creditsQuotes[verticalSelection+1][1]
-        love.graphics.printf(personList[verticalSelection+1].name, 0, 0, graphics.getWidth(), "center")
     end,
     leave = function(self)
 
