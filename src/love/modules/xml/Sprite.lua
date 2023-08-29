@@ -15,7 +15,7 @@ local function _stencil()
     end
 end
 
-Sprite.defaultCam = camGame
+Sprite.defaultCam = nil
 
 function Sprite.newFrame(name, x, y, w, h, sw, sh, ox, oy, ow, oh)
     local aw, ah = x+w, y+h
@@ -98,8 +98,6 @@ function Sprite:new(x, y, tex)
     self.singDuration = 4
     self.cameraPosition = {x = 0, y = 0}
 
-    self.idleSuffix = ""
-
     if tex then self:load(tex) end
 end
 
@@ -173,15 +171,6 @@ function Sprite:getFrame()
         return self.curAnim.frames[math.floor(self.curFrame)]
     elseif self._frames then
         return self._frames[1]
-    end
-    return nil
-end
-
-function Sprite:getFrameNumber()
-    if self.curAnim then
-        return math.floor(self.curFrame)
-    elseif self._frames then
-        return 1
     end
     return nil
 end
@@ -284,9 +273,6 @@ function Sprite:addAnimByPrefix(n, p, fr, l)
             self.animationOffset[n] = {x=0, y=0}
         end
     )
-    if not ok then
-        print("Error adding animation " .. n .. " with prefix " .. p)
-    end
 end
 
 function Sprite:addAnimByIndices(n, p, i, fr, l)
@@ -309,20 +295,15 @@ function Sprite:addAnimByIndices(n, p, i, fr, l)
     self.animationOffset[n] = {x=0, y=0}
 end
 
-function Sprite:animate(anim, force, callback)
-    self.holdTimer = 0
-	if not force and self.curAnim and self.curAnim.name == anim and
-		not self.animFinished then
-		self.animFinished = false
-		self.animPaused = false
-		return
-	end
+function Sprite:animate(anim, force)
+    if not force and self.curAnim and self.curAnim.name == anim and not self.animFinished then
+        self.animFinished = false
+        return
+    end
 
-	self.curAnim = self._animations[anim]
-	self.curFrame = 1
-	self.animFinished = false
-	self.animPaused = false
-    self.animCallback = callback
+    self.curAnim = self._animations[anim]
+    self.curFrame = 1
+    self.animFinished = false
 end
 
 Sprite.play = Sprite.animate -- Incase users wan't to use a function more haxeflixel-like
@@ -344,25 +325,11 @@ function Sprite:update(dt)
         if self.curFrame >= #self.curAnim.frames then
             if self.curAnim.looped then
                 self.curFrame = 1
-
-                if self.animCallback then
-                    self.animCallback()
-
-                    self.animCallback = nil
-                end
             else
                 self.curFrame = #self.curAnim.frames
                 self.animFinished = true
-
-                if self.animCallback then
-                    self.animCallback()
-
-                    self.animCallback = nil
-                end
             end
         end
-
-        self.holdTimer = self.holdTimer + dt
     end
 end
 
@@ -383,14 +350,14 @@ function Sprite:beat(beat)
     local curAnimName = self:getAnimName()
     if not curAnimName then return end
     if beatHandler.onBeat() then
-        if self:isAnimName("idle" .. self.idleSuffix) then
-            if (not self:isAnimated() and util.startsWith(self:getAnimName(), "sing")) or (util.startsWith(self:getAnimName(), "idle")) then
+        if self:isAnimName("idle") then
+            if (not self:isAnimated() and util.startsWith(self:getAnimName(), "sing")) or (self:getAnimName() == "idle" or self:getAnimName() == "idle loop") then
                 if self.lastHit ~= nil and self.lastHit > 0 then
                     if beat % 2 == 0 and self.lastHit + beatHandler.stepCrochet * self.singDuration <= musicTime then
-                        self:animate("idle" .. self.idleSuffix, true)
+                        self:animate("idle", true)
                     end
                 elseif beat % 2 == 0 then
-                    self:animate("idle" .. self.idleSuffix, true)
+                    self:animate("idle", true)
                 end
             end
         else
@@ -414,7 +381,7 @@ end
 
 function Sprite:makeGraphic(w, h, c)
     self.tex = love.graphics.newCanvas(w, h)
-    self.color = hex2rgb(c)
+    self.color = hex2rgb(c) or {255, 255, 255}
     self.alpha = 1
     self.tex:renderTo(function()
         love.graphics.setColor(self.color[1], self.color[2], self.color[3], self.alpha)
@@ -425,14 +392,82 @@ function Sprite:makeGraphic(w, h, c)
     self.isGraphic = true
 end
 
+function Sprite:gridOverlay(cellWidth, cellHeight, width, height, alternate, color1, color2)
+    local width = width or -1
+    local height = height or -1
+    local alternate = (alternate == nil and true) or alternate
+    local color1 = color1 or "E6E6E6"
+    local color2 = color2 or "FBFBFB"
+
+    if width == -1 then
+        width = graphics.getWidth()
+    end
+    if height == -1 then
+        height = graphics.getHeight()
+    end
+
+    if width < cellWidth or height < cellHeight then
+        return
+    end
+
+    self.tex = self:createGrid(cellWidth, cellHeight, width, height, alternate, color1, color2)
+    self.width = width
+    self.height = height
+end
+
+function Sprite:createGrid(cellWidth, cellHeight, width, height, alternate, color1, color2)
+    local rowColor = color1
+    local lastColor = color1
+    local grid = love.graphics.newCanvas(width, height)
+    self.rects = {
+        -- stored as {x,y,w,h,color}
+    }
+
+    local y = 0
+    while y <= height do
+        if y > 0 and lastColor == rowColor and alternate then
+            lastColor = lastColor == color1 and color2 or color1
+        elseif y > 0 and lastColor ~= rowColor and not alternate then
+            lastColor = lastColor == color2 and color1 or color2
+        end
+
+        local x = 0
+        while x <= width do
+            if x == 0 then
+                rowColor = lastColor
+            end
+
+            table.insert(self.rects, {x=x, y=y, w=cellWidth, h=cellHeight, color=lastColor})
+
+            if lastColor == color1 then
+                lastColor = color2
+            else
+                lastColor = color1
+            end
+
+            x = x + cellWidth
+        end
+
+        y = y + cellHeight
+    end
+
+    -- make a renderTo function to draw the rects
+    grid:renderTo(function()
+        for i, rect in ipairs(self.rects) do
+            love.graphics.setColor(hex2rgb(rect.color))
+            love.graphics.rectangle("fill", rect.x, rect.y, rect.w, rect.h)
+            love.graphics.setColor(1, 1, 1, 1)
+        end
+    end)
+
+    return grid
+end
+
 function Sprite:draw()
     if self.tex and (self.alpha > 0 or self.scale.x ~= 0 or self.scale.y ~= 0) then
-        local cam = self.camera or camGame
+        local cam = self.camera or Sprite.defaultCam
         local x, y = self:getScreenPosition(cam)
-        local f, r, sx, sy, ox, oy, kx, ky = self:getFrame(), self.angle,
-			self.scale.x, self.scale.y,
-			self.origin.x, self.origin.y,
-			self.shear.x, self.shear.y
+        local f, r, sx, sy, ox, oy, kx, ky = self:getFrame(), self.angle, self.scale.x, self.scale.y, self.offset.x, self.offset.y, self.shear.x, self.shear.y
 
         love.graphics.setColor(self.color[1], self.color[2], self.color[3], self.alpha)
 

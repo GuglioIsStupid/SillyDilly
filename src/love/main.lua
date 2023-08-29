@@ -407,6 +407,11 @@ function love.load()
 		love.filesystem.write("settings", serialized)
 	end
 
+	__DEBUG__ = not love.filesystem.isFused()
+
+	freeplayUnlocked = __DEBUG__
+	pokedexUnlocked = __DEBUG__
+
 	graphics.setImageType(settings.setImageType)
 
 	volumeWidth = {width = 160}
@@ -442,6 +447,10 @@ function love.load()
 		["bygone"] = require "stages.bygone",
 		["pasta"] = require "stages.pasta",
 	}
+
+	-- mod folder stuff
+	modweek = require "mods.week"
+	modfolder = require "mods.folder"
 
 	-- Load Menus
 	clickStart = require "states.click-start"
@@ -607,10 +616,6 @@ function love.load()
 		"%.1f  ",
 		(love.audio.getVolume())
 	))
-
-	-- mod folder stuff
-	modweek = require "mods.week"
-	modfolder = require "mods.folder"
 
 	if curOS == "Web" then
 		Gamestate.switch(clickStart)
