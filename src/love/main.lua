@@ -476,8 +476,8 @@ function love.load()
 	weeksPasta = require "states.weeks.weeksPasta"
 
 	-- Load substates
-	gameOver = require "substates.game-over"
-	gameOverFeralisleep = require "substates.game-over-feralisleep"
+	gameOver = require "substates.gameovers.default"
+	--gameOverFeralisleep = require "substates.game-over-feralisleep"
 	settingsKeybinds = require "substates.settings-keybinds"
 
 	require "states.overworld"

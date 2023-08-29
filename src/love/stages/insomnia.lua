@@ -19,22 +19,19 @@ return {
         camera:addPoint("boyfriend", -277, -72, 0.8)
         camera:addPoint("enemy", -277, -72, 0.8)
         camera:addPoint("feralisleep", 231, 254, 1.2)
-    
-
-
-
+ 
         --stageImages["fog"].x, stageImages["fog"].y = 
         stageImages["background"].x, stageImages["background"].y = 0, -455
         stageImages["ground"].x, stageImages["ground"].y = 0, 406
         stageImages["tree"].x, stageImages["tree"].y = 0, -108
         stageImages["lake"].x, stageImages["lake"].y = 0, 184
         stageImages["feralisleep"].x, stageImages["feralisleep"].y = -232, -57
-
         stageImages["feralisleep"]:animate("anim", true)
     end,
 
     load = function()
         camera:moveToPoint(0,"boyfriend")
+        camera.defaultZoom = 0.8
     end,
 
     update = function(self, dt)
@@ -61,7 +58,8 @@ return {
         end
 
         if camera.zoom > 1.1 then
-            Gamestate.push(gameOverFeralisleep)  -- had to do this cuz i couldnt get a timer to work (pls guglio make a timer work this is a terrible way of doing it)
+            feraligatrDeath = true
+            Gamestate.push(gameOver)  -- had to do this cuz i couldnt get a timer to work (pls guglio make a timer work this is a terrible way of doing it)
                             -- actually after just chaning it to 1.1 it feels exactly like the real game so its fine but still if you wanna make a timer that would be nice but this is fine as it is
         end
 

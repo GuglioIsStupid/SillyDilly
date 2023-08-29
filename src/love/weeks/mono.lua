@@ -38,6 +38,22 @@ return {
 		end
 
 		self:load()
+
+		--[[ musicTimes for unowns
+		24000
+		48000
+		60000
+		85500
+		132000
+		156000 no more                    ill watch a video later to find out which one of these actually is the no more one
+		155999      this one says its the "no more" one but its musicTime is way later than the no more thing happens, it happens at 156000
+		179250
+		191156
+		202500
+		226500
+
+
+		--]]
 	end,
 
 	load = function(self)

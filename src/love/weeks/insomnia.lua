@@ -36,6 +36,7 @@ return {
 			Gamestate.switch(weekData[14],1)
 		end
 
+		gameOver = require "substates.gameovers.insomnia"
 
 		self:load()
 	end,
@@ -91,7 +92,9 @@ return {
 			end
 		end
 
-		if not (countingDown or graphics.isFading()) and not (inst:isPlaying()) and not paused and not inCutscene then
+
+		
+		if not (countingDown or graphics.isFading()) and not (inst:isPlaying()) and not paused and not inCutscene and not feraligatrDeath then
 			if storyMode then
 				weeks:saveData()
 				song = song + 1
@@ -113,6 +116,8 @@ return {
 				)
 			end
 		end
+
+		
 		weeks:updateUI(dt)
 	end,
 
