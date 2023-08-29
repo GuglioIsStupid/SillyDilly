@@ -17,7 +17,6 @@ return {
 		displacementY = 0
 
 
-		testpoint = {0,0}
 
 
 
@@ -50,8 +49,6 @@ return {
 			curWeekString = "Missingno"
 		end
 
-		testpoint[1] = testpoint[1] + math.cos(love.timer.getTime())
-		testpoint[2] = testpoint[2] + math.sin(love.timer.getTime())
 
 --[
 		for i = 1,3 do
@@ -92,6 +89,15 @@ return {
 				end
 
 				updateSelection(curWeek)
+			elseif input:pressed("back") then
+				status.setLoading(true)
+                graphics:fadeOutWipe(0.7, function()
+                    Gamestate.switch(menuSelect)
+					status.setLoading(false)
+
+                end)
+            
+           		audio.playSound(selectSound)
 
 
 			elseif input:pressed("confirm") then
@@ -117,6 +123,8 @@ return {
 					
 					status.setLoading(false)
 				end)
+			elseif input:pressed("gameBack") then
+
 
 			end
 		end
@@ -139,7 +147,6 @@ return {
 			love.graphics.setFont(pokeFont)
 			love.graphics.printf(curWeekString, -graphics.getWidth() / 2, -330, graphics.getWidth(), "center")
 			love.graphics.setColor(1,1,1)
-			love.graphics.circle("fill", testpoint[1], testpoint[2], 10)
 
 		love.graphics.pop()
 	end,

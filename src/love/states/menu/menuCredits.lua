@@ -169,6 +169,14 @@ return {
             moverCooldown = 0
         end
 
+        if input:pressed("back") then
+        graphics:fadeOutWipe(0.7, function()
+            Gamestate.switch(menuSelect)
+        end)
+    end
+    
+    audio.playSound(selectSound)
+
         if verticalSelection ~= newSelection then
             verticalSelection = newSelection
             audio.playSound(selectSound)

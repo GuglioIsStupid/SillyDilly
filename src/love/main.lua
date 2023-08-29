@@ -610,6 +610,10 @@ function love.load()
 	FreeplayMenuTheme = love.audio.newSource("music/menu/FreeplayMenu.ogg", "stream")
 	pokedexTheme = love.audio.newSource("music/PokedexTheme.ogg", "stream")
 
+	loadingPendelum = love.filesystem.load("sprites/menu/Loading Screen Pendelum.lua")()
+	loadingPendelum:animate("anim", true)
+	loadingPendelum.x, loadingPendelum.y =  push:getWidth() - 175, push:getHeight() - 100
+
 	music:setLooping(true)
 
 	fixVol = tonumber(string.format(
@@ -689,6 +693,7 @@ function love.mousepressed(x, y, button, istouch, presses)
 end
 
 function love.update(dt)
+	loadingPendelum:update(dt)
 	dt = math.min(dt, 1 / 30)
 
 	if volFade > 0 then
@@ -724,7 +729,7 @@ function love.draw()
 		love.graphics.setColor(1, 1, 1) -- Fade effect off
 		love.graphics.setFont(font)
 		if status.getLoading() then
-			love.graphics.print("Loading...", push:getWidth() - 175, push:getHeight() - 50)
+			loadingPendelum:draw()
 		end
 		if volFade > 0  then
 			love.graphics.setColor(1, 1, 1, volFade)
