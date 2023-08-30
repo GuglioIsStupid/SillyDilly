@@ -144,7 +144,7 @@ return {
                     newSelection = #iconList-1 - even
                 elseif newSelection > #iconList-1 then
                     newSelection = newSelection % 2
-                end
+                end  
 
                 moverCooldown = moverCooldown + ((1/dt) / 4)
             else
