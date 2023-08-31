@@ -32,6 +32,9 @@ return {
 
 		enemyIcon:animate("daddy dearest", false)
 
+		gameOver = require "substates.gameovers.dissension"
+
+
 		self:load()
 	end,
 

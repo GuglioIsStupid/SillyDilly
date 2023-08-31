@@ -21,7 +21,7 @@ local stageBack, stageFront, curtains
 
 return {
 	enter = function(self, from, songNum, songAppend)
-		weeks:enter("pixel")
+		weeksShitno:enter("pixel")
 
 		enemyHealthColor = {96.9,87.5,43.5}
 		playerHealthColor = {81.2,65.5,68.6}
@@ -32,29 +32,36 @@ return {
 		difficulty = songAppend
 		enemyIcon:animate("shinto", false)
 
+		shintoExitSound = love.audio.newSource("sounds/shinto/ShintoRetry.ogg", "static")
+
+
+		sshinto = true
+
 		self:load()
 	end,
 
 	load = function(self)
-		weeks:load()
+		weeksShitno:load()
 		inst = love.audio.newSource("songs/shinto/Inst.ogg", "stream")
 		voices = love.audio.newSource("songs/shinto/Voices.ogg", "stream")
 		stages["shinto"]:load()
 
+		doingShintoGameover = false
+
 		self:initUI()
 
-		weeks:setupCountdown()
+		weeksShitno:setupCountdown()
 	end,
 
 	initUI = function(self)
-		weeks:initUI()
+		weeksShitno:initUI()
 
-		weeks:generateNotes("songs/shinto/shinto-hard.json")
+		weeksShitno:generateNotes("songs/shinto/shinto-hard.json")
 
 	end,
 
 	update = function(self, dt)
-		weeks:update(dt)
+		weeksShitno:update(dt)
 		stages["shinto"]:update(dt)
 
 		if health >= 1.595 then
@@ -67,15 +74,18 @@ return {
 			end
 		end
 
-		if not (countingDown or graphics.isFading()) and not (inst:isPlaying()) and not paused and not inCutscene then
+		if not (countingDown or graphics.isFading()) and not (inst:isPlaying()) and not paused and not inCutscene and not doingShintoGameover then
 			if storyMode then
-				weeks:saveData()
+				weeksShitno:saveData()
 				song = song + 1
 				print(song)
 
+
+
+
 				Gamestate.switch(weekData[12],1)
 			else
-				weeks:saveData()
+				weeksShitno:saveData()
 
 				status.setLoading(true)
 
@@ -89,7 +99,19 @@ return {
 				)
 			end
 		end
-		weeks:updateUI(dt)
+		weeksShitno:updateUI(dt)
+
+
+		if health <= 0 and not doingShintoGameover then
+			doingShintoGameover = true
+			shintoExitSound:play()
+
+			enemy:animate("lose", false, function()
+				Gamestate.switch(menu)
+				doingShintoGameover = false
+				print(doingShintoGameover)
+			end)
+		end
 	end,
 
 	draw = function(self)
@@ -100,11 +122,13 @@ return {
 			stages["shinto"]:draw()
 		love.graphics.pop()
 
-		weeks:drawUI()
+		weeksShitno:drawUI()
 	end,
 
 	leave = function(self)
 		stages["shinto"]:leave()
+
+		shintoExitSound = nil
 
 		enemy = nil
 		boyfriend = nil
@@ -112,6 +136,6 @@ return {
 
 		graphics.clearCache()
 
-		weeks:leave()
+		weeksShitno:leave()
 	end
 }

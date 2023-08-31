@@ -31,7 +31,13 @@ return {
 		song = songNum
 		difficulty = songAppend
 
+		gameOver = require "substates.gameovers.shitto" --shitto 💀
+
+
 		enemyIcon:animate("shitno", false)
+
+		sshinto = false
+
 
 		self:load()
 	end,

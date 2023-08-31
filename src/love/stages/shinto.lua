@@ -9,6 +9,7 @@ return {
         debug = false
 
         enemy = love.filesystem.load("sprites/shinto/shitno_assets.lua")()
+        boyfriend = love.filesystem.load("sprites/shinto/shitno_assets.lua")()
         stageImages["pokeball"].x, stageImages["pokeball"].y = 532, -307
 
         enemy.x, enemy.y = 5, -662

@@ -29,15 +29,23 @@ return {
 		voices:stop()
 		
 
+		dissensionDeath = love.filesystem.load("sprites/gameover/dissension/Red_Game_Over_Assets_culosfortnite.lua")()
+		dissensionDeath:animate("death", false, function()
+			dissensionDeath:animate("loop", true)
+		end)
+
 		Timer.clear()
 
 	end,
 
 	update = function(self, dt)
+		dissensionDeath:update(dt)
 
 		if input:pressed("confirm") or pauseRestart then
 			pauseRestart = false
 			if inst then inst:stop() end -- In case inst is nil and "confirm" is pressed before game over music starts
+
+			dissensionDeath:animate("confirm", false)
 
 			if not pixel then
 				inst = love.audio.newSource("music/game-over-end.ogg", "stream")
@@ -48,9 +56,6 @@ return {
 
 			Timer.clear()
 
-			camera.x, camera.y = -boyfriend.x, -boyfriend.y
-
-			boyfriend:animate("dead confirm", false)
 
 			graphics.fadeOut(
 				3,
@@ -89,6 +94,7 @@ return {
 			love.graphics.push()
 				love.graphics.scale(camera.zoom, camera.zoom)
 				love.graphics.translate(camera.x, camera.y)
+				dissensionDeath:draw()
 
 			love.graphics.pop()
 		love.graphics.pop()

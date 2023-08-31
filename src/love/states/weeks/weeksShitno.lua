@@ -1449,8 +1449,12 @@ return {
 		if health > 2 then
 			health = 2
 		elseif health <= 0 then -- Game over
-			if not settings.practiceMode then Gamestate.push(gameOver) end
-			health = 0
+			if sshinto then
+				health = 0
+			else
+				if not settings.practiceMode then Gamestate.push(gameOver) end
+				health = 0
+			end
 		end
 
 		enemyIcon.x = 425 - health * 500
