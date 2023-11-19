@@ -48,7 +48,6 @@ return {
             stageImages["note"]:animate("anim", false)
             Timer.tween(1, minHealth, {[1] = minHealth[1] + 0.3333}, "linear")
             print("min health after celebi: " .. minHealth[1])
-
         end
 
 
