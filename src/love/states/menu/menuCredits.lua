@@ -248,7 +248,9 @@ return {
         love.graphics.setCanvas()
 
         love.graphics.setShader(monitorShader)
-        love.graphics.draw(monitorCanvas, graphics.getWidth()/2 - monitorCanvas:getWidth()/2, graphics.getHeight()/2 - monitorCanvas:getHeight()/2-90)
+        -- find ratio of 720p to current resolution
+        local ratio = love.graphics.getHeight()/720
+        love.graphics.draw(monitorCanvas, love.graphics.getWidth()/2 - (monitorCanvas:getWidth()*ratio)/2, love.graphics.getHeight()/2 - (monitorCanvas:getHeight()*ratio)/2-90, 0, ratio, ratio)
         love.graphics.setShader()
 
         love.graphics.pop()
